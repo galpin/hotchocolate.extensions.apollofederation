@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExternalDirective_Description" xml:space="preserve">
-    <value>Directive to indicate that a field is owned by another service, for example via Apollo federation.</value>
-  </data>
-  <data name="FieldsetType_Description" xml:space="preserve">
-    <value>Scalar representing a set of fields.</value>
-  </data>
-  <data name="KeyDirective_Description" xml:space="preserve">
-    <value>Used to indicate a combination of fields that can be used to uniquely identify and fetch an object or interface.</value>
-  </data>
-  <data name="ProvidesDirective_Description" xml:space="preserve">
-    <value>Used to annotate the expected returned fieldset from a field on a base type that is guaranteed to be selectable by the federation gateway.</value>
-  </data>
-  <data name="RequiresDirective_Description" xml:space="preserve">
-    <value>Used to annotate the required input fieldset from a base type for a resolver.</value>
-  </data>
-  <data name="EntityType_Description" xml:space="preserve">
-    <value>Union of all types that key directive applied. This information is needed by the Apollo federation gateway.</value>
-  </data>
   <data name="ThrowHelper_FieldSet_HasInvalidFormat" xml:space="preserve">
     <value>The fieldset has an invalid format.</value>
   </data>
@@ -158,5 +140,14 @@
   </data>
   <data name="FieldDescriptorExtensions_Provides_FieldSet_CannotBeNullOrEmpty" xml:space="preserve">
     <value>Value cannot be null or empty.</value>
+  </data>
+  <data name="ThrowHelper_Entities_Representation_Typename_Missing" xml:space="preserve">
+    <value>The _entities resolver tried to load an entity that did not provide a `__typename` field</value>
+  </data>
+  <data name="ThrowHelper_Entities_Representation_Typename_Invalid" xml:space="preserve">
+    <value>The _entities resolver tried to load an entity without a valid `__typename` field: `{0}`</value>
+  </data>
+  <data name="ThrowHelper_Entities_Representation_Entity_NotFound" xml:space="preserve">
+    <value>The _entities resolver tried to load an entity for type `{0}`, but no object type of that name was found in the schema.</value>
   </data>
 </root>

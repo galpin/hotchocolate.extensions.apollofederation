@@ -1,0 +1,19 @@
+﻿{
+  "data": {
+    "_entities": [
+      {
+        "__typename": "User",
+        "id": "1",
+        "username": "@ada"
+      },
+      {
+        "__typename": "Product",
+        "upc": "1"
+      },
+      {
+        "__typename": "Review",
+        "id": "3"
+      }
+    ]
+  }
+}

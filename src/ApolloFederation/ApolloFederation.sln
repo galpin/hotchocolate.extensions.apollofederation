@@ -20,11 +20,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,27 +32,11 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|x64.Build.0 = Debug|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|x86.Build.0 = Debug|Any CPU
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|x64.ActiveCfg = Release|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|x64.Build.0 = Release|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|x86.ActiveCfg = Release|Any CPU
-		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Release|x86.Build.0 = Release|Any CPU
 		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|x64.Build.0 = Debug|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Debug|x86.Build.0 = Debug|Any CPU
 		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|x64.ActiveCfg = Release|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|x64.Build.0 = Release|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|x86.ActiveCfg = Release|Any CPU
-		{C90C658E-7CBE-4755-A011-68D8871B35AE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

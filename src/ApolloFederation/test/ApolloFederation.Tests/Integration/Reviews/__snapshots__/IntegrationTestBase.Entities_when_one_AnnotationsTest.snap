@@ -1,0 +1,11 @@
+﻿{
+  "data": {
+    "_entities": [
+      {
+        "__typename": "User",
+        "id": "1",
+        "username": "@ada"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+﻿{
+  "errors": [
+    {
+      "message": "The _entities resolver tried to load an entity without a valid \u0060__typename\u0060 field: \u006042\u0060"
+    }
+  ]
+}

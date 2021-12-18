@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotChocolate.ApolloFederation.Properties {
+namespace HotChocolate.Extensions.ApolloFederation.Properties {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace HotChocolate.ApolloFederation.Properties {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("HotChocolate.ApolloFederation.Properties.FederationResources", typeof(FederationResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("HotChocolate.Extensions.ApolloFederation.Properties.FederationResources", typeof(FederationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -42,42 +42,6 @@ namespace HotChocolate.ApolloFederation.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        internal static string ExternalDirective_Description {
-            get {
-                return ResourceManager.GetString("ExternalDirective_Description", resourceCulture);
-            }
-        }
-        
-        internal static string FieldsetType_Description {
-            get {
-                return ResourceManager.GetString("FieldsetType_Description", resourceCulture);
-            }
-        }
-        
-        internal static string KeyDirective_Description {
-            get {
-                return ResourceManager.GetString("KeyDirective_Description", resourceCulture);
-            }
-        }
-        
-        internal static string ProvidesDirective_Description {
-            get {
-                return ResourceManager.GetString("ProvidesDirective_Description", resourceCulture);
-            }
-        }
-        
-        internal static string RequiresDirective_Description {
-            get {
-                return ResourceManager.GetString("RequiresDirective_Description", resourceCulture);
-            }
-        }
-        
-        internal static string EntityType_Description {
-            get {
-                return ResourceManager.GetString("EntityType_Description", resourceCulture);
             }
         }
         
@@ -126,6 +90,24 @@ namespace HotChocolate.ApolloFederation.Properties {
         internal static string FieldDescriptorExtensions_Provides_FieldSet_CannotBeNullOrEmpty {
             get {
                 return ResourceManager.GetString("FieldDescriptorExtensions_Provides_FieldSet_CannotBeNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Entities_Representation_Typename_Missing {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Missing", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Entities_Representation_Typename_Invalid {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Invalid", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Entities_Representation_Entity_NotFound {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Entities_Representation_Entity_NotFound", resourceCulture);
             }
         }
     }

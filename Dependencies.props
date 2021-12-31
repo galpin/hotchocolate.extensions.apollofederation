@@ -1,0 +1,8 @@
+<Project>
+    <PropertyGroup>
+        <HotChocolatePackageVersion>12.4.1</HotChocolatePackageVersion>
+        <MicrosoftNETTestSdkPackageVersion>16.7.0</MicrosoftNETTestSdkPackageVersion>
+        <XUnitPackageVersion>2.4.1</XUnitPackageVersion>
+        <SnapshooterXunitPackageVersion>0.5.4</SnapshooterXunitPackageVersion>
+    </PropertyGroup>
+</Project>

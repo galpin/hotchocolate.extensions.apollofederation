@@ -6,6 +6,8 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)/Dependencies.props" />
+
   <PropertyGroup>
     <Product>HotChocolate.Extensions.ApolloFederation</Product>
     <Authors>ChilliCream authors and contributors</Authors>

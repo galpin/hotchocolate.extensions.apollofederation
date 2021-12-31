@@ -3,7 +3,6 @@
   <PropertyGroup>
     <AssemblyName>HotChocolate.Extensions.ApolloFederation.Tests</AssemblyName>
     <RootNamespace>HotChocolate.Extensions.ApolloFederation</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

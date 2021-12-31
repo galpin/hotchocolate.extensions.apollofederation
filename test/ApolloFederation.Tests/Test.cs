@@ -42,8 +42,7 @@ internal static class Test
 
     public static IReadOnlyDictionary<string, object?> CreateRepresentation(params (string Key, object? Value)[] items)
     {
-        var collection = items.Select(x => KeyValuePair.Create(x.Key, x.Value));
-        return new Dictionary<string, object?>(collection);
+        return items.ToDictionary(x => x.Key, x => x.Value);
     }
 
     private static ISchemaBuilder UseFallback(this ISchemaBuilder builder)

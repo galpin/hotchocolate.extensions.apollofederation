@@ -12,11 +12,9 @@
     <Product>HotChocolate.Extensions.ApolloFederation</Product>
     <Authors>ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
-    <PackageLicenseUrl>https://github.com/galpin/hotchocolate.extensions.apollofederation/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageLicense>MIT</PackageLicense>
     <PackageProjectUrl>https://chillicream.com</PackageProjectUrl>
     <PackageTags>GraphQL ChilliCream Apollo Federation</PackageTags>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>https://chillicream.com/resources/hotchocolate-signet.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup>

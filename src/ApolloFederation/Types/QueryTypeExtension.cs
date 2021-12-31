@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 
 namespace HotChocolate.Extensions.ApolloFederation;
@@ -8,16 +11,16 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// </summary>
 public sealed class QueryTypeExtension : ObjectTypeExtension
 {
-    private readonly QueryTypeResolvers _queryTypeResolvers;
+    private readonly IEntityResolverRegistry _entityResolverRegistry;
 
-    internal QueryTypeExtension(QueryTypeResolvers queryTypeResolvers)
+    public QueryTypeExtension(IEntityResolverRegistry entityResolverRegistry)
     {
-        if (queryTypeResolvers is null)
+        if (entityResolverRegistry is null)
         {
-            throw new ArgumentNullException(nameof(queryTypeResolvers));
+            throw new ArgumentNullException(nameof(entityResolverRegistry));
         }
 
-        _queryTypeResolvers = queryTypeResolvers;
+        _entityResolverRegistry = entityResolverRegistry;
     }
 
     protected override void Configure(IObjectTypeDescriptor descriptor)
@@ -29,18 +32,47 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
             .Argument(
                 Names.Representations,
                 x => x.Type<NonNullType<ListType<NonNullType<AnyType>>>>())
-            .Resolve(x => _queryTypeResolvers.GetEntitiesAsync(x));
+            .Resolve(ResolveEntitiesAsync);
 
         descriptor.Field(Names.Service)
             .Type<ServiceType>()
             .Resolve(new object());
     }
 
-    internal static class Names
+    private async Task<IReadOnlyList<object?>> ResolveEntitiesAsync(IResolverContext context)
+    {
+        var representations = context.ArgumentValue<object[]>(Names.Representations);
+        var entities = new List<object?>(representations.Length);
+        foreach (IReadOnlyDictionary<string, object?> representation in representations)
+        {
+            entities.Add(await ResolveAsync(representation).ConfigureAwait(false));
+        }
+        return entities;
+
+        ValueTask<object?> ResolveAsync(IReadOnlyDictionary<string, object?> representation)
+        {
+            if (!representation.TryGetValue(Names.Typename, out var value))
+            {
+                throw ThrowHelper.Entities_Representation_Typename_Missing();
+            }
+            if (value is not string name)
+            {
+                throw ThrowHelper.Entities_Representation_Typename_Invalid(value);
+            }
+            if (!_entityResolverRegistry.TryGet(name, out var resolver))
+            {
+                throw ThrowHelper.Entities_Representation_Entity_NotFound(name);
+            }
+            return resolver!(new EntityResolverContext(context.Services, representation));
+        }
+    }
+
+    private static class Names
     {
         public const string Query = "Query";
         public const string Service = "_service";
         public const string Entities = "_entities";
         public const string Representations = "representations";
+        public const string Typename = "__typename";
     }
 }

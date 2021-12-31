@@ -7,6 +7,6 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// </summary>
 /// <param name="context">The resolver context.</param>
 /// <returns>
-/// A task that provides the resolved entity or <see langword="null"/> if the entity cannot be found.
+/// A task that provides the resolved entity or <see langword="null"/> if the entity cannot be resolved.
 /// </returns>
 public delegate ValueTask<object?> EntityResolverDelegate(IEntityResolverContext context);

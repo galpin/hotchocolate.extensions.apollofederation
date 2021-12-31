@@ -27,7 +27,6 @@ public static class ApolloFederationExtensions
 
         builder.ConfigureSchemaServices(x =>
         {
-            x.TryAddSingleton<QueryTypeResolvers>();
             x.TryAddSingleton<IEntityResolverRegistry, EntityResolverRegistry>();
             x.TryAddSingleton<IFederatedSchemaPrinter, FederatedSchemaPrinter>();
         });

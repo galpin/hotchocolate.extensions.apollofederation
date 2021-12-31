@@ -8,22 +8,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Product>Hot Chocolate</Product>
+    <Product>HotChocolate.Extensions.ApolloFederation</Product>
     <Authors>ChilliCream authors and contributors</Authors>
-    <Company>ChilliCream</Company>
-    <Copyright>Copyright &#169; 2021 ChilliCream (Michael &amp; Rafael Staib)</Copyright>
-    <PackageLicenseUrl>https://github.com/ChilliCream/hotchocolate/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
+    <PackageLicenseUrl>https://github.com/galpin/hotchocolate.extensions.apollofederation/blob/main/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://chillicream.com</PackageProjectUrl>
-    <PackageReleaseNotes>Release notes: https://github.com/ChilliCream/hotchocolate/releases/$(PackageVersion)</PackageReleaseNotes>
-    <PackageTags>GraphQL ChilliCream</PackageTags>
+    <PackageTags>GraphQL ChilliCream Apollo Federation</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIconUrl>https://chillicream.com/resources/hotchocolate-signet.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <RepositoryUrl>https://github.com/ChilliCream/hotchocolate.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/galpin/hotchocolate.extensions.apollofederation.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

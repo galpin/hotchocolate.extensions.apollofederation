@@ -1,16 +1,7 @@
 ﻿{
   "errors": [
     {
-      "message": "Unexpected Execution Error",
-      "locations": [
-        {
-          "line": 3,
-          "column": 13
-        }
-      ],
-      "path": [
-        "_entities"
-      ]
+      "message": "The _entities resolver encountered an unexpected error resolving an entity for type \u0060Product\u0060: Operation is not valid due to the current state of the object."
     }
   ]
 }

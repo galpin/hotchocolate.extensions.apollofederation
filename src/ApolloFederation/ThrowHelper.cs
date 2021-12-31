@@ -81,4 +81,13 @@ internal static class ThrowHelper
                 .SetMessage(ThrowHelper_Entities_Representation_Entity_NotFound, name)
                 .Build());
     }
+
+    public static GraphQLException Entities_Representation_Resolver_Error(string typeName, Exception exception)
+    {
+        throw new GraphQLException(
+            ErrorBuilder.New()
+                .SetMessage(ThrowHelper_Entities_Representation_Resolver_Error, typeName, exception.Message)
+                .SetException(exception)
+                .Build());
+    }
 }

@@ -49,7 +49,7 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
         }
         return entities;
 
-        ValueTask<object?> ResolveAsync(IReadOnlyDictionary<string, object?> representation)
+        async ValueTask<object?> ResolveAsync(IReadOnlyDictionary<string, object?> representation)
         {
             if (!representation.TryGetValue(Names.Typename, out var value))
             {
@@ -63,7 +63,15 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
             {
                 throw ThrowHelper.Entities_Representation_Entity_NotFound(name);
             }
-            return resolver!(new EntityResolverContext(context.Services, representation));
+            try
+            {
+                var resolverContext = new EntityResolverContext(context.Services, representation);
+                return await resolver!(resolverContext).ConfigureAwait(false);
+            }
+            catch (Exception exception)
+            {
+                throw ThrowHelper.Entities_Representation_Resolver_Error(name, exception);
+            }
         }
     }
 

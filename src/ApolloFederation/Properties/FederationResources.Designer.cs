@@ -110,5 +110,11 @@ namespace HotChocolate.Extensions.ApolloFederation.Properties {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Entity_NotFound", resourceCulture);
             }
         }
+
+        internal static string ThrowHelper_Entities_Representation_Resolver_Error {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Entities_Representation_Resolver_Error", resourceCulture);
+            }
+        }
     }
 }

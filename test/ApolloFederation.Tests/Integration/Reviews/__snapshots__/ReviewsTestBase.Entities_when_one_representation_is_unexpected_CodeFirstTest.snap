@@ -1,0 +1,7 @@
+﻿{
+  "errors": [
+    {
+      "message": "The _entities resolver encountered an unexpected error resolving an entity for type \u0060Product\u0060: upc"
+    }
+  ]
+}

@@ -132,4 +132,32 @@ public abstract class ReviewsTestBase : IntegrationTestBase
         }
         ");
     }
+
+    [Fact]
+    public async Task Entities_when_one_representation_is_unexpected()
+    {
+        await ExecuteAndMatchSnapshotAsync(@"
+        {
+            _entities(representations: [
+                { __typename: ""User"", id: ""1"" },
+                { __typename: ""Product"" },
+                { __typename: ""Review"", id: ""3"" }
+             ]) {
+                ...on User {
+                    __typename
+                    id
+                    username
+                }
+                ...on Product {
+                    __typename
+                    upc
+                }
+                ...on Review {
+                    __typename
+                    id
+                }
+            }
+        }
+        ");
+    }
 }

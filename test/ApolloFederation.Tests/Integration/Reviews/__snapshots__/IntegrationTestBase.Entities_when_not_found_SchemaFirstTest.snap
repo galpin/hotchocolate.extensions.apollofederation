@@ -1,7 +1,0 @@
-﻿{
-  "errors": [
-    {
-      "message": "The _entities resolver tried to load an entity for type \u0060NotUser\u0060, but no object type of that name was found in the schema."
-    }
-  ]
-}

@@ -1,7 +1,0 @@
-﻿{
-  "data": {
-    "_service": {
-      "sdl": "type Product @extends @key(fields: \u0022upc\u0022) {\n  upc: String! @external\n  reviews: [Review]\n}\n\ntype Review @key(fields: \u0022id\u0022) {\n  id: ID!\n  body: String\n  author: User @provides(fields: \u0022username\u0022)\n  product: Product\n}\n\ntype User @extends @key(fields: \u0022id\u0022) {\n  id: ID! @external\n  username: String @external\n  reviews: [Review]\n}"
-    }
-  }
-}

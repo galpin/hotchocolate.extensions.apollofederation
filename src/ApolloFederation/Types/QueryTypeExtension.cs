@@ -13,6 +13,13 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
 {
     private readonly IEntityResolverRegistry _entityResolverRegistry;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryTypeExtension"/> class.
+    /// </summary>
+    /// <param name="entityResolverRegistry">The entity resolver registry.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="entityResolverRegistry"/> is <see langword="null"/>.
+    /// </exception>
     public QueryTypeExtension(IEntityResolverRegistry entityResolverRegistry)
     {
         if (entityResolverRegistry is null)
@@ -23,6 +30,7 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
         _entityResolverRegistry = entityResolverRegistry;
     }
 
+    /// <inheritdoc />
     protected override void Configure(IObjectTypeDescriptor descriptor)
     {
         descriptor.Name(Names.Query);

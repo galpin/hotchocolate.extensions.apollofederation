@@ -40,7 +40,7 @@ public class AnnotationsTest : ReviewsTestBase
 
         public string Body { get; }
 
-        public static Review? ResolveEntityAsync(IEntityResolverContext context)
+        public static Review? ResolveEntity(IEntityResolverContext context)
         {
             var reviews = context.Service<ReviewRepository>();
             return reviews.FindById(context.Representation.GetValue<string>("id"));
@@ -68,7 +68,7 @@ public class AnnotationsTest : ReviewsTestBase
             return reviews.GetByAuthorId(Id);
         }
 
-        public static User? ResolveEntityAsync(IEntityResolverContext context)
+        public static User? ResolveEntity(IEntityResolverContext context)
         {
             var users = context.Service<UserRepository>();
             return users.FindById(context.Representation.GetValue<string>("id"));

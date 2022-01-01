@@ -2,7 +2,11 @@
 
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <Version Condition="$(Version) == ''">0.0.0</Version>
+    <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BuildNumber>
+    <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
+    <BuildTag Condition="'$(GITHUB_ACTIONS)' == ''">local</BuildTag>
+    <BuildTag Condition="'$(GITHUB_ACTIONS)' == 'true'">preview</BuildTag>
+    <Version Condition="$(Version) == ''">0.0.0.$(BuildNumber)</Version>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -12,6 +16,7 @@
     <Product>HotChocolate.Extensions.ApolloFederation</Product>
     <Authors>ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
+    <PackageVersion>0.0.0-$(BuildTag)$(BuildNumber)</PackageVersion>
     <PackageLicense>MIT</PackageLicense>
     <PackageProjectUrl>https://chillicream.com</PackageProjectUrl>
     <PackageTags>GraphQL ChilliCream Apollo Federation</PackageTags>

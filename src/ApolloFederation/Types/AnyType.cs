@@ -1,11 +1,9 @@
-using HCAnyType = HotChocolate.Types.AnyType;
-
 namespace HotChocolate.Extensions.ApolloFederation;
 
 /// <summary>
 /// The <c>_Any</c> scalar type is used to pass representations of entities from external services.
 /// </summary>
-public sealed class AnyType : HCAnyType
+public sealed class AnyType : HotChocolate.Types.AnyType
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AnyType"/> class.

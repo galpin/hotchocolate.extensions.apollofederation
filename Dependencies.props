@@ -4,6 +4,7 @@
         <MicrosoftNETTestSdkPackageVersion>16.7.0</MicrosoftNETTestSdkPackageVersion>
         <MoqPackageVersion>4.16.1</MoqPackageVersion>
         <XUnitPackageVersion>2.4.1</XUnitPackageVersion>
+        <XUnitRunnerVisualStudioPackageVersion>2.4.3</XUnitRunnerVisualStudioPackageVersion>
         <SnapshooterXunitPackageVersion>0.5.4</SnapshooterXunitPackageVersion>
     </PropertyGroup>
 </Project>

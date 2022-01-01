@@ -24,6 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dependencies.props = Dependencies.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{9E0C96C9-83BC-4153-AFB0-06DE6B89B883}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F753C7C6-F7CF-4DF2-83F2-9C3E9BCBECBC}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +42,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA} = {B2708205-8FE1-4AF0-94AB-34CCEEDC8990}
 		{C90C658E-7CBE-4755-A011-68D8871B35AE} = {962B6889-D1BC-43DD-941A-7C77C8630110}
+		{9E0C96C9-83BC-4153-AFB0-06DE6B89B883} = {63B84728-63F5-4DA0-A09F-B6D4C5C341DB}
+		{F753C7C6-F7CF-4DF2-83F2-9C3E9BCBECBC} = {9E0C96C9-83BC-4153-AFB0-06DE6B89B883}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{487412E1-5E0C-44EF-B56C-041E5BA90CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

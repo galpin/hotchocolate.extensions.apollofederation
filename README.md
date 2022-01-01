@@ -21,7 +21,7 @@ the [Apollo reviews subgraph][ApolloReviews] schema:
 
 ## Credits
 
-The package was originally based on the erstwhile implementation in the HotChocolate repo. See [LICENSE]() for more
+The package was originally based on the erstwhile implementation in the HotChocolate repo. See [LICENSE](./LICENSE) for more
 information.
 
 [HotChocolate]: https://github.com/ChilliCream/hotchocolate

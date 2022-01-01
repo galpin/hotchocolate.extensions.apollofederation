@@ -73,7 +73,7 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
             }
             try
             {
-                var resolverContext = new EntityResolverContext(context.Services, representation);
+                var resolverContext = new EntityResolverContext(context, representation);
                 return await resolver!(resolverContext).ConfigureAwait(false);
             }
             catch (Exception exception)

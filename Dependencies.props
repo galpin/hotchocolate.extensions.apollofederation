@@ -2,6 +2,7 @@
     <PropertyGroup>
         <HotChocolatePackageVersion>12.4.1</HotChocolatePackageVersion>
         <MicrosoftNETTestSdkPackageVersion>16.7.0</MicrosoftNETTestSdkPackageVersion>
+        <MoqPackageVersion>4.16.1</MoqPackageVersion>
         <XUnitPackageVersion>2.4.1</XUnitPackageVersion>
         <SnapshooterXunitPackageVersion>0.5.4</SnapshooterXunitPackageVersion>
     </PropertyGroup>

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using HotChocolate.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using Xunit;
 using static HotChocolate.Extensions.ApolloFederation.Test;
 
@@ -8,26 +10,22 @@ namespace HotChocolate.Extensions.ApolloFederation.Resolvers;
 
 public class EntityResolverContextTests
 {
+    private Context Ctx { get; } = new();
+
     [Fact]
     public void Ctor_correctly_initializes_members()
     {
-        var expectedServices = BuildServiceProvider();
-        var expectedRepresentation = CreateRepresentation(("upc", "1"));
-
-        var sut = CreateSut(expectedServices, expectedRepresentation);
-
-        Assert.Same(expectedServices, sut.Services);
-        Assert.Same(expectedRepresentation, sut.Representation);
+        Assert.Same(Ctx.FieldContext.Object, Ctx.Sut.FieldContext);
+        Assert.Same(Ctx.Representation, Ctx.Sut.Representation);
+        Assert.Same(Ctx.Services, Ctx.Sut.Services);
     }
 
     [Fact]
      public void Services_resolves_bound_service()
      {
-         var expected = new MyService();
-         var services = BuildServiceProvider(x => x.AddSingleton(expected));
+         var expected = Ctx.MyService;
 
-         var sut = CreateSut(services);
-         var actual = sut.Services.GetService<MyService>();
+         var actual = Ctx.Sut.Services.GetService<MyService>();
 
          Assert.Same(expected, actual);
      }
@@ -35,11 +33,9 @@ public class EntityResolverContextTests
      [Fact]
      public void Service_delegates_to_services()
      {
-         var services = BuildServiceProvider(x => x.AddSingleton<MyService>());
-         var sut = CreateSut(services);
+         var expected = Ctx.MyService;
 
-         var expected = sut.Services.GetService<MyService>();
-         var actual = sut.Service<MyService>();
+         var actual = Ctx.Sut.Service<MyService>();
 
          Assert.Same(expected, actual);
      }
@@ -47,21 +43,50 @@ public class EntityResolverContextTests
      [Fact]
      public void Service_delegates_to_required_service()
      {
-         var sut = CreateSut();
-
-         Assert.Throws<InvalidOperationException>(() => sut.Service<MyService>());
+         Assert.Throws<InvalidOperationException>(() => Ctx.Sut.Service<MyOtherService>());
      }
 
-    private static EntityResolverContext CreateSut(
-        IServiceProvider? services = null,
-        IReadOnlyDictionary<string, object?>? representation = null)
+     private sealed class Context
     {
-        services ??= BuildServiceProvider();
-        representation ??= CreateRepresentation();
-        return new EntityResolverContext(services, representation);
+        public Context()
+        {
+            MyService = new MyService();
+            Services = BuildServiceProvider(x => x.AddSingleton(MyService));
+            FieldContext = new MockResolverContext();
+            FieldContext.SetupServiceProvider(Services);
+            Representation = CreateRepresentation(("__typename", "User"));
+            Sut = new EntityResolverContext(FieldContext.Object, Representation);
+        }
+
+        public MyService MyService { get; }
+
+        public IServiceProvider Services { get; }
+
+        public IReadOnlyDictionary<string, object?> Representation { get; }
+
+        public MockResolverContext FieldContext { get; }
+
+        public EntityResolverContext Sut { get; }
+    }
+
+
+    private sealed class MockResolverContext
+    {
+        private readonly Mock<IResolverContext> _mock = new();
+
+        public void SetupServiceProvider(IServiceProvider services)
+        {
+            _mock.SetupGet(x => x.Services).Returns(services);
+        }
+
+        public IResolverContext Object => _mock.Object;
     }
 
     private sealed class MyService
+    {
+    }
+
+    private sealed class MyOtherService
     {
     }
 }

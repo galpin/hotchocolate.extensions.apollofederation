@@ -1,27 +1,30 @@
 using System;
 using System.Collections.Generic;
+using HotChocolate.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
 internal sealed class EntityResolverContext : IEntityResolverContext
 {
-    public EntityResolverContext(IServiceProvider services, IReadOnlyDictionary<string, object?> representation)
+    public EntityResolverContext(IResolverContext fieldContext, IReadOnlyDictionary<string, object?> representation)
     {
-        if (services is null)
+        if (fieldContext is null)
         {
-            throw new ArgumentNullException(nameof(services));
+            throw new ArgumentNullException(nameof(fieldContext));
         }
         if (representation is null)
         {
             throw new ArgumentNullException(nameof(representation));
         }
 
-        Services = services;
+        FieldContext = fieldContext;
         Representation = representation;
     }
 
-    public IServiceProvider Services { get; }
+    public IResolverContext FieldContext { get; }
+
+    public IServiceProvider Services => FieldContext.Services;
 
     public IReadOnlyDictionary<string, object?> Representation { get; }
 

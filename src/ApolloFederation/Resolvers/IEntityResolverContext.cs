@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HotChocolate.Resolvers;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -8,6 +9,11 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// </summary>
 public interface IEntityResolverContext
 {
+    /// <summary>
+    /// Gets the resolver context for the parent <c>_entities</c> field.
+    /// </summary>
+    IResolverContext FieldContext { get; }
+
     /// <summary>
     /// Gets the scoped request service provider.
     /// </summary>

@@ -11,7 +11,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static partial class DescriptorExtensions
 {
     /// <summary>
-    /// Adds a resolver delegate for a specific entity.
+    /// Adds a resolver delegate for the specified entity.
     /// </summary>
     /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
@@ -38,7 +38,7 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds an asynchronous resolver delegate for a specific entity.
+    /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
     /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
@@ -65,7 +65,7 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds a resolver delegate for a specific entity.
+    /// Adds a resolver delegate for the specified entity.
     /// </summary>
     /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
@@ -93,7 +93,7 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds an asynchronous resolver delegate for a specific entity.
+    /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
     /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>

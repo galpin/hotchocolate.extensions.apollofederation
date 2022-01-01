@@ -14,7 +14,7 @@ public sealed class GraphQLRequiresAttribute : ObjectFieldDescriptorAttribute
     /// <summary>
     /// Initializes a new instance of <see cref="GraphQLRequiresAttribute"/>.
     /// </summary>
-    /// <param name="fieldSet">The fields that is required from a base type for a resolver.</param>
+    /// <param name="fieldSet">The field set that is required from a base type for a resolver.</param>
     public GraphQLRequiresAttribute(string fieldSet)
     {
         _fieldSet = fieldSet;

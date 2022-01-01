@@ -18,7 +18,9 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
     /// <summary>
     /// Initializes a new instance of <see cref="GraphQLKeyAttribute"/>.
     /// </summary>
-    /// <param name="fieldSet">The fields that describe the key (ignored if used on a property).</param>
+    /// <param name="fieldSet">
+    /// The field set that describes the key (can be <see langword="null"/> if the attribute is used on a property).
+    /// </param>
     public GraphQLKeyAttribute(string? fieldSet = null)
     {
         _fieldSet = fieldSet;

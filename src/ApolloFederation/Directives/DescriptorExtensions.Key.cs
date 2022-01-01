@@ -12,7 +12,7 @@ public static partial class DescriptorExtensions
     /// object or interface.
     /// </summary>
     /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
-    /// <param name="fieldSet">The fields that uniquely identify the object.</param>
+    /// <param name="fieldSet">The field set that uniquely identifies the object.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.
@@ -43,7 +43,7 @@ public static partial class DescriptorExtensions
     /// object or interface.
     /// </summary>
     /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
-    /// <param name="fieldSet">The fields that uniquely identify the object.</param>
+    /// <param name="fieldSet">The field set that uniquely identifies the object.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.

@@ -12,7 +12,7 @@ public static partial class DescriptorExtensions
     /// a resolver.
     /// </summary>
     /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
-    /// <param name="fieldSet">The fields that is required from a base type for a resolver.</param>
+    /// <param name="fieldSet">The field sset that is required from a base type for a resolver.</param>
     /// <returns>The object field descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.

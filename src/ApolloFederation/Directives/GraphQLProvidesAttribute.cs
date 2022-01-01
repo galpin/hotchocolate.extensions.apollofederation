@@ -16,7 +16,7 @@ public sealed class GraphQLProvidesAttribute : ObjectFieldDescriptorAttribute
     /// <summary>
     /// Initializes a new instance of <see cref="GraphQLProvidesAttribute"/>.
     /// </summary>
-    /// <param name="fieldSet">The fields that are guaranteed to be selectable by the gateway.</param>
+    /// <param name="fieldSet">The field set that is guaranteed to be selectable by the gateway.</param>
     public GraphQLProvidesAttribute(string fieldSet)
     {
         _fieldSet = fieldSet;

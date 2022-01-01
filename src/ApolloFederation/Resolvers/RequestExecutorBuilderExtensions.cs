@@ -11,7 +11,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static class RequestExecutorBuilderExtensions
 {
     /// <summary>
-    /// Adds a resolver delegate for a specific entity.
+    /// Adds a resolver delegate for the specified named entity.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
@@ -39,7 +39,7 @@ public static class RequestExecutorBuilderExtensions
     }
 
     /// <summary>
-    /// Adds an asynchronous resolver delegate for a specific entity.
+    /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
@@ -67,7 +67,7 @@ public static class RequestExecutorBuilderExtensions
     }
 
     /// <summary>
-    /// Adds a resolver delegate for a specific entity, inferring the entity name from the name of
+    /// Adds a resolver delegate for the specified entity, inferring the entity name from the name of
     /// <typeparamref name="TEntity"/>.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
@@ -95,7 +95,7 @@ public static class RequestExecutorBuilderExtensions
     }
 
     /// <summary>
-    /// Adds an asynchronous resolver delegate for a specific entity, inferring the entity name from the name of
+    /// Adds an asynchronous resolver delegate for the specified entity, inferring the entity name from the name of
     /// <typeparamref name="TEntity"/>.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>

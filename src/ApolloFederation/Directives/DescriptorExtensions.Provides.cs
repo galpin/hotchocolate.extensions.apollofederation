@@ -12,7 +12,7 @@ public static partial class DescriptorExtensions
     /// a base type that is guaranteed to be selectable by the gateway.
     /// </summary>
     /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
-    /// <param name="fieldSet">The fields that are guaranteed to be selectable by the gateway.</param>
+    /// <param name="fieldSet">The field set that is guaranteed to be selectable by the gateway.</param>
     /// <returns>The object field descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.

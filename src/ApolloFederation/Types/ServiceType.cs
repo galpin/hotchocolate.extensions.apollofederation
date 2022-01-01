@@ -13,6 +13,10 @@ public sealed class ServiceType : ObjectType
     /// <summary>
     /// Initializes a new instance of the <see cref="ServiceType"/> class.
     /// </summary>
+    /// <param name="federatedSchemaPrinter">The schema printer.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="federatedSchemaPrinter"/> is <see langword="null"/>.
+    /// </exception>
     public ServiceType(IFederatedSchemaPrinter federatedSchemaPrinter)
     {
         if (federatedSchemaPrinter is null)

@@ -25,7 +25,7 @@ public class CodeFirstTest : ReviewsTestBase
     {
         protected override void Configure(IObjectTypeDescriptor<Review> descriptor)
         {
-            descriptor.Key("id");
+            descriptor.Key(x => x.Id);
             descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
             descriptor.Field(x => x.Body).Type<StringType>();
             descriptor.Field(x => x.AuthorId).Type<UserType>().Provides("username");
@@ -43,7 +43,7 @@ public class CodeFirstTest : ReviewsTestBase
         protected override void Configure(IObjectTypeDescriptor<User> descriptor)
         {
             descriptor.Extends();
-            descriptor.Key("id");
+            descriptor.Key(x => x.Id);
             descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
             descriptor.Field(x => x.Username).Type<StringType>().External();
             descriptor.Field(x => x.GetReviews(default!)).Type<ListType<ReviewType>>();
@@ -60,7 +60,7 @@ public class CodeFirstTest : ReviewsTestBase
         protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
         {
             descriptor.Extends();
-            descriptor.Key("upc");
+            descriptor.Key(x => x.Upc);
             descriptor.Field(x => x.Upc).Type<NonNullType<StringType>>().External();
             descriptor.Field(x => x.GetReviews(default!)).Type<ListType<ReviewType>>();
             descriptor.ResolveEntity(ctx => new Product(ctx.Representation.GetValue<string>("upc")));

@@ -13,21 +13,17 @@ public class RequiresDirectiveAnnotationsTests
     [Fact]
     public async Task Ctor_correctly_configures_directive()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<Review>>());
-
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Review>();
+            builder.AddQueryType();
+        });
         var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
             sut.Fields["product"].Directives,
             x => AssertEx.Directive(x, "requires", ("fields", "\"id\"")));
-    }
-
-    public class Query<T>
-    {
-        public T Get(int id)
-        {
-            return default;
-        }
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     public class Review

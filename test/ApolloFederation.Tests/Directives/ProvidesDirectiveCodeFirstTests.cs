@@ -32,5 +32,6 @@ public class ProvidesDirectiveCodeFirstTests
         Assert.Collection(
             sut.Fields["product"].Directives,
             x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

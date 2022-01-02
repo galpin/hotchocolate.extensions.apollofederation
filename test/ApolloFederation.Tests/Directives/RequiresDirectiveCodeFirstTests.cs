@@ -31,5 +31,6 @@ public class RequiresDirectiveCodeFirstTests
         Assert.Collection(
             sut.Fields["product"].Directives,
             x => AssertEx.Directive(x, "requires", ("fields", "\"id\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

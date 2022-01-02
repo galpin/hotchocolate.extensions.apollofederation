@@ -27,6 +27,7 @@ public class KeyDirectiveSchemaFirstTests
         Assert.Collection(
             sut.Directives,
             x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     [Fact]
@@ -50,5 +51,6 @@ public class KeyDirectiveSchemaFirstTests
             sut.Directives,
             x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")),
             x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

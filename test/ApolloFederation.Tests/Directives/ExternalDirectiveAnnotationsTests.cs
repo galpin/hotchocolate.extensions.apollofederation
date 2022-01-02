@@ -11,25 +11,22 @@ public class ExternalDirectiveAnnotationsTests
     [Fact]
     public async Task When_extends_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<TypeWithPropertyDirective>>());
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Product>();
+            builder.AddQueryType();
+        });
 
-        var sut = schema.GetType<ObjectType>(nameof(TypeWithPropertyDirective));
+        var sut = schema.GetType<ObjectType>(nameof(Product));
 
         Assert.Collection(
             sut.Fields["id"].Directives,
             x => Assert.Equal("external", x.Name));
-    }
-
-    public class Query<T>
-    {
-        public T? Get(int id)
-        {
-            return default;
-        }
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     [GraphQLExtends]
-    public class TypeWithPropertyDirective
+    public class Product
     {
         [GraphQLKey]
         [GraphQLExternal]

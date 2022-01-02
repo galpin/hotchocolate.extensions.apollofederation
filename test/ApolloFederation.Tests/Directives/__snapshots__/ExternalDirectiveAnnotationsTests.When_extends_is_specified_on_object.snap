@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "type Product @extends @key(fields: \u0022id\u0022) {\n  id: Int! @external\n}"
+    }
+  }
+}

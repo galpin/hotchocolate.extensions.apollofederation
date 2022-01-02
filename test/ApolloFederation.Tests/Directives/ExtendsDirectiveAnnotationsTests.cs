@@ -11,7 +11,11 @@ public class ExtendsDirectiveAnnotationsTests
     [Fact]
     public async Task When_extends_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<Product>>());
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Product>();
+            builder.AddQueryType();
+        });
 
         var sut = schema.GetType<ObjectType>(nameof(Product));
 
@@ -19,14 +23,7 @@ public class ExtendsDirectiveAnnotationsTests
             sut.Directives,
             x => AssertEx.Directive(x, "extends"),
             x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
-    }
-
-    public class Query<T>
-    {
-        public T? Get(int id)
-        {
-            return default;
-        }
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     [GraphQLExtends]

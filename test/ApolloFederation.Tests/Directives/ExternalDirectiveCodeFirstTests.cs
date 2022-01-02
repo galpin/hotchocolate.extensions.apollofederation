@@ -15,16 +15,18 @@ public class ExternalDirectiveCodeFirstTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Extends().Key("id");
+                x.Name("Product");
+                x.Field("upc").Key().Type<NonNullType<StringType>>();
                 x.Field("id").External().Type<IntType>();
             });
             builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Fields["id"].Directives,
             x => Assert.Equal("external", x.Name));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

@@ -15,17 +15,18 @@ public class ExtendsDirectiveCodeFirstTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Extends();
-                x.Field("id").Key().Type<IntType>();
+                x.Name("Product").Extends();
+                x.Field("upc").Key().Type<NonNullType<StringType>>();
             });
             builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
             x => AssertEx.Directive(x, "extends"),
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

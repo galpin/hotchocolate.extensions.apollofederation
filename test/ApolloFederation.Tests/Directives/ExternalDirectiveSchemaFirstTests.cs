@@ -14,18 +14,20 @@ public class ExternalDirectiveSchemaFirstTests
         var schema = await BuildSchemaAsync(builder =>
         {
             builder.AddDocumentFromString(@"
-                type Test @extends @key(fields: ""id"") {
-                    id: Int! @external
+                type Product @key(fields: ""upc"") {
+                     upc: String!
+                     id: String @external
                 }
 
                 type Query
             ");
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Fields["id"].Directives,
             x => Assert.Equal("external", x.Name));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

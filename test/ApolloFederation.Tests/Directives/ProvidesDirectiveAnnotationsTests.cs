@@ -14,21 +14,18 @@ public class ProvidesDirectiveAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<Review>>());
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Review>();
+            builder.AddQueryType();
+        });
 
         var sut = schema.GetType<ObjectType>(nameof(Review));
 
         Assert.Collection(
             sut.Fields["products"].Directives,
             x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
-    }
-
-    public class Query<T>
-    {
-        public T Get(int id)
-        {
-            return default;
-        }
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     public class Review

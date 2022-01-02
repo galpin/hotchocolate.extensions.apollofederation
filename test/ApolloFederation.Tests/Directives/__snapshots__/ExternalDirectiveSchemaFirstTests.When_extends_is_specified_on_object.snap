@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "type Product @key(fields: \u0022upc\u0022) {\n  upc: String!\n  id: String @external\n}"
+    }
+  }
+}

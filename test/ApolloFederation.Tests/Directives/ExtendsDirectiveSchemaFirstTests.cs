@@ -14,19 +14,20 @@ public class ExtendsDirectiveSchemaFirstTests
         var schema = await BuildSchemaAsync(builder =>
         {
             builder.AddDocumentFromString(@"
-                type Test @extends @key(fields: ""id"") {
-                    id: Int!
+                type Product @extends @key(fields: ""upc"") {
+                     upc: String!
                 }
 
                 type Query
             ");
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
             x => AssertEx.Directive(x, "extends"),
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

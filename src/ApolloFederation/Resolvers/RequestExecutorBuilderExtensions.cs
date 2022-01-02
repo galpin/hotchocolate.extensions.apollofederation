@@ -41,7 +41,7 @@ public static partial class RequestExecutorBuilderExtensions
     /// <summary>
     /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
+    /// <param name="builder">The builder.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TEntity">The type of the entity to resolve.</typeparam>

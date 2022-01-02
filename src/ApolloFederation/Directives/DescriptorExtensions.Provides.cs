@@ -7,10 +7,9 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static partial class DescriptorExtensions
 {
     /// <summary>
-    /// Adds the <c>@provides</c> directive that is used to annotate the expected returned field set from a field on
-    /// a base type that is guaranteed to be selectable by the gateway.
+    /// Specifies the <c>@provides</c> directive for the field.
     /// </summary>
-    /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object field descriptor.</param>
     /// <param name="fieldSet">The field set that is guaranteed to be selectable by the gateway.</param>
     /// <returns>The object field descriptor.</returns>
     /// <exception cref="ArgumentNullException">

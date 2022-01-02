@@ -10,7 +10,7 @@ public static partial class DescriptorExtensions
     /// <summary>
     /// Adds a resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
@@ -28,7 +28,7 @@ public static partial class DescriptorExtensions
     /// <summary>
     /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
@@ -46,7 +46,7 @@ public static partial class DescriptorExtensions
     /// <summary>
     /// Adds a resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="T">The object type.</typeparam>
     /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
@@ -65,7 +65,7 @@ public static partial class DescriptorExtensions
     /// <summary>
     /// Adds an asynchronous resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor for which the resolver shall be added.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="T">The object type.</typeparam>
     /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>

@@ -8,6 +8,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// </summary>
 public sealed class ProvidesDirectiveType : DirectiveType
 {
+    /// <inheritdoc />
     protected override void Configure(IDirectiveTypeDescriptor descriptor)
     {
         descriptor.Name(Names.Provides)

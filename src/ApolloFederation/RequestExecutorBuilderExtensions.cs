@@ -13,8 +13,8 @@ public static partial class RequestExecutorBuilderExtensions
     /// <summary>
     /// Adds support for Apollo Federation to the schema.
     /// </summary>
-    /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
-    /// <returns>The <see cref="IRequestExecutorBuilder"/>.</returns>
+    /// <param name="builder">The builder.</param>
+    /// <returns>The builder.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> is <see langword="null"/>.
     /// </exception>

@@ -22,11 +22,10 @@ public interface IEntityResolverRegistry
     /// </summary>
     /// <param name="typeName">The name of entity.</param>
     /// <param name="result">
-    /// When this method returns, contains the resolver associated with the name; otherwise, <see langword="null"/>.
+    /// When successful, the resolver associated with <paramref name="typeName"/>; otherwise <see langword="null"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> when the registry contains a resolver with the specified name;
-    /// otherwise <see langword="false"/>.
+    /// <see langword="true"/> when the resolver is found; otherwise <see langword="false"/>.
     /// </returns>
     bool TryGet(NameString typeName, out EntityResolverDelegate? result);
 }

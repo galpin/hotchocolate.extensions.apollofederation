@@ -5,7 +5,7 @@ using HotChocolate.Types.Descriptors.Definitions;
 namespace HotChocolate.Extensions.ApolloFederation;
 
 /// <summary>
-/// Provides extensions to type descriptors.
+/// Provides extensions to type system descriptors.
 /// </summary>
 public static partial class DescriptorExtensions
 {

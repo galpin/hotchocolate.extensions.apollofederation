@@ -11,7 +11,7 @@ public static class DictionaryExtensions
     /// <summary>
     /// Tries to get the value associated with the specified <see cref="key"/> in the dictionary.
     /// </summary>
-    /// <param name="source">The dictionary from which to get the key.</param>
+    /// <param name="source">The dictionary.</param>
     /// <param name="key">The key of the value to get.</param>
     /// <typeparam name="TValue">The expected value type.</typeparam>
     /// <returns>
@@ -35,12 +35,12 @@ public static class DictionaryExtensions
     /// <summary>
     /// Tries to get the value associated with the specified <see cref="key"/> in the dictionary.
     /// </summary>
-    /// <param name="source">The dictionary from which to get the key.</param>
+    /// <param name="source">The dictionary.</param>
     /// <param name="key">The key of the value to get.</param>
     /// <typeparam name="TValue">The expected value type.</typeparam>
     /// <returns>
-    /// When successful, the value associated with <paramref name="key"/>, cast to <typeparamref name="TValue"/>;
-    /// otherwise the <see langword="default"/> value of <typeparamref name="TValue"/>.
+    /// When successful, the value associated with <paramref name="key"/>, safely casted to
+    /// <typeparamref name="TValue"/>; otherwise the <see langword="default"/> value of <typeparamref name="TValue"/>.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="source"/> or <paramref name="key"/> is <see langword="null"/>.

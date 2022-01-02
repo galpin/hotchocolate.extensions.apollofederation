@@ -9,10 +9,9 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static partial class DescriptorExtensions
 {
     /// <summary>
-    /// Adds the <c>@key</c> directive that indicates fields that can be used to uniquely identify and fetch an
-    /// object or interface.
+    /// Specifies the <c>@key</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="fieldSet">The field set that uniquely identifies the object.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
@@ -38,10 +37,9 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds the <c>@key</c> directive which indicates fields that can be used to uniquely identify and fetch an
-    /// object or interface.
+    /// Specifies the <c>@key</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="fieldSet">The field set that uniquely identifies the object.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
@@ -65,10 +63,9 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds the <c>@key</c> directive which indicates fields that can be used to uniquely identify and fetch an
-    /// object or interface.
+    /// Specifies the <c>@key</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="propertyOrMethodName">
     /// The expression selecting a property or method of <typeparamref name="T" />.
     /// </param>
@@ -99,10 +96,10 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds the <c>@key</c> directive which indicates fields that can be used to uniquely identify and fetch an
-    /// object or interface.
+    /// Specifies the field represents a <c>@key</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object field descriptor.</param>
+    /// <returns>The object field descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.
     /// </exception>

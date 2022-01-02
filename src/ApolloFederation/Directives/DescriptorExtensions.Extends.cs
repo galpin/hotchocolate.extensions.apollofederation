@@ -6,9 +6,9 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static partial class DescriptorExtensions
 {
     /// <summary>
-    /// Adds the <c>@extends</c> directive that is used to indicate a type extension.
+    /// Specifies the <c>@extends</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.
@@ -24,9 +24,9 @@ public static partial class DescriptorExtensions
     }
 
     /// <summary>
-    /// Adds the <c>@extends</c> directive that is used to indicate a type extension.
+    /// Specifies the <c>@extends</c> directive for the object.
     /// </summary>
-    /// <param name="descriptor">The object field descriptor on which this directive shall be annotated.</param>
+    /// <param name="descriptor">The object type descriptor.</param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.

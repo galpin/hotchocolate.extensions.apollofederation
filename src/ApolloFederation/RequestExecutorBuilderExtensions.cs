@@ -8,7 +8,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// <summary>
 /// Provides extensions to <see cref="IRequestExecutorBuilder"/>.
 /// </summary>
-public static class ApolloFederationExtensions
+public static partial class RequestExecutorBuilderExtensions
 {
     /// <summary>
     /// Adds support for Apollo Federation to the schema.

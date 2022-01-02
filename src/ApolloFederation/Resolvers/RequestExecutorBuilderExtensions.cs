@@ -8,7 +8,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// <summary>
 /// Provides extensions to <see cref="IRequestExecutorBuilder"/>.
 /// </summary>
-public static class RequestExecutorBuilderExtensions
+public static partial class RequestExecutorBuilderExtensions
 {
     /// <summary>
     /// Adds a resolver delegate for the specified named entity.

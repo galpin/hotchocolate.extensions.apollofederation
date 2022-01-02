@@ -11,13 +11,13 @@ namespace HotChocolate.Extensions.ApolloFederation;
 public static partial class RequestExecutorBuilderExtensions
 {
     /// <summary>
-    /// Adds a resolver delegate for the specified named entity.
+    /// Adds a resolver delegate for the specified entity.
     /// </summary>
-    /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
+    /// <param name="builder">The builder.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
-    /// <returns>The object type descriptor.</returns>
+    /// <returns>The builder.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
@@ -45,7 +45,7 @@ public static partial class RequestExecutorBuilderExtensions
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
-    /// <returns>The object type descriptor.</returns>
+    /// <returns>The builder.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
@@ -67,13 +67,13 @@ public static partial class RequestExecutorBuilderExtensions
     }
 
     /// <summary>
-    /// Adds a resolver delegate for the specified entity, inferring the entity name from the name of
+    /// Adds a resolver delegate for the specified entity, inferring the entity name from
     /// <typeparamref name="TRuntimeType"/>.
     /// </summary>
-    /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
+    /// <param name="builder">The builder.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
-    /// <returns>The object type descriptor.</returns>
+    /// <returns>The builder.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
@@ -95,13 +95,13 @@ public static partial class RequestExecutorBuilderExtensions
     }
 
     /// <summary>
-    /// Adds an asynchronous resolver delegate for the specified entity, inferring the entity name from the name of
+    /// Adds an asynchronous resolver delegate for the specified entity, inferring the entity from
     /// <typeparamref name="TRuntimeType"/>.
     /// </summary>
-    /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
+    /// <param name="builder">The builder.</param>
     /// <param name="resolver">The resolver delegate.</param>
     /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
-    /// <returns>The object type descriptor.</returns>
+    /// <returns>The builder.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>

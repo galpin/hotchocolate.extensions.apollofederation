@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "type Product @key(fields: \u0022id\u0022) @key(fields: \u0022sku package\u0022) @key(fields: \u0022sku variation { id }\u0022) {\n  id: ID\n  sku: String\n  package: String\n  variation: ProductVariation\n  dimensions: ProductDimension\n  createdBy: User @provides(fields: \u0022totalProductsCreated\u0022)\n}\n\ntype ProductDimension {\n  size: String\n  weight: Float\n}\n\ntype ProductVariation {\n  id: String!\n}\n\ntype Query {\n  product(id: String!): Product\n}\n\ntype User @extends @key(fields: \u0022email\u0022) {\n  email: String! @external\n  totalProductsCreated: Int @external\n}"
+    }
+  }
+}

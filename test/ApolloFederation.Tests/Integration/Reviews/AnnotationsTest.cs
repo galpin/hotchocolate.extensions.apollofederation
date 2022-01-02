@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HotChocolate.Extensions.ApolloFederation.Integration.Reviews;
@@ -31,6 +32,7 @@ public class AnnotationsTest : ReviewsTestBase
         }
 
         [GraphQLKey]
+        [GraphQLType(typeof(IdType))]
         public string Id { get; }
 
         public string AuthorId { get; }
@@ -58,6 +60,7 @@ public class AnnotationsTest : ReviewsTestBase
 
         [GraphQLKey]
         [GraphQLExternal]
+        [GraphQLType(typeof(IdType))]
         public string Id { get; }
 
         [GraphQLExternal]

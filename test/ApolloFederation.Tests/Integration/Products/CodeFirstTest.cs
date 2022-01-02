@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HotChocolate.Extensions.ApolloFederation.Integration.Products;
 
-public class SchemaFirstTest : ProductsTestBase
+public class CodeFirstTest : ProductsTestBase
 {
     protected override IRequestExecutorBuilder CreateRequestExecutorBuilder()
     {
@@ -13,40 +14,26 @@ public class SchemaFirstTest : ProductsTestBase
             .AddSingleton<ProductsRepository>()
             .AddGraphQL()
             .AddApolloFederation()
-            .AddDocumentFromString(@"
-                type Product @key(fields: ""id"") @key(fields: ""sku package"") @key(fields: ""sku variation { id }"") {
-                    id: ID!
-                    sku: String
-                    package: String
-                    variation: ProductVariation
-                    dimensions: ProductDimension
-                    createdBy: User @provides(fields: ""totalProductsCreated"")
-                }
+            .AddType<ProductType>()
+            .AddType<ProductDimensionType>()
+            .AddType<ProductVariationType>()
+            .AddType<UserType>()
+            .AddQueryType<QueryType>();
+    }
 
-                type ProductDimension {
-                    size: String
-                    weight: Float
-                }
-
-                type ProductVariation {
-                    id: ID!
-                }
-
-                type Query @extends {
-                    product(id: ID!): Product
-                }
-
-                type User @extends @key(fields: ""email"") {
-                    email: ID! @external
-                    totalProductsCreated: Int @external
-                }
-            ")
-            .BindRuntimeType<Product>()
-            .BindRuntimeType<ProductDimension>()
-            .BindRuntimeType<ProductVariation>()
-            .BindRuntimeType<Query>()
-            .BindRuntimeType<User>()
-            .AddEntityResolver(ctx =>
+    private sealed class ProductType : ObjectType<Product>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
+        {
+            descriptor.Key("id");
+            descriptor.Key("sku package");
+            descriptor.Key("sku variation { id }");
+            descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
+            descriptor.Field(x => x.Sku).Type<StringType>();
+            descriptor.Field(x => x.Variation).Type<ProductVariationType>();
+            descriptor.Field(x => x.Dimensions).Type<ProductDimensionType>();
+            descriptor.Field(x => x.CreatedBy).Type<UserType>().Provides("totalProductsCreated");
+            descriptor.ResolveEntity(ctx =>
             {
                 var products = ctx.Service<ProductsRepository>();
 
@@ -73,6 +60,44 @@ public class SchemaFirstTest : ProductsTestBase
 
                 return null;
             });
+        }
+    }
+
+    private sealed class ProductDimensionType : ObjectType<ProductDimension>
+    {
+        protected override void Configure(IObjectTypeDescriptor<ProductDimension> descriptor)
+        {
+            descriptor.Field(x => x.Size).Type<StringType>();
+            descriptor.Field(x => x.Weight).Type<FloatType>();
+        }
+    }
+
+    private sealed class ProductVariationType : ObjectType<ProductVariation>
+    {
+        protected override void Configure(IObjectTypeDescriptor<ProductVariation> descriptor)
+        {
+            descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
+        }
+    }
+
+    private sealed class UserType : ObjectType<User>
+    {
+        protected override void Configure(IObjectTypeDescriptor<User> descriptor)
+        {
+            descriptor.Key(x => x.Email);
+            descriptor.Field(x => x.Email).Type<StringType>().External();
+            descriptor.Field(x => x.TotalProductsCreated).Type<IntType>().External();
+        }
+    }
+
+    private sealed class QueryType : ObjectType<Query>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+        {
+            descriptor.Field(x => x.GetProduct(null!, null!))
+                .Argument("id", x => x.Type<NonNullType<IdType>>())
+                .Type<ProductType>();
+        }
     }
 
     private sealed class ProductsRepository

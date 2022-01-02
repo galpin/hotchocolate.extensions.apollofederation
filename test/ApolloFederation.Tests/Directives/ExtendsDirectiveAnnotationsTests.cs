@@ -11,9 +11,9 @@ public class ExtendsDirectiveAnnotationsTests
     [Fact]
     public async Task When_extends_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<TypeWithClassDirective>>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<Product>>());
 
-        var sut = schema.GetType<ObjectType>(nameof(TypeWithClassDirective));
+        var sut = schema.GetType<ObjectType>(nameof(Product));
 
         Assert.Collection(
             sut.Directives,
@@ -30,7 +30,7 @@ public class ExtendsDirectiveAnnotationsTests
     }
 
     [GraphQLExtends]
-    public class TypeWithClassDirective
+    public class Product
     {
         [GraphQLKey]
         public int Id { get; set; }

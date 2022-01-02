@@ -13,38 +13,38 @@ public class KeyDirectiveAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_class()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<TypeWithClassDirective>>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<ProductWithClassDirective>>());
 
-        var sut = schema.GetType<ObjectType>(nameof(TypeWithClassDirective));
+        var sut = schema.GetType<ObjectType>(nameof(ProductWithClassDirective));
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, x.Name, ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, x.Name, ("fields", "\"upc\"")));
     }
 
     [Fact]
     public async Task When_key_is_specified_on_class_multiple_times()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<TypeWithMultipleClassDirectives>>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<ProductWithMultipleClassDirectives>>());
 
-        var sut = schema.GetType<ObjectType>(nameof(TypeWithMultipleClassDirectives));
+        var sut = schema.GetType<ObjectType>(nameof(ProductWithMultipleClassDirectives));
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")),
-            x => AssertEx.Directive(x, "key", ("fields", "\"uid\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")),
+            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
     }
 
     [Fact]
     public async Task When_key_is_specified_on_property()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<TypeWithPropertyDirective>>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<Query<ProductWithPropertyDirective>>());
 
-        var sut = schema.GetType<ObjectType>(nameof(TypeWithPropertyDirective));
+        var sut = schema.GetType<ObjectType>(nameof(ProductWithPropertyDirective));
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
     }
 
     public class Query<T>
@@ -55,23 +55,23 @@ public class KeyDirectiveAnnotationsTests
         }
     }
 
-    [GraphQLKey("id")]
-    public class TypeWithClassDirective
+    [GraphQLKey("upc")]
+    public class ProductWithClassDirective
     {
-        public int Id { get; set; }
+        public string? Upc { get; set; }
     }
 
+    [GraphQLKey("upc")]
     [GraphQLKey("id")]
-    [GraphQLKey("uid")]
-    public class TypeWithMultipleClassDirectives
+    public class ProductWithMultipleClassDirectives
     {
-        public int Id { get; set; }
-        public int Uid { get; set; }
+        public string? Upc { get; set; }
+        public string? Id { get; set; }
     }
 
-    public class TypeWithPropertyDirective
+    public class ProductWithPropertyDirective
     {
         [GraphQLKey]
-        public int Id { get; set; }
+        public string? Upc { get; set; }
     }
 }

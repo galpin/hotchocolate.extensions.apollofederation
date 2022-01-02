@@ -15,18 +15,17 @@ public class KeyDirectiveCodeFirstTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Key("id");
-                x.Field("id").Type<IntType>();
-                x.Field("name").Type<StringType>();
+                x.Name("Product").Key("upc");
+                x.Field("upc").Type<NonNullType<StringType>>();
             });
             builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
     }
 
     [Fact]
@@ -78,25 +77,19 @@ public class KeyDirectiveCodeFirstTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Key("id").Key("uid");
+                x.Name("Product").Key("upc").Key("id");
+                x.Field("upc").Type<NonNullType<StringType>>();
                 x.Field("id").Type<IntType>();
-                x.Field("uid").Type<IntType>();
-                x.Field("name").Type<StringType>();
             });
-            builder.AddQueryType(x =>
-                x.Name("Query")
-                 .Field("Get")
-                 .Argument("id", a => a.Type<IntType>())
-                 .Type("Test")
-            );
+            builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")),
-            x => AssertEx.Directive(x, "key", ("fields", "\"uid\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")),
+            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
     }
 
     [Fact]
@@ -106,23 +99,17 @@ public class KeyDirectiveCodeFirstTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test");
-                x.Field("id").Key().Type<IntType>();
-                x.Field("name").Type<StringType>();
+                x.Name("Product");
+                x.Field("upc").Key().Type<NonNullType<StringType>>();
             });
-            builder.AddQueryType(x =>
-                x.Name("Query")
-                 .Field("Get")
-                 .Argument("id", a => a.Type<IntType>())
-                 .Type("Test")
-            );
+            builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
     }
 
     private sealed record Product(string Upc = "1")

@@ -14,20 +14,19 @@ public class KeyDirectiveSchemaFirstTests
         var schema = await BuildSchemaAsync(builder =>
         {
             builder.AddDocumentFromString(@"
-                type Test @key(fields: ""id"") {
-                    id: Int!
-                    name: String!
+                type Product @key(fields: ""upc"") {
+                     upc: String!
                 }
 
                 type Query
             ");
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
     }
 
     [Fact]
@@ -36,21 +35,20 @@ public class KeyDirectiveSchemaFirstTests
         var schema = await BuildSchemaAsync(builder =>
         {
             builder.AddDocumentFromString(@"
-                type Test @key(fields: ""id"") @key(fields: ""uid"") {
-                    id: Int!
-                    uid: Int!
-                    name: String!
+                type Product @key(fields: ""upc"") @key(fields: ""id"") {
+                     upc: String!
+                     id: String
                 }
 
                 type Query
             ");
         });
 
-        var sut = schema.GetType<ObjectType>("Test");
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")),
-            x => AssertEx.Directive(x, "key", ("fields", "\"uid\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")),
+            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
     }
 }

@@ -1,7 +1,7 @@
 ﻿{
   "data": {
     "_service": {
-      "sdl": "type Product @key(fields: \u0022upc\u0022) {\n  upc: String @external\n}\n\ntype Review @key(fields: \u0022id\u0022) {\n  id: Int! @external\n  products: [Product] @provides(fields: \u0022name\u0022)\n}"
+      "sdl": "type Product @key(fields: \u0022upc\u0022) {\n  upc: String! @external\n}\n\ntype Review @key(fields: \u0022id\u0022) {\n  id: Int! @external\n  products: [Product!]! @provides(fields: \u0022name\u0022)\n}"
     }
   }
 }

@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static HotChocolate.Extensions.ApolloFederation.Test;
 
-#nullable disable
-
 namespace HotChocolate.Extensions.ApolloFederation.Directives;
 
 public class ProvidesDirectiveAnnotationsTests
@@ -30,18 +28,29 @@ public class ProvidesDirectiveAnnotationsTests
 
     public class Review
     {
+        public Review(int id, IReadOnlyList<Product> products)
+        {
+            Id = id;
+            Products = products;
+        }
+
         [GraphQLKey]
         [GraphQLExternal]
-        public int Id { get; set; }
+        public int Id { get; }
 
         [GraphQLProvides("name")]
-        public IReadOnlyList<Product> Products { get; set; }
+        public IReadOnlyList<Product> Products { get; }
     }
 
     public class Product
     {
+        public Product(string upc)
+        {
+            Upc = upc;
+        }
+
         [GraphQLKey]
         [GraphQLExternal]
-        public string Upc { get; set; }
+        public string Upc { get; }
     }
 }

@@ -1,6 +1,8 @@
 using System;
+using System.Linq.Expressions;
 using HotChocolate.Language;
 using HotChocolate.Types;
+using HotChocolate.Utilities;
 using static HotChocolate.Extensions.ApolloFederation.Properties.FederationResources;
 
 namespace HotChocolate.Extensions.ApolloFederation;
@@ -67,6 +69,42 @@ public static partial class DescriptorExtensions
         return descriptor.Directive(
             KeyDirectiveType.Names.Key,
             new ArgumentNode(KeyDirectiveType.Names.Fields, fieldSet));
+    }
+
+    /// <summary>
+    /// Adds the <c>@key</c> directive which indicates fields that can be used to uniquely identify and fetch an
+    /// object or interface.
+    /// </summary>
+    /// <param name="descriptor">The object type descriptor on which this directive shall be annotated.</param>
+    /// <param name="propertyOrMethodName">
+    /// The expression selecting a property or method of <typeparamref name="T" />.
+    /// </param>
+    /// <returns>The object type descriptor.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="descriptor"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="propertyOrMethodName"/> is <see langword="null"/> or consists solely of white-space.
+    /// </exception>
+    public static IObjectTypeDescriptor<T> Key<T, TPropertyType>(
+        this IObjectTypeDescriptor<T> descriptor,
+        Expression<Func<T, TPropertyType>> propertyOrMethodName)
+    {
+        if (descriptor is null)
+        {
+            throw new ArgumentNullException(nameof(descriptor));
+        }
+        if (propertyOrMethodName is null)
+        {
+            throw new ArgumentNullException(nameof(propertyOrMethodName));
+        }
+
+        var naming = descriptor.Extend().Context.Naming;
+        var member = propertyOrMethodName.ExtractMember();
+        var fieldName = naming.GetMemberName(member, MemberKind.ObjectField);
+        return descriptor.Directive(
+            KeyDirectiveType.Names.Key,
+            new ArgumentNode(KeyDirectiveType.Names.Fields, fieldName));
     }
 
     /// <summary>

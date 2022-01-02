@@ -15,10 +15,11 @@ public class ExternalDirectiveTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Extends().Key("id");
-                x.Field("id").External().Type<IntType>();
+                x.Name("Product").Extends().Key("upc");
+                x.Field("upc").Type<NonNullType<StringType>>();
+                x.Field("id").External().Type<StringType>();
             });
-            builder.AddQueryType(x => x.Name("Query"));
+            builder.AddQueryType();
         });
 
         var sut = schema.GetDirectiveType("external");

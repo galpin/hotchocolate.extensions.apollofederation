@@ -15,10 +15,10 @@ public class ExtendsDirectiveTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Extends().Key("id");
-                x.Field("id").Type<IntType>();
+                x.Name("Product").Extends().Key("upc");
+                x.Field("upc").Type<NonNullType<StringType>>();
             });
-            builder.AddQueryType(x => x.Name("Query"));
+            builder.AddQueryType();
         });
 
         var sut = schema.GetDirectiveType("extends");

@@ -15,10 +15,11 @@ public class KeyDirectiveTests
         {
             builder.AddObjectType(x =>
             {
-                x.Name("Test").Key("id");
-                x.Field("id").Type<IntType>();
+                x.Name("Product").Extends().Key("upc");
+                x.Field("upc").Type<NonNullType<StringType>>();
+                x.Field("id").External().Type<StringType>();
             });
-            builder.AddQueryType(x => x.Name("Query"));
+            builder.AddQueryType();
         });
 
         var sut = schema.GetDirectiveType("key");

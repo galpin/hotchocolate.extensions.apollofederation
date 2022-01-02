@@ -16,7 +16,8 @@ public class RequiresDirectiveAnnotationsTests
             builder.AddObjectType<Review>();
             builder.AddQueryType();
         });
-        var sut = schema.GetType<ObjectType>("Review");
+
+        var sut = schema.GetType<ObjectType>(nameof(Review));
 
         Assert.Collection(
             sut.Fields["product"].Directives,

@@ -7,6 +7,11 @@ namespace HotChocolate.Extensions.ApolloFederation;
 
 internal static class SnapshotExtensions
 {
+    public static async Task QuerySdlAndMatchSnapshotAsync(this ISchema schema)
+    {
+        await schema.ExecuteAndMatchSnapshotAsync("{ _service { sdl } }");
+    }
+
     public static async Task ExecuteAndMatchSnapshotAsync(
         this ISchema schema,
         string query,

@@ -5,9 +5,6 @@ using HotChocolate.Types.Descriptors.Definitions;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
-/// <summary>
-/// Provides extensions to <see cref="IObjectTypeDescriptor"/>.
-/// </summary>
 public static partial class DescriptorExtensions
 {
     /// <summary>
@@ -24,16 +21,7 @@ public static partial class DescriptorExtensions
         this IObjectTypeDescriptor descriptor,
         Func<IEntityResolverContext, TReturn?> resolver)
     {
-        if (descriptor is null)
-        {
-            throw new ArgumentNullException(nameof(descriptor));
-        }
-        if (resolver is null)
-        {
-            throw new ArgumentNullException(nameof(resolver));
-        }
-
-        descriptor.Extend().OnBeforeCreate(x => x.AddContextData(EntityResolverDelegateFactory.Create(resolver)));
+        descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
     }
 
@@ -51,16 +39,7 @@ public static partial class DescriptorExtensions
         this IObjectTypeDescriptor descriptor,
         Func<IEntityResolverContext, Task<TReturn?>> resolver)
     {
-        if (descriptor is null)
-        {
-            throw new ArgumentNullException(nameof(descriptor));
-        }
-        if (resolver is null)
-        {
-            throw new ArgumentNullException(nameof(resolver));
-        }
-
-        descriptor.Extend().OnBeforeCreate(x => x.AddContextData(EntityResolverDelegateFactory.Create(resolver)));
+        descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
     }
 
@@ -79,16 +58,7 @@ public static partial class DescriptorExtensions
         this IObjectTypeDescriptor<T> descriptor,
         Func<IEntityResolverContext, TReturn?> resolver)
     {
-        if (descriptor is null)
-        {
-            throw new ArgumentNullException(nameof(descriptor));
-        }
-        if (resolver is null)
-        {
-            throw new ArgumentNullException(nameof(resolver));
-        }
-
-        descriptor.Extend().OnBeforeCreate(x => x.AddContextData(EntityResolverDelegateFactory.Create(resolver)));
+        descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
     }
 
@@ -107,6 +77,13 @@ public static partial class DescriptorExtensions
         this IObjectTypeDescriptor<T> descriptor,
         Func<IEntityResolverContext, Task<TReturn?>> resolver)
     {
+        descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
+        return descriptor;
+    }
+
+    private static void AddEntityResolver<T>(this IDescriptor<T> descriptor, EntityResolverDelegate resolver)
+        where T : DefinitionBase
+    {
         if (descriptor is null)
         {
             throw new ArgumentNullException(nameof(descriptor));
@@ -116,12 +93,6 @@ public static partial class DescriptorExtensions
             throw new ArgumentNullException(nameof(resolver));
         }
 
-        descriptor.Extend().OnBeforeCreate(x => x.AddContextData(EntityResolverDelegateFactory.Create(resolver)));
-        return descriptor;
-    }
-
-    private static void AddContextData(this IDefinition definition, EntityResolverDelegate resolver)
-    {
-        definition.ContextData[EntityResolverConfig.Names.InterceptorKey] = resolver;
+        descriptor.SetContextData(EntityResolverConfig.Names.InterceptorKey, resolver);
     }
 }

@@ -3,9 +3,6 @@ using HotChocolate.Types;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
-/// <summary>
-/// Provides extensions to <see cref="IObjectTypeDescriptor"/>.
-/// </summary>
 public static partial class DescriptorExtensions
 {
     /// <summary>

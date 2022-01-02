@@ -66,9 +66,7 @@ public static partial class DescriptorExtensions
                 nameof(fieldSet));
         }
 
-        return descriptor.Directive(
-            KeyDirectiveType.Names.Key,
-            new ArgumentNode(KeyDirectiveType.Names.Fields, fieldSet));
+        return descriptor.KeyDirective(fieldSet);
     }
 
     /// <summary>
@@ -102,9 +100,7 @@ public static partial class DescriptorExtensions
         var naming = descriptor.Extend().Context.Naming;
         var member = propertyOrMethodName.ExtractMember();
         var fieldName = naming.GetMemberName(member, MemberKind.ObjectField);
-        return descriptor.Directive(
-            KeyDirectiveType.Names.Key,
-            new ArgumentNode(KeyDirectiveType.Names.Fields, fieldName));
+        return descriptor.KeyDirective(fieldName);
     }
 
     /// <summary>
@@ -122,7 +118,14 @@ public static partial class DescriptorExtensions
             throw new ArgumentNullException(nameof(descriptor));
         }
 
-        descriptor.Extend().OnBeforeCreate(x => x.ContextData[GraphQLKeyAttribute.Names.InterceptorKey] = true);
+        descriptor.SetContextData(GraphQLKeyAttribute.Names.InterceptorKey, true);
         return descriptor;
+    }
+
+    private static IObjectTypeDescriptor<T> KeyDirective<T>(this IObjectTypeDescriptor<T> descriptor, string fieldSet)
+    {
+        return descriptor.Directive(
+            KeyDirectiveType.Names.Key,
+            new ArgumentNode(KeyDirectiveType.Names.Fields, fieldSet));
     }
 }

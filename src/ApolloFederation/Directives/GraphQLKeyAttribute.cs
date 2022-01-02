@@ -39,7 +39,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
                 objectDescriptor.Key(_fieldSet!);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
-                fieldDescriptor.Extend().OnBeforeCreate(x => x.ContextData[Names.InterceptorKey] = true);
+                fieldDescriptor.SetContextData(Names.InterceptorKey, true);
                 break;
         }
     }

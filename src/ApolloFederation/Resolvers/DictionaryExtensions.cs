@@ -47,7 +47,7 @@ public static class DictionaryExtensions
     /// </exception>
     public static TValue? GetValueOrDefault<TValue>(this IReadOnlyDictionary<string, object?> source, string key)
     {
-        return !source.TryGetValue(key, out var untyped) ? default : (TValue)untyped!;
+        return !source.TryGetValue(key, out var untyped) ? default : untyped is TValue value ? value : default;
     }
 
     internal static bool TryGetValue<TResult>(

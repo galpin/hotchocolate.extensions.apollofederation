@@ -58,4 +58,14 @@ public class DictionaryExtensionsTests
 
         Assert.Null(actual);
     }
+
+    [Fact]
+    public void GetValueOrDefault_when_key_exists_but_is_wrong_type_returns_default()
+    {
+        var source = CreateRepresentation(("id", 42));
+
+        var actual = DictionaryExtensions.GetValueOrDefault<string>(source, "id");
+
+        Assert.Null(actual);
+    }
 }

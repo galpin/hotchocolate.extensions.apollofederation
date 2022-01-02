@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using HotChocolate.Language;
 using HotChocolate.Types;
 using HotChocolate.Utilities;
-using static HotChocolate.Extensions.ApolloFederation.Properties.FederationResources;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -30,9 +29,7 @@ public static partial class DescriptorExtensions
         }
         if (string.IsNullOrWhiteSpace(fieldSet))
         {
-            throw new ArgumentException(
-                FieldDescriptorExtensions_Key_FieldSet_CannotBeNullOrEmpty,
-                nameof(fieldSet));
+            throw new ArgumentException(nameof(fieldSet));
         }
 
         return descriptor.Directive(
@@ -61,9 +58,7 @@ public static partial class DescriptorExtensions
         }
         if (string.IsNullOrWhiteSpace(fieldSet))
         {
-            throw new ArgumentException(
-                FieldDescriptorExtensions_Key_FieldSet_CannotBeNullOrEmpty,
-                nameof(fieldSet));
+            throw new ArgumentException(nameof(fieldSet));
         }
 
         return descriptor.KeyDirective(fieldSet);

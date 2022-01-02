@@ -75,36 +75,18 @@ namespace HotChocolate.Extensions.ApolloFederation.Properties {
             }
         }
         
-        internal static string FieldDescriptorExtensions_Key_FieldSet_CannotBeNullOrEmpty {
-            get {
-                return ResourceManager.GetString("FieldDescriptorExtensions_Key_FieldSet_CannotBeNullOrEmpty", resourceCulture);
-            }
-        }
-        
-        internal static string FieldDescriptorExtensions_Requires_FieldSet_CannotBeNullOrEmpty {
-            get {
-                return ResourceManager.GetString("FieldDescriptorExtensions_Requires_FieldSet_CannotBeNullOrEmpty", resourceCulture);
-            }
-        }
-        
-        internal static string FieldDescriptorExtensions_Provides_FieldSet_CannotBeNullOrEmpty {
-            get {
-                return ResourceManager.GetString("FieldDescriptorExtensions_Provides_FieldSet_CannotBeNullOrEmpty", resourceCulture);
-            }
-        }
-        
         internal static string ThrowHelper_Entities_Representation_Typename_Missing {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Missing", resourceCulture);
             }
         }
-        
+
         internal static string ThrowHelper_Entities_Representation_Typename_Invalid {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Invalid", resourceCulture);
             }
         }
-        
+
         internal static string ThrowHelper_Entities_Representation_Entity_NotFound {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Entity_NotFound", resourceCulture);

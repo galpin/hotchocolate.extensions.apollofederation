@@ -12,14 +12,14 @@ public static partial class DescriptorExtensions
     /// </summary>
     /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="descriptor"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IObjectTypeDescriptor ResolveEntity<TReturn>(
+    public static IObjectTypeDescriptor ResolveEntity<TRuntimeType>(
         this IObjectTypeDescriptor descriptor,
-        Func<IEntityResolverContext, TReturn?> resolver)
+        Func<IEntityResolverContext, TRuntimeType?> resolver)
     {
         descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
@@ -30,14 +30,14 @@ public static partial class DescriptorExtensions
     /// </summary>
     /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="descriptor"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IObjectTypeDescriptor ResolveEntity<TReturn>(
+    public static IObjectTypeDescriptor ResolveEntity<TRuntimeType>(
         this IObjectTypeDescriptor descriptor,
-        Func<IEntityResolverContext, Task<TReturn?>> resolver)
+        Func<IEntityResolverContext, Task<TRuntimeType?>> resolver)
     {
         descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
@@ -48,15 +48,14 @@ public static partial class DescriptorExtensions
     /// </summary>
     /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="T">The object type.</typeparam>
-    /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The object type.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="descriptor"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IObjectTypeDescriptor<T> ResolveEntity<T, TReturn>(
-        this IObjectTypeDescriptor<T> descriptor,
-        Func<IEntityResolverContext, TReturn?> resolver)
+    public static IObjectTypeDescriptor<TRuntimeType> ResolveEntity<TRuntimeType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor,
+        Func<IEntityResolverContext, TRuntimeType?> resolver)
     {
         descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;
@@ -67,15 +66,14 @@ public static partial class DescriptorExtensions
     /// </summary>
     /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="T">The object type.</typeparam>
-    /// <typeparam name="TReturn">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="descriptor"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IObjectTypeDescriptor<T> ResolveEntity<T, TReturn>(
-        this IObjectTypeDescriptor<T> descriptor,
-        Func<IEntityResolverContext, Task<TReturn?>> resolver)
+    public static IObjectTypeDescriptor<TRuntimeType> ResolveEntity<TRuntimeType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor,
+        Func<IEntityResolverContext, Task<TRuntimeType?>> resolver)
     {
         descriptor.AddEntityResolver(EntityResolverDelegateFactory.Create(resolver));
         return descriptor;

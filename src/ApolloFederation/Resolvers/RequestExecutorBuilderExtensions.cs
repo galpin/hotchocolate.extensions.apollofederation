@@ -16,15 +16,15 @@ public static partial class RequestExecutorBuilderExtensions
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TEntity">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IRequestExecutorBuilder AddEntityResolver<TEntity>(
+    public static IRequestExecutorBuilder AddEntityResolver<TRuntimeType>(
         this IRequestExecutorBuilder builder,
         NameString typeName,
-        Func<IEntityResolverContext, TEntity> resolver)
+        Func<IEntityResolverContext, TRuntimeType> resolver)
     {
         if (builder is null)
         {
@@ -44,15 +44,15 @@ public static partial class RequestExecutorBuilderExtensions
     /// <param name="builder">The builder.</param>
     /// <param name="typeName">The name of the entity for which the resolver shall be added.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TEntity">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IRequestExecutorBuilder AddEntityResolver<TEntity>(
+    public static IRequestExecutorBuilder AddEntityResolver<TRuntimeType>(
         this IRequestExecutorBuilder builder,
         NameString typeName,
-        Func<IEntityResolverContext, Task<TEntity?>> resolver)
+        Func<IEntityResolverContext, Task<TRuntimeType?>> resolver)
     {
         if (builder is null)
         {
@@ -68,18 +68,18 @@ public static partial class RequestExecutorBuilderExtensions
 
     /// <summary>
     /// Adds a resolver delegate for the specified entity, inferring the entity name from the name of
-    /// <typeparamref name="TEntity"/>.
+    /// <typeparamref name="TRuntimeType"/>.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TEntity">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IRequestExecutorBuilder AddEntityResolver<TEntity>(
+    public static IRequestExecutorBuilder AddEntityResolver<TRuntimeType>(
         this IRequestExecutorBuilder builder,
-        Func<IEntityResolverContext, TEntity?> resolver)
+        Func<IEntityResolverContext, TRuntimeType?> resolver)
     {
         if (builder is null)
         {
@@ -90,24 +90,24 @@ public static partial class RequestExecutorBuilderExtensions
             throw new ArgumentNullException(nameof(resolver));
         }
 
-        var typeName = typeof(TEntity).Name;
+        var typeName = typeof(TRuntimeType).Name;
         return builder.AddEntityResolver(typeName, resolver);
     }
 
     /// <summary>
     /// Adds an asynchronous resolver delegate for the specified entity, inferring the entity name from the name of
-    /// <typeparamref name="TEntity"/>.
+    /// <typeparamref name="TRuntimeType"/>.
     /// </summary>
     /// <param name="builder">The <see cref="IRequestExecutorBuilder"/>.</param>
     /// <param name="resolver">The resolver delegate.</param>
-    /// <typeparam name="TEntity">The type of the entity to resolve.</typeparam>
+    /// <typeparam name="TRuntimeType">The type of the entity to resolve.</typeparam>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="builder"/> or <paramref name="resolver"/> is <see langword="null"/>.
     /// </exception>
-    public static IRequestExecutorBuilder AddEntityResolver<TEntity>(
+    public static IRequestExecutorBuilder AddEntityResolver<TRuntimeType>(
         this IRequestExecutorBuilder builder,
-        Func<IEntityResolverContext, Task<TEntity?>> resolver)
+        Func<IEntityResolverContext, Task<TRuntimeType?>> resolver)
     {
         if (builder is null)
         {
@@ -118,7 +118,7 @@ public static partial class RequestExecutorBuilderExtensions
             throw new ArgumentNullException(nameof(resolver));
         }
 
-        var typeName = typeof(TEntity).Name;
+        var typeName = typeof(TRuntimeType).Name;
         return builder.AddEntityResolver(typeName, resolver);
     }
 }

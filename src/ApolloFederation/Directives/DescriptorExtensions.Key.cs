@@ -48,7 +48,9 @@ public static partial class DescriptorExtensions
     /// <exception cref="ArgumentException">
     /// <paramref name="fieldSet"/> is <see langword="null"/> or consists solely of white-space.
     /// </exception>
-    public static IObjectTypeDescriptor<T> Key<T>(this IObjectTypeDescriptor<T> descriptor, string fieldSet)
+    public static IObjectTypeDescriptor<TRuntimeType> Key<TRuntimeType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor,
+        string fieldSet)
     {
         if (descriptor is null)
         {
@@ -67,7 +69,7 @@ public static partial class DescriptorExtensions
     /// </summary>
     /// <param name="descriptor">The object type descriptor.</param>
     /// <param name="propertyOrMethodName">
-    /// The expression selecting a property or method of <typeparamref name="T" />.
+    /// The expression selecting a property or method of <typeparamref name="TRuntimeType" />.
     /// </param>
     /// <returns>The object type descriptor.</returns>
     /// <exception cref="ArgumentNullException">
@@ -76,9 +78,9 @@ public static partial class DescriptorExtensions
     /// <exception cref="ArgumentException">
     /// <paramref name="propertyOrMethodName"/> is <see langword="null"/> or consists solely of white-space.
     /// </exception>
-    public static IObjectTypeDescriptor<T> Key<T, TPropertyType>(
-        this IObjectTypeDescriptor<T> descriptor,
-        Expression<Func<T, TPropertyType>> propertyOrMethodName)
+    public static IObjectTypeDescriptor<TRuntimeType> Key<TRuntimeType, TPropertyOrMethodType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor,
+        Expression<Func<TRuntimeType, TPropertyOrMethodType>> propertyOrMethodName)
     {
         if (descriptor is null)
         {
@@ -114,7 +116,9 @@ public static partial class DescriptorExtensions
         return descriptor;
     }
 
-    private static IObjectTypeDescriptor<T> KeyDirective<T>(this IObjectTypeDescriptor<T> descriptor, string fieldSet)
+    private static IObjectTypeDescriptor<T> KeyDirective<T>(
+        this IObjectTypeDescriptor<T> descriptor,
+        string fieldSet)
     {
         return descriptor.Directive(
             KeyDirectiveType.Names.Key,

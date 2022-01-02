@@ -31,7 +31,8 @@ public static partial class DescriptorExtensions
     /// <exception cref="ArgumentNullException">
     /// <paramref name="descriptor"/> is <see langword="null"/>.
     /// </exception>
-    public static IObjectTypeDescriptor<T> Extends<T>(this IObjectTypeDescriptor<T> descriptor)
+    public static IObjectTypeDescriptor<TRuntimeType> Extends<TRuntimeType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor)
     {
         if (descriptor is null)
         {

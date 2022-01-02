@@ -122,7 +122,7 @@ public static partial class DescriptorExtensions
             throw new ArgumentNullException(nameof(descriptor));
         }
 
-        descriptor.Extend().OnBeforeCreate(d => d.ContextData[GraphQLKeyAttribute.Names.Marker] = true);
+        descriptor.Extend().OnBeforeCreate(x => x.ContextData[GraphQLKeyAttribute.Names.InterceptorKey] = true);
         return descriptor;
     }
 }

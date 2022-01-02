@@ -22,7 +22,7 @@ internal sealed class GraphQLKeyAttributeInterceptor : TypeInterceptor
     {
         foreach (var field in objectDefinition.Fields)
         {
-            if (field.ContextData.Remove(GraphQLKeyAttribute.Names.Marker))
+            if (field.ContextData.Remove(GraphQLKeyAttribute.Names.InterceptorKey))
             {
                 objectDefinition.Directives.Add(CreateKeyDirective(field.Name));
             }

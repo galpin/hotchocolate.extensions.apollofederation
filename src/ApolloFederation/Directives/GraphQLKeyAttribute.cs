@@ -39,13 +39,13 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
                 objectDescriptor.Key(_fieldSet!);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
-                fieldDescriptor.Extend().OnBeforeCreate(x => x.ContextData[Names.Marker] = true);
+                fieldDescriptor.Extend().OnBeforeCreate(x => x.ContextData[Names.InterceptorKey] = true);
                 break;
         }
     }
 
     internal static class Names
     {
-        public const string Marker = "ApolloFederation.Markers.Key";
+        public const string InterceptorKey = "ApolloFederation.Markers.Key";
     }
 }

@@ -14,7 +14,7 @@ public sealed class ExternalDirectiveType : DirectiveType
             .Location(DirectiveLocation.FieldDefinition);
     }
 
-    private static class Names
+    internal static class Names
     {
         public const string External = "external";
     }

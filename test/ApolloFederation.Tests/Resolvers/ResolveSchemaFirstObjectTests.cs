@@ -8,10 +8,10 @@ using static HotChocolate.Extensions.ApolloFederation.Test;
 
 namespace HotChocolate.Extensions.ApolloFederation.Resolvers;
 
-public class ResolveSchemaFirstTests : ResolveTestBase
+public class ResolveSchemaFirstObjectTests : ResolveTestBase
 {
     [Fact]
-    public async Task Resolve_when_immediate_resolver()
+    public async Task Resolve_and_immediate_resolver()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -23,7 +23,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_immediate_resolver_and_name_is_specified()
+    public async Task Resolve_and_immediate_resolver_and_name_is_specified()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -35,7 +35,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_task_resolver()
+    public async Task Resolve_and_task_resolver()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -47,7 +47,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_task_resolver_and_name_is_specified()
+    public async Task Resolve_and_task_resolver_and_name_is_specified()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -59,7 +59,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_async_resolver()
+    public async Task Resolve_and_async_resolver()
     {
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
@@ -76,7 +76,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_immediate_resolver_throws()
+    public async Task Resolve_and_immediate_resolver_throws()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -93,7 +93,7 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_when_async_resolver_throws()
+    public async Task Resolve_and_resolver_throws()
     {
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
@@ -114,8 +114,9 @@ public class ResolveSchemaFirstTests : ResolveTestBase
     private static void AddSchema(IRequestExecutorBuilder builder)
     {
         builder.AddDocumentFromString(@"
-            type Product @key(fields: ""upc"") {
-                upc: String!
+            type Product @key(fields: ""upc"") @key(fields: ""id"") {
+                 upc: String!
+                 id: String!
             }
 
             type Query
@@ -123,5 +124,5 @@ public class ResolveSchemaFirstTests : ResolveTestBase
         builder.BindRuntimeType<Product>();
     }
 
-    private sealed record Product(string Upc);
+    public sealed record Product(string Upc, string Id = "id");
 }

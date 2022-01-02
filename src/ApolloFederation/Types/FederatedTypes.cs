@@ -13,7 +13,12 @@ public static class FederatedTypes
         AnyType.Names.Any,
         EntityType.Names.Entity,
         FieldSetType.Names.FieldSet,
-        ServiceType.Names.Service
+        ServiceType.Names.Service,
+        KeyDirectiveType.Names.Key,
+        ExtendsDirectiveType.Names.Extends,
+        ExternalDirectiveType.Names.External,
+        ProvidesDirectiveType.Names.Provides,
+        RequiresDirectiveType.Names.Requires
     };
 
     /// <summary>

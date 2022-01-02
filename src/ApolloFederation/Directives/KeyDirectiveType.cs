@@ -22,5 +22,6 @@ public sealed class KeyDirectiveType : DirectiveType
     {
         public const string Key = "key";
         public const string Fields = "fields";
+        public const string InterceptorKey = "ApolloFederation.KeyDirective.InterceptorKey";
     }
 }

@@ -7,7 +7,7 @@ using static HotChocolate.Extensions.ApolloFederation.Test;
 
 namespace HotChocolate.Extensions.ApolloFederation.Resolvers;
 
-public class ResolveAnnotationsTests : ResolveTestBase
+public class ResolveAnnotationsObjectTests : ResolveTestBase
 {
     [Fact]
     public async Task Resolve_when_immediate_resolver()

@@ -8,17 +8,18 @@ using static HotChocolate.Extensions.ApolloFederation.Test;
 
 namespace HotChocolate.Extensions.ApolloFederation.Directives;
 
-public class KeyDirectiveAnnotationsTests
+public class KeyDirectiveAnnotationsObjectTests
 {
     [Fact]
     public async Task When_key_is_specified_on_class()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithClassDirective>();
+            builder.AddObjectType<ProductWhenKeyIsSpecifiedOnClass>(x => x.Name("Product"));
             builder.AddQueryType();
         });
-        var sut = schema.GetType<ObjectType>(nameof(ProductWithClassDirective));
+
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
@@ -31,10 +32,11 @@ public class KeyDirectiveAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithMultipleClassDirectives>();
+            builder.AddObjectType<ProductWhenKeyIsSpecifiedOnClassMultipleTimes>();
             builder.AddQueryType();
         });
-        var sut = schema.GetType<ObjectType>(nameof(ProductWithMultipleClassDirectives));
+
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
@@ -48,10 +50,11 @@ public class KeyDirectiveAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithPropertyDirective>();
+            builder.AddObjectType<ProductWhenKeyIsSpecifiedOnProperty>();
             builder.AddQueryType();
         });
-        var sut = schema.GetType<ObjectType>(nameof(ProductWithPropertyDirective));
+
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
@@ -60,20 +63,23 @@ public class KeyDirectiveAnnotationsTests
     }
 
     [GraphQLKey("upc")]
-    public class ProductWithClassDirective
+    [GraphQLName("Product")]
+    public class ProductWhenKeyIsSpecifiedOnClass
     {
         public string? Upc { get; set; }
     }
 
     [GraphQLKey("upc")]
     [GraphQLKey("id")]
-    public class ProductWithMultipleClassDirectives
+    [GraphQLName("Product")]
+    public class ProductWhenKeyIsSpecifiedOnClassMultipleTimes
     {
         public string? Upc { get; set; }
         public string? Id { get; set; }
     }
 
-    public class ProductWithPropertyDirective
+    [GraphQLName("Product")]
+    public class ProductWhenKeyIsSpecifiedOnProperty
     {
         [GraphQLKey]
         public string? Upc { get; set; }

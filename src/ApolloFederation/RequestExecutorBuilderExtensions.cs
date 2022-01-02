@@ -43,8 +43,8 @@ public static partial class RequestExecutorBuilderExtensions
             x.AddType<QueryTypeExtension>();
             x.AddType<RequiresDirectiveType>();
             // TypeInterceptor order is significant, do not re-order!
-            x.TryAddTypeInterceptor<GraphQLKeyAttributeInterceptor>();
-            x.TryAddTypeInterceptor<EntityResolverObjectInterceptor>();
+            x.TryAddTypeInterceptor<KeyDirectiveTypeInterceptor>();
+            x.TryAddTypeInterceptor<EntityResolverKeyInterceptor>();
             x.TryAddTypeInterceptor<EntityTypeInterceptor>();
             x.TryAddTypeInterceptor<EntityResolverMethodInterceptor>();
             x.TryAddSchemaInterceptor<EntityResolverSchemaInterceptor>();

@@ -6,7 +6,7 @@ using static HotChocolate.Extensions.ApolloFederation.Test;
 
 namespace HotChocolate.Extensions.ApolloFederation.Directives;
 
-public class KeyDirectiveSchemaFirstTests
+public class KeyDirectiveSchemaFirstObjectTests
 {
     [Fact]
     public async Task When_key_is_specified_on_object()

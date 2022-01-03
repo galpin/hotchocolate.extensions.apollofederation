@@ -1,0 +1,10 @@
+﻿{
+  "data": {
+    "_entities": [
+      {
+        "__typename": "Product",
+        "upc": "1"
+      }
+    ]
+  }
+}

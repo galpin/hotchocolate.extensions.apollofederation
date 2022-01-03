@@ -32,20 +32,27 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
         switch (descriptor)
         {
             case IObjectTypeDescriptor objectDescriptor when element is Type objectType:
-                if (string.IsNullOrWhiteSpace(_fieldSet))
-                {
-                    throw Key_FieldSet_CannotBeEmpty(objectType);
-                }
+                VerifyFieldSet(objectType);
+                objectDescriptor.Key(_fieldSet!);
+                break;
+            case IInterfaceTypeDescriptor objectDescriptor when element is Type interfaceType:
+                VerifyFieldSet(interfaceType);
                 objectDescriptor.Key(_fieldSet!);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
-                fieldDescriptor.SetContextData(Names.InterceptorKey, true);
+                fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
+                break;
+            case IInterfaceFieldDescriptor fieldDescriptor when element is MemberInfo:
+                fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
                 break;
         }
-    }
 
-    internal static class Names
-    {
-        public const string InterceptorKey = "ApolloFederation.Markers.Key";
+        void VerifyFieldSet(Type type)
+        {
+            if (string.IsNullOrWhiteSpace(_fieldSet))
+            {
+                throw Key_FieldSet_CannotBeEmpty(type);
+            }
+        }
     }
 }

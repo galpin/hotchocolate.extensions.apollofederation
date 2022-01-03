@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "interface IProduct @key(fields: \u0022upc\u0022) {\n  upc: String!\n  id: String\n}\n\ntype Product implements IProduct @key(fields: \u0022upc\u0022) {\n  upc: String!\n  id: String!\n}"
+    }
+  }
+}

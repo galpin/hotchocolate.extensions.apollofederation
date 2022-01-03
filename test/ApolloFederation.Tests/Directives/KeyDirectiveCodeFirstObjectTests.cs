@@ -6,7 +6,7 @@ using static HotChocolate.Extensions.ApolloFederation.Test;
 
 namespace HotChocolate.Extensions.ApolloFederation.Directives;
 
-public class KeyDirectiveCodeFirstTests
+public class KeyDirectiveCodeFirstObjectTests
 {
     [Fact]
     public async Task When_key_is_specified_on_object()
@@ -17,6 +17,27 @@ public class KeyDirectiveCodeFirstTests
             {
                 x.Name("Product").Key("upc");
                 x.Field("upc").Type<NonNullType<StringType>>();
+            });
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<ObjectType>("Product");
+
+        Assert.Collection(
+            sut.Directives,
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
+    }
+
+    [Fact]
+    public async Task When_string_key_is_specified_on_object()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Product>(x =>
+            {
+                x.Key("upc");
+                x.Field(y => y.Upc).Type<NonNullType<StringType>>();
             });
             builder.AddQueryType();
         });
@@ -115,9 +136,9 @@ public class KeyDirectiveCodeFirstTests
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
-    private sealed record Product(string Upc = "1")
+    private sealed record Product(string? Upc = "1")
     {
-        public string GetUpc()
+        public string? GetUpc()
         {
             return Upc;
         }

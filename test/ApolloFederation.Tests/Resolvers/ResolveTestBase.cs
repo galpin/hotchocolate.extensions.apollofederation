@@ -17,4 +17,18 @@ public abstract class ResolveTestBase
         }
         ");
     }
+
+    protected static async Task QueryProductInterfaceAndMatchSnapshotAsync(ISchema schema)
+    {
+        await schema.ExecuteAndMatchSnapshotAsync(@"
+        {
+            _entities(representations: [{ __typename: ""IProduct"" }]) {
+                ...on IProduct {
+                    __typename
+                    upc
+                }
+            }
+        }
+        ");
+    }
 }

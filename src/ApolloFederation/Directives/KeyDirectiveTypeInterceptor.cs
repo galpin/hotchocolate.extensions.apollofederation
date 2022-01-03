@@ -5,16 +5,21 @@ using HotChocolate.Types.Descriptors.Definitions;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
-internal sealed class GraphQLKeyAttributeInterceptor : TypeInterceptor
+internal sealed class KeyDirectiveTypeInterceptor : TypeInterceptor
 {
     public override void OnAfterInitialize(
-        ITypeDiscoveryContext context,
+        ITypeDiscoveryContext _,
         DefinitionBase? definition,
-        IDictionary<string, object?> contextData)
+        IDictionary<string, object?> __)
     {
-        if (definition is ObjectTypeDefinition objectDefinition)
+        switch(definition)
         {
-            TryAddFieldKeysToObject(objectDefinition);
+            case ObjectTypeDefinition x:
+                TryAddFieldKeysToObject(x);
+                break;
+            case InterfaceTypeDefinition x:
+                TryAddFieldKeysToInterface(x);
+                break;
         }
     }
 
@@ -22,9 +27,20 @@ internal sealed class GraphQLKeyAttributeInterceptor : TypeInterceptor
     {
         foreach (var field in objectDefinition.Fields)
         {
-            if (field.ContextData.Remove(GraphQLKeyAttribute.Names.InterceptorKey))
+            if (field.ContextData.ContainsKey(KeyDirectiveType.Names.InterceptorKey))
             {
                 objectDefinition.Directives.Add(CreateKeyDirective(field.Name));
+            }
+        }
+    }
+
+    private static void TryAddFieldKeysToInterface(InterfaceTypeDefinition interfaceDefinition)
+    {
+        foreach (var field in interfaceDefinition.Fields)
+        {
+            if (field.ContextData.ContainsKey(KeyDirectiveType.Names.InterceptorKey))
+            {
+                interfaceDefinition.Directives.Add(CreateKeyDirective(field.Name));
             }
         }
     }

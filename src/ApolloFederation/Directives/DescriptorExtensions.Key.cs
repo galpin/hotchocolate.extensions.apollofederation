@@ -77,7 +77,9 @@ public static partial class DescriptorExtensions
     /// <exception cref="ArgumentException">
     /// <paramref name="fieldSet"/> is <see langword="null"/> or consists solely of white-space.
     /// </exception>
-    public static IObjectTypeDescriptor<TRuntimeType> Key<TRuntimeType>(this IObjectTypeDescriptor<TRuntimeType> descriptor, string fieldSet)
+    public static IObjectTypeDescriptor<TRuntimeType> Key<TRuntimeType>(
+        this IObjectTypeDescriptor<TRuntimeType> descriptor,
+        string fieldSet)
     {
         if (descriptor is null)
         {
@@ -103,7 +105,9 @@ public static partial class DescriptorExtensions
     /// <exception cref="ArgumentException">
     /// <paramref name="fieldSet"/> is <see langword="null"/> or consists solely of white-space.
     /// </exception>
-    public static IInterfaceTypeDescriptor<TRuntimeType> Key<TRuntimeType>(this IInterfaceTypeDescriptor<TRuntimeType> descriptor, string fieldSet)
+    public static IInterfaceTypeDescriptor<TRuntimeType> Key<TRuntimeType>(
+        this IInterfaceTypeDescriptor<TRuntimeType> descriptor,
+        string fieldSet)
     {
         if (descriptor is null)
         {

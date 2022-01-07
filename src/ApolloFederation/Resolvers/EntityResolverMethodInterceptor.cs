@@ -12,6 +12,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
 {
     private readonly IEntityResolverRegistry _entityResolverRegistry;
+    private EntityType? _entityType;
 
     private static readonly HashSet<string> s_methodNames = new()
     {
@@ -29,16 +30,26 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
         _entityResolverRegistry = entityResolverRegistry;
     }
 
+    public override bool TriggerAggregations => true;
+
     public override void OnAfterCompleteType(
         ITypeCompletionContext context,
         DefinitionBase? _,
         IDictionary<string, object?> __)
     {
-        if (context.Type is not EntityType entityType)
+        if (context.Type is EntityType entityType)
+        {
+            _entityType = entityType;
+        }
+    }
+
+    public override void OnAfterCompleteTypes()
+    {
+        if (_entityType == null)
         {
             return;
         }
-        foreach (var objectType in entityType.Types.Values)
+        foreach (var objectType in _entityType.Types.Values)
         {
             TryRegisterResolver(objectType);
         }

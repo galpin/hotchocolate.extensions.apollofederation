@@ -15,7 +15,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(_ => new Product("1"));
         });
 
@@ -27,7 +27,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(nameof(Product), _ => new Product("1"));
         });
 
@@ -39,7 +39,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(_ => Task.FromResult(new Product("1"))!);
         });
 
@@ -51,7 +51,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(nameof(Product), _ => Task.FromResult(new Product("1"))!);
         });
 
@@ -64,7 +64,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(async _ =>
             {
                 await Task.Delay(500);
@@ -80,7 +80,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(ResolveEntity);
         });
 
@@ -98,7 +98,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            AddSchema(builder);
+            AddSchema<Product>(builder);
             builder.AddEntityResolver(ResolveEntityAsync);
         });
 
@@ -111,7 +111,15 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
         }
     }
 
-    private static void AddSchema(IRequestExecutorBuilder builder)
+    [Fact]
+    public async Task Resolve_when_immediate_resolver_on_bound_type()
+    {
+        var schema = await BuildSchemaAsync(AddSchema<ProductWithEntityResolver>);
+
+        await QueryProductAndMatchSnapshotAsync(schema);
+    }
+
+    private static void AddSchema<TProduct>(IRequestExecutorBuilder builder)
     {
         builder.AddDocumentFromString(@"
             type Product @key(fields: ""upc"") @key(fields: ""id"") {
@@ -121,8 +129,16 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
 
             type Query
         ");
-        builder.BindRuntimeType<Product>();
+        builder.BindRuntimeType<TProduct>("Product");
     }
 
     public sealed record Product(string Upc, string Id = "id");
+
+    public sealed record ProductWithEntityResolver(string Upc, string Id = "id")
+    {
+        public static ProductWithEntityResolver? ResolveEntity(IEntityResolverContext _)
+        {
+            return new ProductWithEntityResolver("1");
+        }
+    }
 }

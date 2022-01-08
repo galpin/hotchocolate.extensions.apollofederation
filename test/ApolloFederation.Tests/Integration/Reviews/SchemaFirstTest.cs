@@ -37,18 +37,7 @@ public class SchemaFirstTest : ReviewsTestBase
             ")
             .BindRuntimeType<User>()
             .BindRuntimeType<Review>()
-            .BindRuntimeType<Product>()
-            .AddEntityResolver(ctx =>
-            {
-                var users = ctx.Service<UserRepository>();
-                return users.FindById(ctx.Representation.GetValue<string>("id"));
-            })
-            .AddEntityResolver(ctx =>
-            {
-                var reviews = ctx.Service<ReviewRepository>();
-                return reviews.FindById(ctx.Representation.GetValue<string>("id"));
-            })
-            .AddEntityResolver(ctx => new Product(ctx.Representation.GetValue<string>("upc")));
+            .BindRuntimeType<Product>();
     }
 
     private sealed record Product(string Upc)
@@ -56,6 +45,11 @@ public class SchemaFirstTest : ReviewsTestBase
         public IReadOnlyList<Review> GetReviews([Service] ReviewRepository reviews)
         {
             return reviews.GetByProductUpc(Upc);
+        }
+
+        public static Product ResolveEntity(IEntityResolverContext ctx)
+        {
+            return new Product(ctx.Representation.GetValue<string>("upc"));
         }
     }
 
@@ -65,9 +59,22 @@ public class SchemaFirstTest : ReviewsTestBase
         {
             return reviews.GetByAuthorId(Id);
         }
+
+        public static User? ResolveEntity(IEntityResolverContext ctx)
+        {
+            var users = ctx.Service<UserRepository>();
+            return users.FindById(ctx.Representation.GetValue<string>("id"));
+        }
     }
 
-    private sealed record Review(string Id, string AuthorId, Product Product, string Body, User Author);
+    private sealed record Review(string Id, string AuthorId, Product Product, string Body, User Author)
+    {
+        public static Review? ResolveEntity(IEntityResolverContext ctx)
+        {
+            var reviews = ctx.Service<ReviewRepository>();
+            return reviews.FindById(ctx.Representation.GetValue<string>("id"));
+        }
+    }
 
     private sealed class ReviewRepository
     {

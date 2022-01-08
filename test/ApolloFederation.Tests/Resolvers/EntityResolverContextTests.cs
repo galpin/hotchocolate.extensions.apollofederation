@@ -69,7 +69,6 @@ public class EntityResolverContextTests
         public EntityResolverContext Sut { get; }
     }
 
-
     private sealed class MockResolverContext
     {
         private readonly Mock<IResolverContext> _mock = new();

@@ -99,6 +99,8 @@ public sealed record User
 }
 ```
 
+You can also use the `GraphQLEntityResolver` attribute to use an alternative name or if you wish to be more explicit.
+
 See [AnnotationsTest.cs](test/ApolloFederation.Tests/Integration/Reviews/AnnotationsTest.cs) for a complete example.
 
 ### Schema-first

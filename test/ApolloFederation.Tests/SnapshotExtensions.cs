@@ -34,7 +34,7 @@ internal static class SnapshotExtensions
         this IExecutionResult result,
         SnapshotNameExtension? snapshotNameExtension = null)
     {
-        var json = result.ToJson();
+        var json = result.ToJson().NormalizeEscapedLineEndings();
         if (snapshotNameExtension != null)
         {
             json.MatchSnapshot(snapshotNameExtension);
@@ -43,5 +43,14 @@ internal static class SnapshotExtensions
         {
             json.MatchSnapshot();
         }
+    }
+
+    private static string NormalizeEscapedLineEndings(this string text)
+    {
+        // sdl contains escaped line endings which are not normalized by Snapshooter.
+        return text
+            .Replace("\\r\\n", "\\n")
+            .Replace("\\n\\r", "\\n")
+            .Replace("\\r", "\\n");
     }
 }

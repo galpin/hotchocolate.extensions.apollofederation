@@ -122,6 +122,18 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         await QueryProductAndMatchSnapshotAsync(schema);
     }
 
+    [Fact]
+    public async Task Resolve_when_attribute_and_immediate_resolver()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<ProductWithAttributeAndImmediateResolver>();
+            builder.AddQueryType();
+        });
+
+        await QueryProductAndMatchSnapshotAsync(schema);
+    }
+
     [GraphQLName("Product")]
     public sealed class ProductWithImmediateResolver
     {
@@ -279,6 +291,24 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         public static Task<ProductWithTaskResolverReturnsNullTask>? ResolveEntityAsync(IEntityResolverContext _)
         {
             return null;
+        }
+    }
+
+    [GraphQLName("Product")]
+    public sealed class ProductWithAttributeAndImmediateResolver
+    {
+        public ProductWithAttributeAndImmediateResolver(string upc)
+        {
+            Upc = upc;
+        }
+
+        [GraphQLKey]
+        public string Upc { get; }
+
+        [GraphQLEntityResolver]
+        public static ProductWithAttributeAndImmediateResolver GetEntity(IEntityResolverContext _)
+        {
+            return new ProductWithAttributeAndImmediateResolver("1");
         }
     }
 }

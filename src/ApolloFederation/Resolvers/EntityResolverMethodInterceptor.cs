@@ -71,7 +71,7 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
 
         bool IsResolveEntityMethod(MethodInfo candidate)
         {
-            if (!s_methodNames.Contains(candidate.Name))
+            if (!s_methodNames.Contains(candidate.Name) && !HasEntityResolverAttribute(candidate))
             {
                 return false;
             }
@@ -96,5 +96,10 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
     private static IEnumerable<MethodInfo> GetPublicStaticMethods(Type entityType)
     {
         return entityType.GetMethods(BindingFlags.Public | BindingFlags.Static);
+    }
+
+    private static bool HasEntityResolverAttribute(MethodInfo candidate)
+    {
+        return candidate.GetCustomAttribute<GraphQLEntityResolverAttribute>() != null;
     }
 }

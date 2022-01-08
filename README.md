@@ -140,6 +140,23 @@ public record User(string Id, string Username = null)
 }
 ```
 
+You can also use the convention-based resolver and add a `ResolveEntity` or `ResolveEntityAsync` method to the bound type:
+
+```
+public record User(string Id, string Username = null)
+{
+    public IReadOnlyList<Review> GetReviews()
+    {
+        return Array.Empty<Review>();
+    }
+
+    public static User? ResolveEntity(IEntityResolverContext context)
+    {
+        return new User(context.Representation.GetValue<string>("id"));
+    }
+}
+```
+
 See [SchemaFirstTest.cs](test/ApolloFederation.Tests/Integration/Reviews/SchemaFirstTest.cs) for a complete example.
 
 ## Entity Resolvers

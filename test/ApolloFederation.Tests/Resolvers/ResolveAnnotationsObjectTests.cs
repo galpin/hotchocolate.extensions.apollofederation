@@ -14,7 +14,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithImmediateResolver>();
+            builder.AddObjectType<ProductWhenImmediateResolver>();
             builder.AddQueryType();
         });
 
@@ -26,7 +26,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithTaskResolver>();
+            builder.AddObjectType<ProductWhenTaskResolver>();
             builder.AddQueryType();
         });
 
@@ -39,7 +39,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithAsyncResolver>();
+            builder.AddObjectType<ProductWhenAsyncResolver>();
             builder.AddQueryType();
         });
 
@@ -52,7 +52,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithMultipleResolvers>();
+            builder.AddObjectType<ProductWhenMultipleResolvers>();
             builder.AddQueryType();
         });
 
@@ -64,7 +64,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithThrowingImmediateResolver>();
+            builder.AddObjectType<ProductWhenThrowingImmediateResolver>();
             builder.AddQueryType();
         });
 
@@ -77,7 +77,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithThrowingAsyncResolver>();
+            builder.AddObjectType<ProductWhenThrowingAsyncResolver>();
             builder.AddQueryType();
         });
 
@@ -89,7 +89,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithImmediateResolverReturnsNull>();
+            builder.AddObjectType<ProductWhenImmediateResolverReturnsNull>();
             builder.AddQueryType();
         });
 
@@ -102,7 +102,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithTaskResolverReturnsNull>();
+            builder.AddObjectType<ProductWhenTaskResolverReturnsNull>();
             builder.AddQueryType();
         });
 
@@ -115,7 +115,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithTaskResolverReturnsNullTask>();
+            builder.AddObjectType<ProductWhenTaskResolverReturnsNullTask>();
             builder.AddQueryType();
         });
 
@@ -127,7 +127,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWithAttributeAndImmediateResolver>();
+            builder.AddObjectType<ProductWhenAttributeAndImmediateResolver>();
             builder.AddQueryType();
         });
 
@@ -135,9 +135,9 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithImmediateResolver
+    public sealed class ProductWhenImmediateResolver
     {
-        public ProductWithImmediateResolver(string upc)
+        public ProductWhenImmediateResolver(string upc)
         {
             Upc = upc;
         }
@@ -145,16 +145,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static ProductWithImmediateResolver ResolveEntity(IEntityResolverContext _)
+        public static ProductWhenImmediateResolver ResolveEntity(IEntityResolverContext _)
         {
-            return new ProductWithImmediateResolver("1");
+            return new ProductWhenImmediateResolver("1");
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithTaskResolver
+    public sealed class ProductWhenTaskResolver
     {
-        public ProductWithTaskResolver(string upc)
+        public ProductWhenTaskResolver(string upc)
         {
             Upc = upc;
         }
@@ -162,16 +162,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static Task<ProductWithTaskResolver> ResolveEntityAsync(IEntityResolverContext _)
+        public static Task<ProductWhenTaskResolver> ResolveEntityAsync(IEntityResolverContext _)
         {
-            return Task.FromResult(new ProductWithTaskResolver("1"));
+            return Task.FromResult(new ProductWhenTaskResolver("1"));
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithAsyncResolver
+    public sealed class ProductWhenAsyncResolver
     {
-        public ProductWithAsyncResolver(string upc)
+        public ProductWhenAsyncResolver(string upc)
         {
             Upc = upc;
         }
@@ -179,17 +179,17 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static async Task<ProductWithAsyncResolver> ResolveEntityAsync(IEntityResolverContext _)
+        public static async Task<ProductWhenAsyncResolver> ResolveEntityAsync(IEntityResolverContext _)
         {
             await Task.Delay(500);
-            return new ProductWithAsyncResolver("1");
+            return new ProductWhenAsyncResolver("1");
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithMultipleResolvers
+    public sealed class ProductWhenMultipleResolvers
     {
-        public ProductWithMultipleResolvers(string upc)
+        public ProductWhenMultipleResolvers(string upc)
         {
             Upc = upc;
         }
@@ -197,21 +197,21 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static ProductWithMultipleResolvers ResolveEntity(IEntityResolverContext _)
+        public static ProductWhenMultipleResolvers ResolveEntity(IEntityResolverContext _)
         {
-            return new ProductWithMultipleResolvers("1");
+            return new ProductWhenMultipleResolvers("1");
         }
 
-        public static Task<ProductWithMultipleResolvers> ResolveEntityAsync(IEntityResolverContext _)
+        public static Task<ProductWhenMultipleResolvers> ResolveEntityAsync(IEntityResolverContext _)
         {
             throw new InvalidOperationException();
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithThrowingImmediateResolver
+    public sealed class ProductWhenThrowingImmediateResolver
     {
-        public ProductWithThrowingImmediateResolver(string upc)
+        public ProductWhenThrowingImmediateResolver(string upc)
         {
             Upc = upc;
         }
@@ -219,16 +219,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static ProductWithThrowingImmediateResolver ResolveEntity(IEntityResolverContext _)
+        public static ProductWhenThrowingImmediateResolver ResolveEntity(IEntityResolverContext _)
         {
             throw new InvalidOperationException();
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithThrowingAsyncResolver
+    public sealed class ProductWhenThrowingAsyncResolver
     {
-        public ProductWithThrowingAsyncResolver(string upc)
+        public ProductWhenThrowingAsyncResolver(string upc)
         {
             Upc = upc;
         }
@@ -236,7 +236,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static async Task<ProductWithThrowingAsyncResolver> ResolveEntity(IEntityResolverContext _)
+        public static async Task<ProductWhenThrowingAsyncResolver> ResolveEntity(IEntityResolverContext _)
         {
             await Task.Delay(500);
             throw new InvalidOperationException();
@@ -244,9 +244,9 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithImmediateResolverReturnsNull
+    public sealed class ProductWhenImmediateResolverReturnsNull
     {
-        public ProductWithImmediateResolverReturnsNull(string upc)
+        public ProductWhenImmediateResolverReturnsNull(string upc)
         {
             Upc = upc;
         }
@@ -254,16 +254,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static ProductWithImmediateResolverReturnsNull? ResolveEntity(IEntityResolverContext _)
+        public static ProductWhenImmediateResolverReturnsNull? ResolveEntity(IEntityResolverContext _)
         {
             return null;
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithTaskResolverReturnsNull
+    public sealed class ProductWhenTaskResolverReturnsNull
     {
-        public ProductWithTaskResolverReturnsNull(string upc)
+        public ProductWhenTaskResolverReturnsNull(string upc)
         {
             Upc = upc;
         }
@@ -271,16 +271,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static Task<ProductWithTaskResolverReturnsNull?> ResolveEntityAsync(IEntityResolverContext _)
+        public static Task<ProductWhenTaskResolverReturnsNull?> ResolveEntityAsync(IEntityResolverContext _)
         {
-            return Task.FromResult<ProductWithTaskResolverReturnsNull?>(null);
+            return Task.FromResult<ProductWhenTaskResolverReturnsNull?>(null);
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithTaskResolverReturnsNullTask
+    public sealed class ProductWhenTaskResolverReturnsNullTask
     {
-        public ProductWithTaskResolverReturnsNullTask(string upc)
+        public ProductWhenTaskResolverReturnsNullTask(string upc)
         {
             Upc = upc;
         }
@@ -288,16 +288,16 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        public static Task<ProductWithTaskResolverReturnsNullTask>? ResolveEntityAsync(IEntityResolverContext _)
+        public static Task<ProductWhenTaskResolverReturnsNullTask>? ResolveEntityAsync(IEntityResolverContext _)
         {
             return null;
         }
     }
 
     [GraphQLName("Product")]
-    public sealed class ProductWithAttributeAndImmediateResolver
+    public sealed class ProductWhenAttributeAndImmediateResolver
     {
-        public ProductWithAttributeAndImmediateResolver(string upc)
+        public ProductWhenAttributeAndImmediateResolver(string upc)
         {
             Upc = upc;
         }
@@ -306,9 +306,9 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         public string Upc { get; }
 
         [GraphQLEntityResolver]
-        public static ProductWithAttributeAndImmediateResolver GetEntity(IEntityResolverContext _)
+        public static ProductWhenAttributeAndImmediateResolver GetEntity(IEntityResolverContext _)
         {
-            return new ProductWithAttributeAndImmediateResolver("1");
+            return new ProductWhenAttributeAndImmediateResolver("1");
         }
     }
 }

@@ -114,7 +114,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     [Fact]
     public async Task Resolve_when_immediate_resolver_on_bound_type()
     {
-        var schema = await BuildSchemaAsync(AddSchema<ProductWithEntityResolver>);
+        var schema = await BuildSchemaAsync(AddSchema<ProductWhenEntityResolver>);
 
         await QueryProductAndMatchSnapshotAsync(schema);
     }
@@ -134,11 +134,11 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
 
     public sealed record Product(string Upc, string Id = "id");
 
-    public sealed record ProductWithEntityResolver(string Upc, string Id = "id")
+    public sealed record ProductWhenEntityResolver(string Upc, string Id = "id")
     {
-        public static ProductWithEntityResolver? ResolveEntity(IEntityResolverContext _)
+        public static ProductWhenEntityResolver? ResolveEntity(IEntityResolverContext _)
         {
-            return new ProductWithEntityResolver("1");
+            return new ProductWhenEntityResolver("1");
         }
     }
 }

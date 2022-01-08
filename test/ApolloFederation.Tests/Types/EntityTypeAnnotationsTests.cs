@@ -10,7 +10,7 @@ public class EntityTypeAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWithSingle>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWhenSingle>());
 
         var sut = schema.GetType<EntityType>("_Entity");
 
@@ -22,7 +22,7 @@ public class EntityTypeAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_multiple_objects()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWithMultiple>());
+        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWhenMultiple>());
 
         var sut = schema.GetType<EntityType>("_Entity");
 
@@ -32,7 +32,7 @@ public class EntityTypeAnnotationsTests
             x => Assert.Equal("Review", x.Name));
     }
 
-    public class QueryWithSingle
+    public class QueryWhenSingle
     {
         public Product? GetProduct(int id)
         {
@@ -40,7 +40,7 @@ public class EntityTypeAnnotationsTests
         }
     }
 
-    public class QueryWithMultiple
+    public class QueryWhenMultiple
     {
         public Product? GetProduct(int id)
         {

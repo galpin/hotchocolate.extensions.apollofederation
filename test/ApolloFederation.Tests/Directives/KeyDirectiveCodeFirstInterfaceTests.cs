@@ -78,7 +78,7 @@ public class KeyDirectiveCodeFirstInterfaceTests
         {
             builder.AddObjectType<Product>(x =>
             {
-                x.Implements<IProductWhenKeyIsSpecifiedOnInterfaceWithPropertyExpressionType>();
+                x.Implements<IProductWhenKeyIsSpecifiedOnInterfaceWhenPropertyExpressionType>();
                 x.Field(y => y.Upc).Key().Type<NonNullType<StringType>>();
             });
             builder.AddQueryType();
@@ -99,7 +99,7 @@ public class KeyDirectiveCodeFirstInterfaceTests
         {
             builder.AddObjectType<Product>(x =>
             {
-                x.Implements<IProductWhenKeyIsSpecifiedOnInterfaceWithMethodExpressionType>();
+                x.Implements<IProductWhenKeyIsSpecifiedOnInterfaceWhenMethodExpressionType>();
                 x.Field(y => y.Upc).Key().Type<NonNullType<StringType>>();
             });
             builder.AddQueryType();
@@ -164,7 +164,7 @@ public class KeyDirectiveCodeFirstInterfaceTests
         }
     }
 
-    private sealed class IProductWhenKeyIsSpecifiedOnInterfaceWithPropertyExpressionType : InterfaceType<IProduct>
+    private sealed class IProductWhenKeyIsSpecifiedOnInterfaceWhenPropertyExpressionType : InterfaceType<IProduct>
     {
         protected override void Configure(IInterfaceTypeDescriptor<IProduct> descriptor)
         {
@@ -174,7 +174,7 @@ public class KeyDirectiveCodeFirstInterfaceTests
         }
     }
 
-    private sealed class IProductWhenKeyIsSpecifiedOnInterfaceWithMethodExpressionType : InterfaceType<IProduct>
+    private sealed class IProductWhenKeyIsSpecifiedOnInterfaceWhenMethodExpressionType : InterfaceType<IProduct>
     {
         protected override void Configure(IInterfaceTypeDescriptor<IProduct> descriptor)
         {

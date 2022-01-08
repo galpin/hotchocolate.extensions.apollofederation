@@ -139,7 +139,7 @@
     <value>The _entities resolver tried to load an entity without a valid `__typename` field: `{0}`</value>
   </data>
   <data name="ThrowHelper_Entities_Representation_Entity_NotFound" xml:space="preserve">
-    <value>The _entities resolver tried to load an entity for type `{0}`, but no object type of that name was found in the schema.</value>
+    <value>The _entities resolver tried to load an entity for type `{0}`, but no resolver was found.</value>
   </data>
   <data name="ThrowHelper_Entities_Representation_Resolver_Error" xml:space="preserve">
     <value>The _entities resolver encountered an unexpected error resolving an entity for type `{0}`: {1}</value>

@@ -6,6 +6,6 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// Indicates that the annotated method is a resolver for a federated type.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
-public class GraphQLEntityResolverAttribute : Attribute
+public class EntityResolverAttribute : Attribute
 {
 }

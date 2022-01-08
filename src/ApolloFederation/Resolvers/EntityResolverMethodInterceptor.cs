@@ -136,7 +136,7 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
 
     private static bool HasEntityResolverAttribute(MethodInfo candidate)
     {
-        return candidate.GetCustomAttribute<GraphQLEntityResolverAttribute>() != null;
+        return candidate.GetCustomAttribute<EntityResolverAttribute>() != null;
     }
 
     private sealed class ObjectExtensionsMap

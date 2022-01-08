@@ -305,7 +305,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         [GraphQLKey]
         public string Upc { get; }
 
-        [GraphQLEntityResolver]
+        [EntityResolver]
         public static ProductWhenAttributeAndImmediateResolver GetEntity(IEntityResolverContext _)
         {
             return new ProductWhenAttributeAndImmediateResolver("1");

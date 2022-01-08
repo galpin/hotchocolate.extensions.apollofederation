@@ -9,18 +9,24 @@ namespace HotChocolate.Extensions.ApolloFederation;
 
 internal sealed class EntityTypeInterceptor : TypeInterceptor
 {
-    private readonly HashSet<ObjectType> _entityTypes = new();
+    private readonly HashSet<NameString> _entityTypes = new();
 
     public override void OnAfterInitialize(
         ITypeDiscoveryContext context,
         DefinitionBase? definition,
         IDictionary<string, object?> _)
     {
-        if (context.Type is ObjectType objectType && definition is ObjectTypeDefinition objectTypeDefinition)
+        switch (context.Type)
         {
-            if (objectTypeDefinition.Directives.Any(IsKeyDirective))
+            case ObjectType:
+            case ObjectTypeExtension:
             {
-                _entityTypes.Add(objectType);
+                if (definition is ObjectTypeDefinition objectTypeDefinition &&
+                    objectTypeDefinition.Directives.Any(IsKeyDirective))
+                {
+                    _entityTypes.Add(context.GetTypeName(objectTypeDefinition));
+                }
+                break;
             }
         }
 
@@ -37,7 +43,7 @@ internal sealed class EntityTypeInterceptor : TypeInterceptor
     {
         if (context.Type is EntityType && definition is UnionTypeDefinition unionTypeDefinition)
         {
-            foreach (var entityType in _entityTypes.OrderBy(x => x.Name))
+            foreach (var entityType in _entityTypes.OrderBy(x => x))
             {
                 unionTypeDefinition.Types.Add(TypeReference.Create(entityType));
             }

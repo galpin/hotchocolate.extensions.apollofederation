@@ -53,4 +53,41 @@ public class EntityTypeCodeFirstTests
             x => Assert.Equal("Product", x.Name),
             x => Assert.Equal("Review", x.Name));
     }
+
+    [Fact]
+    public async Task When_key_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddType<ProductType>();
+            builder.AddType<ProductTypeExtension>();
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<EntityType>("_Entity");
+
+        Assert.Collection(
+            sut.Types.Values,
+            x => Assert.Equal("Product", x.Name));
+    }
+
+    private sealed class ProductType : ObjectType<Product>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
+        {
+            descriptor.Field(x => x.Upc).Type<NonNullType<StringType>>();
+        }
+    }
+
+    private sealed class ProductTypeExtension : ObjectTypeExtension<Product>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
+        {
+            descriptor.Extends();
+            descriptor.Key(x => x.Upc);
+            descriptor.ResolveEntity(_ => new Product("1"));
+        }
+    }
+
+    private sealed record Product(string Upc);
 }

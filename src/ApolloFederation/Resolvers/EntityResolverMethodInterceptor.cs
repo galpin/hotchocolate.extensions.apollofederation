@@ -12,6 +12,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
 {
     private readonly IEntityResolverRegistry _entityResolverRegistry;
+    private readonly ObjectExtensionsMap _objectExtensions = new();
     private EntityType? _entityType;
 
     private static readonly HashSet<string> s_methodNames = new()
@@ -32,9 +33,23 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
 
     public override bool TriggerAggregations => true;
 
+    public override void OnAfterInitialize(
+        ITypeDiscoveryContext context,
+        DefinitionBase? definition,
+        IDictionary<string, object?> __)
+    {
+        if (context.Type is ObjectTypeExtension &&
+            definition is ObjectTypeDefinition objectTypeDefinition &&
+            objectTypeDefinition.FieldBindingType != null)
+        {
+            var extendsType = context.GetTypeName(objectTypeDefinition);
+            _objectExtensions.Add(extendsType, objectTypeDefinition.FieldBindingType);
+        }
+    }
+
     public override void OnAfterCompleteType(
         ITypeCompletionContext context,
-        DefinitionBase? _,
+        DefinitionBase? definition,
         IDictionary<string, object?> __)
     {
         if (context.Type is EntityType entityType)
@@ -51,22 +66,43 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
         }
         foreach (var objectType in _entityType.Types.Values)
         {
-            TryRegisterResolver(objectType);
+            if (!TryAddResolverFromObject(objectType))
+            {
+                TryAddResolverFromObjectExtensions(objectType);
+            }
         }
     }
 
-    private void TryRegisterResolver(ObjectType objectType)
+    private bool TryAddResolverFromObject(ObjectType objectType)
     {
-        var resolver = TryCreateResolverDelegate(objectType.RuntimeType);
-        if (resolver != null)
+        return TryAddResolver(objectType, objectType.RuntimeType);
+    }
+
+    private void TryAddResolverFromObjectExtensions(ObjectType objectType)
+    {
+        foreach (var extensionType in _objectExtensions.Get(objectType.Name))
         {
-            _entityResolverRegistry.Add(objectType.Name, resolver);
+            if (TryAddResolver(objectType, extensionType))
+            {
+                return;
+            }
         }
     }
 
-    private static EntityResolverDelegate? TryCreateResolverDelegate(Type entityType)
+    private bool TryAddResolver(ObjectType objectType, Type containingType)
     {
-        var method = GetPublicStaticMethods(entityType).FirstOrDefault(IsResolveEntityMethod);
+        var resolver = TryCreateResolver(objectType.RuntimeType, containingType);
+        if (resolver == null)
+        {
+            return false;
+        }
+        _entityResolverRegistry.Add(objectType.Name, resolver);
+        return true;
+    }
+
+    private static EntityResolverDelegate? TryCreateResolver(Type entityType, Type containingType)
+    {
+        var method = GetPublicStaticMethods(containingType).FirstOrDefault(IsResolveEntityMethod);
         return method != null ? EntityResolverDelegateFactory.Compile(method) : null;
 
         bool IsResolveEntityMethod(MethodInfo candidate)
@@ -101,5 +137,27 @@ internal sealed class EntityResolverMethodInterceptor : TypeInterceptor
     private static bool HasEntityResolverAttribute(MethodInfo candidate)
     {
         return candidate.GetCustomAttribute<GraphQLEntityResolverAttribute>() != null;
+    }
+
+    private sealed class ObjectExtensionsMap
+    {
+        private readonly Dictionary<NameString, List<Type>> _extensions = new();
+
+        public void Add(NameString extends, Type bindingType)
+        {
+            if (!_extensions.TryGetValue(extends, out var types))
+            {
+                _extensions.Add(extends, new List<Type> { bindingType });
+            }
+            else
+            {
+                types.Add(bindingType);
+            }
+        }
+
+        public IEnumerable<Type> Get(NameString extends)
+        {
+            return _extensions.TryGetValue(extends, out var types) ? types : Enumerable.Empty<Type>();
+        }
     }
 }

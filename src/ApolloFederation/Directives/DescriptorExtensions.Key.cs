@@ -241,8 +241,7 @@ public static partial class DescriptorExtensions
         IDescriptor<TDefinition> descriptor,
         Expression<Func<TRuntimeType, TPropertyType>> propertyOrMethodName) where TDefinition : DefinitionBase
     {
-        var naming = descriptor.Extend().Context.Naming;
         var member = propertyOrMethodName.ExtractMember();
-        return naming.GetMemberName(member, MemberKind.ObjectField);
+        return descriptor.Extend().Context.GetMemberName(member, MemberKind.ObjectField);
     }
 }

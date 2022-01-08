@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using static HotChocolate.Extensions.ApolloFederation.Test;
@@ -32,6 +33,22 @@ public class EntityTypeAnnotationsTests
             x => Assert.Equal("Review", x.Name));
     }
 
+    [Fact]
+    public async Task When_key_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddQueryType<QueryWhenObjectExtension>();
+            builder.AddTypeExtension<ProductExtension>();
+        });
+
+        var sut = schema.GetType<EntityType>("_Entity");
+
+        Assert.Collection(
+            sut.Types.Values,
+            x => Assert.Equal("Product", x.Name));
+    }
+
     public class QueryWhenSingle
     {
         public Product? GetProduct(int id)
@@ -63,5 +80,25 @@ public class EntityTypeAnnotationsTests
     public class Review
     {
         public int Id { get; set; }
+    }
+
+    public class QueryWhenObjectExtension
+    {
+        public ProductWhenObjectExtension? GetProduct(string upc)
+        {
+            return default;
+        }
+    }
+
+    [GraphQLName("Product")]
+    public class ProductWhenObjectExtension
+    {
+    }
+
+    [ExtendObjectType(typeof(ProductWhenObjectExtension))]
+    public class ProductExtension
+    {
+        [GraphQLKey]
+        public string? Upc { get; set; }
     }
 }

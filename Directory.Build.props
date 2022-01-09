@@ -13,7 +13,7 @@
   <Import Project="$(MSBuildThisFileDirectory)/Dependencies.props" />
 
   <PropertyGroup>
-    <Product>HotChocolate.Extensions.ApolloFederation</Product>
+    <Product>HotChocolate.Extensions.ApolloSubgraph</Product>
     <Authors>ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
     <PackageVersion>0.0.0-$(BuildTag)$(BuildNumber)</PackageVersion>
@@ -24,7 +24,7 @@
 
   <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <RepositoryUrl>https://github.com/galpin/hotchocolate.extensions.apollofederation.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/galpin/hotchocolate.extensions.apollosubgraph.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
 

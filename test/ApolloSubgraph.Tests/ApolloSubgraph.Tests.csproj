@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>HotChocolate.Extensions.ApolloSubgraph.Tests</AssemblyName>
+    <RootNamespace>HotChocolate.Extensions.ApolloSubgraph</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ApolloSubgraph\ApolloSubgraph.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkPackageVersion)" />
+    <PackageReference Include="Moq" Version="$(MoqPackageVersion)" />
+    <PackageReference Include="xunit" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitRunnerVisualStudioPackageVersion)" />
+    <PackageReference Include="Snapshooter.Xunit" Version="$(SnapshooterXunitPackageVersion)" />
+  </ItemGroup>
+
+</Project>

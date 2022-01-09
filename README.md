@@ -1,15 +1,15 @@
-# HotChocolate.Extensions.ApolloFederation :coffee: :rocket:
+# HotChocolate.Extensions.ApolloSubgraph :coffee: :rocket:
 
 This package extends the [HotChocolate GraphQL server][HotChocolate] with support for [Apollo Federation][ApolloFederation].
 
 ## Getting Started
 
-Add the Apollo Federation support to the schema by using the `AddApolloFederation` extension method when configuring services
+Add the Apollo Federation support to the schema by using the `AddApolloSubgraph` extension method when configuring services
 during start-up, e.g.
 
 ```csharp
 services.AddGraphQLServer()
-  .AddApolloFederation();
+  .AddApolloSubgraph();
 ```
 
 The package supports all three paradigms for writing subgraphs in HotChocolate.
@@ -54,7 +54,7 @@ public class UserType : ObjectType<User>
 }
 ```
 
-See [CodeFirstTest.cs](test/ApolloFederation.Tests/Integration/Reviews/CodeFirstTest.cs) for a complete example.
+See [CodeFirstTest.cs](test/ApolloSubgraph.Tests/Integration/Reviews/CodeFirstTest.cs) for a complete example.
 
 ### Annotations-based
 
@@ -101,7 +101,7 @@ public sealed record User
 
 You can also use the `GraphQLEntityResolver` attribute to use an alternative name or if you wish to be more explicit.
 
-See [AnnotationsTest.cs](test/ApolloFederation.Tests/Integration/Reviews/AnnotationsTest.cs) for a complete example.
+See [AnnotationsTest.cs](test/ApolloSubgraph.Tests/Integration/Reviews/AnnotationsTest.cs) for a complete example.
 
 ### Schema-first
 
@@ -119,7 +119,7 @@ The schema-first approach uses attributes to decorate bound types and a func-bas
 
 ```csharp
 services.AddGraphQLServer()
-  .AddApolloFederation()
+  .AddApolloSubgraph()
   .AddDocumentFromString(@"
       type User @extends @key(fields: ""id"") {
           id: ID! @external
@@ -159,7 +159,7 @@ public record User(string Id, string Username = null)
 }
 ```
 
-See [SchemaFirstTest.cs](test/ApolloFederation.Tests/Integration/Reviews/SchemaFirstTest.cs) for a complete example.
+See [SchemaFirstTest.cs](test/ApolloSubgraph.Tests/Integration/Reviews/SchemaFirstTest.cs) for a complete example.
 
 ## Entity Resolvers
 

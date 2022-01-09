@@ -8,8 +8,7 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// <summary>
 /// The <c>@key</c> indicates fields that can be used to uniquely identify and fetch an object or interface.
 /// </summary>
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface |
-                AttributeTargets.Property, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Property, AllowMultiple = true)]
 public sealed class GraphQLKeyAttribute : DescriptorAttribute
 {
     private readonly string? _fieldSet;
@@ -31,12 +30,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
         switch (descriptor)
         {
             case IObjectTypeDescriptor objectDescriptor when element is Type type:
-                VerifyFieldSet(type);
-                objectDescriptor.Key(_fieldSet!);
-                break;
-            case IInterfaceTypeDescriptor interfaceDescriptor when element is Type type:
-                VerifyFieldSet(type);
-                interfaceDescriptor.Key(_fieldSet!);
+                Configure(type, objectDescriptor);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
                 fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
@@ -45,13 +39,15 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
                 fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
                 break;
         }
+    }
 
-        void VerifyFieldSet(Type type)
+    private void Configure(Type type, IObjectTypeDescriptor descriptor)
+    {
+        if (string.IsNullOrWhiteSpace(_fieldSet))
         {
-            if (string.IsNullOrWhiteSpace(_fieldSet))
-            {
-                throw ThrowHelper.Key_FieldSet_CannotBeEmpty(type);
-            }
+            throw ThrowHelper.Key_FieldSet_CannotBeEmpty(type);
         }
+
+        descriptor.Key(_fieldSet!);
     }
 }

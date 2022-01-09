@@ -13,14 +13,9 @@ internal sealed class DirectiveTypeInterceptor : TypeInterceptor
         DefinitionBase? definition,
         IDictionary<string, object?> __)
     {
-        switch(definition)
+        if (definition is ObjectTypeDefinition x)
         {
-            case ObjectTypeDefinition x:
-                TryAddObjectDirective(x);
-                break;
-            case InterfaceTypeDefinition x:
-                TryAddInterfaceDirectives(x);
-                break;
+            TryAddObjectDirective(x);
         }
     }
 
@@ -52,17 +47,6 @@ internal sealed class DirectiveTypeInterceptor : TypeInterceptor
     }
 
     private static void TryAddObjectDirective(ObjectTypeDefinition definition)
-    {
-        foreach (var field in definition.Fields)
-        {
-            if (field.ContextData.ContainsKey(KeyDirectiveType.Names.InterceptorKey))
-            {
-                definition.Directives.Add(KeyDirectiveType.CreateDefinition(field.Name));
-            }
-        }
-    }
-
-    private static void TryAddInterfaceDirectives(InterfaceTypeDefinition definition)
     {
         foreach (var field in definition.Fields)
         {

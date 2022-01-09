@@ -142,9 +142,9 @@ public record User(string Id, string Username = null)
 }
 ```
 
-You can also use the convention-based resolver and add a `ResolveEntity` or `ResolveEntityAsync` method to the bound type:
+You can also use a convention-based resolver and add a `ResolveEntity` or `ResolveEntityAsync` method to the bound type:
 
-```
+```csharp
 public record User(string Id, string Username = null)
 {
     public IReadOnlyList<Review> GetReviews()

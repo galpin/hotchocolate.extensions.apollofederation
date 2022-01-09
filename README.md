@@ -1,5 +1,7 @@
 # HotChocolate.Extensions.ApolloSubgraph :coffee: :rocket:
 
+![Nuget](https://img.shields.io/nuget/v/HotChocolate.Extensions.ApolloSubgraph) ![GitHub](https://img.shields.io/github/license/galpin/hotchocolate.extensions.apollosubgraph)
+
 This package extends the [HotChocolate GraphQL server][HotChocolate] with support for building
 [Apollo Federation][ApolloFederation] subgraphs.
 

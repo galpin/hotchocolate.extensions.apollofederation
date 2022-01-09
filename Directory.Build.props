@@ -19,10 +19,14 @@
     <Authors>Martin Galpin, ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
     <PackageVersion>0.1.0$(PackageVersionSuffix)</PackageVersion>
-    <PackageLicense>MIT</PackageLicense>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/galpin/hotchocolate.extensions.apollosubgraph</PackageProjectUrl>
     <PackageTags>GraphQL HotChocolate Apollo Federation</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\LICENSE" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
 
   <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

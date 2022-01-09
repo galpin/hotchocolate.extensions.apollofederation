@@ -11,7 +11,11 @@ public class EntityTypeAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_object()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWhenSingle>());
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Product>();
+            builder.AddQueryType();
+        });
 
         var sut = schema.GetType<EntityType>("_Entity");
 
@@ -23,7 +27,12 @@ public class EntityTypeAnnotationsTests
     [Fact]
     public async Task When_key_is_specified_on_multiple_objects()
     {
-        var schema = await BuildSchemaAsync(x => x.AddQueryType<QueryWhenMultiple>());
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<Product>();
+            builder.AddObjectType<Review>();
+            builder.AddQueryType();
+        });
 
         var sut = schema.GetType<EntityType>("_Entity");
 
@@ -38,8 +47,9 @@ public class EntityTypeAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddQueryType<QueryWhenObjectExtension>();
+            builder.AddObjectType<ProductWhenObjectExtension>();
             builder.AddTypeExtension<ProductExtension>();
+            builder.AddQueryType();
         });
 
         var sut = schema.GetType<EntityType>("_Entity");
@@ -47,27 +57,6 @@ public class EntityTypeAnnotationsTests
         Assert.Collection(
             sut.Types.Values,
             x => Assert.Equal("Product", x.Name));
-    }
-
-    public class QueryWhenSingle
-    {
-        public Product? GetProduct(int id)
-        {
-            return default;
-        }
-    }
-
-    public class QueryWhenMultiple
-    {
-        public Product? GetProduct(int id)
-        {
-            return default;
-        }
-
-        public Review? GetReview(int id)
-        {
-            return default;
-        }
     }
 
     public class Product
@@ -80,14 +69,6 @@ public class EntityTypeAnnotationsTests
     public class Review
     {
         public int Id { get; set; }
-    }
-
-    public class QueryWhenObjectExtension
-    {
-        public ProductWhenObjectExtension? GetProduct(string upc)
-        {
-            return default;
-        }
     }
 
     [GraphQLName("Product")]

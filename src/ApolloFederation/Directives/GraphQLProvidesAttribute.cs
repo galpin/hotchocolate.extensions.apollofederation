@@ -50,7 +50,7 @@ public sealed class GraphQLProvidesAttribute : DescriptorAttribute
         }
     }
 
-    private void Configure(IObjectTypeDescriptor descriptor, MemberInfo type)
+    private void Configure(IObjectTypeDescriptor descriptor, Type type)
     {
         if (string.IsNullOrWhiteSpace(_field))
         {

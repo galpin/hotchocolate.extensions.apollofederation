@@ -30,7 +30,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
         switch (descriptor)
         {
             case IObjectTypeDescriptor objectDescriptor when element is Type type:
-                Configure(type, objectDescriptor);
+                Configure(objectDescriptor, type);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
                 fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
@@ -41,7 +41,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
         }
     }
 
-    private void Configure(Type type, IObjectTypeDescriptor descriptor)
+    private void Configure(IObjectTypeDescriptor descriptor, Type type)
     {
         if (string.IsNullOrWhiteSpace(_fieldSet))
         {

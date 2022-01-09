@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BuildNumber>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
     <BuildTag Condition="'$(GITHUB_ACTIONS)' == ''">local</BuildTag>

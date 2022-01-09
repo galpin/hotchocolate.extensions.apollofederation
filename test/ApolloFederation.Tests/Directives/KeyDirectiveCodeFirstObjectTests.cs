@@ -136,11 +136,42 @@ public class KeyDirectiveCodeFirstObjectTests
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
+    [Fact]
+    public async Task When_key_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType(x =>
+            {
+                x.Name("Product");
+                x.Field("upc").Type<NonNullType<StringType>>();
+            });
+            builder.AddTypeExtension<ProductTypeExtension>();
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<ObjectType>("Product");
+
+        Assert.Collection(
+            sut.Directives,
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
+    }
+
     private sealed record Product(string? Upc = "1")
     {
         public string? GetUpc()
         {
             return Upc;
+        }
+    }
+
+    private sealed class ProductTypeExtension : ObjectTypeExtension<Product>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
+        {
+            descriptor.Key(x => x.Upc);
+            descriptor.ResolveEntity(_ => new Product());
         }
     }
 }

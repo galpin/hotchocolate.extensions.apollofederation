@@ -62,6 +62,24 @@ public class KeyDirectiveAnnotationsObjectTests
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
+    [Fact]
+    public async Task When_key_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<ProductWhenKeyIsSpecifiedOnObjectExtension>();
+            builder.AddTypeExtension<ProductWhenKeyIsSpecifiedOnObjectExtensionExtension>();
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<ObjectType>("Product");
+
+        Assert.Collection(
+            sut.Directives,
+            x => AssertEx.Directive(x, x.Name, ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
+    }
+
     [GraphQLKey("upc")]
     [GraphQLName("Product")]
     public class ProductWhenKeyIsSpecifiedOnClass
@@ -83,5 +101,17 @@ public class KeyDirectiveAnnotationsObjectTests
     {
         [GraphQLKey]
         public string? Upc { get; set; }
+    }
+
+    [GraphQLName("Product")]
+    public class ProductWhenKeyIsSpecifiedOnObjectExtension
+    {
+        public string? Upc { get; set; }
+    }
+
+    [ExtendObjectType(typeof(ProductWhenKeyIsSpecifiedOnObjectExtension))]
+    [GraphQLKey("upc")]
+    public class ProductWhenKeyIsSpecifiedOnObjectExtensionExtension
+    {
     }
 }

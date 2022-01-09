@@ -1,4 +1,7 @@
+using HotChocolate.Language;
 using HotChocolate.Types;
+using HotChocolate.Types.Descriptors.Definitions;
+using DirectiveLocation = HotChocolate.Types.DirectiveLocation;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -16,6 +19,14 @@ public sealed class KeyDirectiveType : DirectiveType
 
         descriptor.Argument(Names.Fields)
             .Type<NonNullType<FieldSetType>>();
+    }
+
+    internal static DirectiveDefinition CreateDefinition(string fieldSet)
+    {
+        return new DirectiveDefinition(
+            new DirectiveNode(
+                Names.Key,
+                new ArgumentNode(Names.Fields, fieldSet)));
     }
 
     internal static class Names

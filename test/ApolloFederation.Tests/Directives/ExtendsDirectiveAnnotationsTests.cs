@@ -22,7 +22,26 @@ public class ExtendsDirectiveAnnotationsTests
         Assert.Collection(
             sut.Directives,
             x => AssertEx.Directive(x, "extends"),
-            x => AssertEx.Directive(x, "key", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
+    }
+
+    [Fact]
+    public async Task When_extends_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<ProductWhenObjectExtension>();
+            builder.AddTypeExtension<ProductExtension>();
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<ObjectType>(nameof(Product));
+
+        Assert.Collection(
+            sut.Directives,
+            x => AssertEx.Directive(x, "extends"),
+            x => AssertEx.Directive(x, "key", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
@@ -30,6 +49,19 @@ public class ExtendsDirectiveAnnotationsTests
     public class Product
     {
         [GraphQLKey]
-        public int Id { get; set; }
+        public string? Upc { get; set; }
+    }
+
+    [GraphQLName("Product")]
+    public class ProductWhenObjectExtension
+    {
+        public string? Upc { get; set; }
+    }
+
+    [ExtendObjectType(typeof(ProductWhenObjectExtension))]
+    [GraphQLExtends]
+    [GraphQLKey("upc")]
+    public class ProductExtension
+    {
     }
 }

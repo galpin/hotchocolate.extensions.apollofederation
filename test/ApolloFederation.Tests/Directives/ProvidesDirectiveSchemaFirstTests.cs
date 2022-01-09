@@ -9,7 +9,7 @@ namespace HotChocolate.Extensions.ApolloFederation.Directives;
 public class ProvidesDirectiveSchemaFirstTests
 {
     [Fact]
-    public async Task When_key_is_specified_on_object()
+    public async Task When_provides_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {

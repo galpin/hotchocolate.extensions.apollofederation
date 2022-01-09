@@ -40,11 +40,39 @@ internal static class ThrowHelper
                 .Build());
     }
 
+    public static SchemaException External_FieldSet_CannotBeEmpty(Type type)
+    {
+        return new SchemaException(
+            SchemaErrorBuilder.New()
+                .SetMessage(
+                    ThrowHelper_External_FieldSet_CannotBeEmpty,
+                    type.FullName ?? type.Name)
+                .Build());
+    }
+
+    public static SchemaException Provides_Field_CannotBeEmpty(MemberInfo member)
+    {
+        return new SchemaException(
+            SchemaErrorBuilder.New()
+                .SetMessage(ThrowHelper_Provides_Field_CannotBeEmpty)
+                .SetExtension(nameof(member), member)
+                .Build());
+    }
+
     public static SchemaException Provides_FieldSet_CannotBeEmpty(MemberInfo member)
     {
         return new SchemaException(
             SchemaErrorBuilder.New()
                 .SetMessage(ThrowHelper_Provides_FieldSet_CannotBeEmpty)
+                .SetExtension(nameof(member), member)
+                .Build());
+    }
+
+    public static SchemaException Requires_Field_CannotBeEmpty(MemberInfo member)
+    {
+        return new SchemaException(
+            SchemaErrorBuilder.New()
+                .SetMessage(ThrowHelper_Requires_Field_CannotBeEmpty)
                 .SetExtension(nameof(member), member)
                 .Build());
     }
@@ -88,6 +116,17 @@ internal static class ThrowHelper
             ErrorBuilder.New()
                 .SetMessage(ThrowHelper_Entities_Representation_Resolver_Error, typeName, exception.Message)
                 .SetException(exception)
+                .Build());
+    }
+
+    public static SchemaException Directive_Field_NotFound(string directive, string field)
+    {
+        return new SchemaException(
+            SchemaErrorBuilder.New()
+                .SetMessage(
+                    ThrowHelper_Directive_Field_NotFound,
+                    directive,
+                    field)
                 .Build());
     }
 }

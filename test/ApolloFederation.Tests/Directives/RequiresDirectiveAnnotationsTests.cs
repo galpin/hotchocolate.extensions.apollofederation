@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace HotChocolate.Extensions.ApolloFederation.Directives;
 public class RequiresDirectiveAnnotationsTests
 {
     [Fact]
-    public async Task Ctor_correctly_configures_directive()
+    public async Task When_requires_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -21,7 +22,25 @@ public class RequiresDirectiveAnnotationsTests
 
         Assert.Collection(
             sut.Fields["product"].Directives,
-            x => AssertEx.Directive(x, "requires", ("fields", "\"id\"")));
+            x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
+        await schema.QuerySdlAndMatchSnapshotAsync();
+    }
+
+    [Fact]
+    public async Task When_requires_is_specified_on_object_extension()
+    {
+        var schema = await BuildSchemaAsync(builder =>
+        {
+            builder.AddObjectType<ReviewWhenObjectExtension>();
+            builder.AddTypeExtension<ReviewExtension>();
+            builder.AddQueryType();
+        });
+
+        var sut = schema.GetType<ObjectType>(nameof(Review));
+
+        Assert.Collection(
+            sut.Fields["products"].Directives,
+            x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
@@ -36,7 +55,7 @@ public class RequiresDirectiveAnnotationsTests
         [GraphQLKey]
         public int Id { get; }
 
-        [GraphQLRequires("id")]
+        [GraphQLRequires("upc")]
         public Product Product { get; }
     }
 
@@ -48,5 +67,26 @@ public class RequiresDirectiveAnnotationsTests
         }
 
         public string Upc { get; }
+    }
+
+    [GraphQLName("Review")]
+    public class ReviewWhenObjectExtension
+    {
+        public ReviewWhenObjectExtension(int id, IReadOnlyList<Product> products)
+        {
+            Id = id;
+            Products = products;
+        }
+
+        public int Id { get; }
+
+        public IReadOnlyList<Product> Products { get; }
+    }
+
+    [ExtendObjectType(typeof(ReviewWhenObjectExtension))]
+    [GraphQLKey("id")]
+    [GraphQLRequires("products", "upc")]
+    public class ReviewExtension
+    {
     }
 }

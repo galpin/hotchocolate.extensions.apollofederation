@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using static HotChocolate.Extensions.ApolloFederation.ThrowHelper;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -19,7 +18,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
     /// Initializes a new instance of <see cref="GraphQLKeyAttribute"/>.
     /// </summary>
     /// <param name="fieldSet">
-    /// The field set that describes the key (can be <see langword="null"/> if the attribute is used on a property).
+    /// The field set that describes the key (can be <see langword="null"/> if the attribute is used on a field).
     /// </param>
     public GraphQLKeyAttribute(string? fieldSet = null)
     {
@@ -27,17 +26,17 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
     }
 
     /// <inheritdoc />
-    protected override void TryConfigure(IDescriptorContext _, IDescriptor descriptor,ICustomAttributeProvider element)
+    protected override void TryConfigure(IDescriptorContext _, IDescriptor descriptor, ICustomAttributeProvider element)
     {
         switch (descriptor)
         {
-            case IObjectTypeDescriptor objectDescriptor when element is Type objectType:
-                VerifyFieldSet(objectType);
+            case IObjectTypeDescriptor objectDescriptor when element is Type type:
+                VerifyFieldSet(type);
                 objectDescriptor.Key(_fieldSet!);
                 break;
-            case IInterfaceTypeDescriptor objectDescriptor when element is Type interfaceType:
-                VerifyFieldSet(interfaceType);
-                objectDescriptor.Key(_fieldSet!);
+            case IInterfaceTypeDescriptor interfaceDescriptor when element is Type type:
+                VerifyFieldSet(type);
+                interfaceDescriptor.Key(_fieldSet!);
                 break;
             case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
                 fieldDescriptor.SetContextData(KeyDirectiveType.Names.InterceptorKey, true);
@@ -51,7 +50,7 @@ public sealed class GraphQLKeyAttribute : DescriptorAttribute
         {
             if (string.IsNullOrWhiteSpace(_fieldSet))
             {
-                throw Key_FieldSet_CannotBeEmpty(type);
+                throw ThrowHelper.Key_FieldSet_CannotBeEmpty(type);
             }
         }
     }

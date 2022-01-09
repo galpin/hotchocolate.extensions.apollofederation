@@ -1,4 +1,7 @@
+using HotChocolate.Language;
 using HotChocolate.Types;
+using HotChocolate.Types.Descriptors.Definitions;
+using DirectiveLocation = HotChocolate.Types.DirectiveLocation;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -17,9 +20,18 @@ public sealed class RequiresDirectiveType : DirectiveType
             .Type<NonNullType<FieldSetType>>();
     }
 
+    internal static DirectiveDefinition CreateDefinition(string fieldSet)
+    {
+        return new DirectiveDefinition(
+            new DirectiveNode(
+                Names.Requires,
+                new ArgumentNode(Names.Fields, fieldSet)));
+    }
+
     internal static class Names
     {
         public const string Requires = "requires";
         public const string Fields = "fields";
+        public const string InterceptorKey = "ApolloFederation.RequiresDirective.InterceptorKey";
     }
 }

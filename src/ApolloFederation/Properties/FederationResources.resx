@@ -126,8 +126,17 @@
   <data name="ThrowHelper_Key_FieldSet_CannotBeEmpty" xml:space="preserve">
     <value>The key attribute is used on `{0}` without specifying the the field set.</value>
   </data>
+  <data name="ThrowHelper_External_FieldSet_CannotBeEmpty" xml:space="preserve">
+    <value>The external attribute is used on `{0}` without specifying the the field set.</value>
+  </data>
+  <data name="ThrowHelper_Provides_Field_CannotBeEmpty" xml:space="preserve">
+    <value>Field is null or empty on type</value>
+  </data>
   <data name="ThrowHelper_Provides_FieldSet_CannotBeEmpty" xml:space="preserve">
     <value>FieldSet is null or empty on type</value>
+  </data>
+  <data name="ThrowHelper_Requires_Field_CannotBeEmpty" xml:space="preserve">
+    <value>Field is null or empty on type</value>
   </data>
   <data name="ThrowHelper_Requires_FieldSet_CannotBeEmpty" xml:space="preserve">
     <value>FieldSet is null or empty on type</value>
@@ -143,5 +152,8 @@
   </data>
   <data name="ThrowHelper_Entities_Representation_Resolver_Error" xml:space="preserve">
     <value>The _entities resolver encountered an unexpected error resolving an entity for type `{0}`: {1}</value>
+  </data>
+  <data name="ThrowHelper_Directive_Field_NotFound" xml:space="preserve">
+    <value>The {0} attribute specified a field of `{1}` but no field was found.</value>
   </data>
 </root>

@@ -9,7 +9,7 @@ namespace HotChocolate.Extensions.ApolloFederation.Directives;
 public class RequiresDirectiveSchemaFirstTests
 {
     [Fact]
-    public async Task Ctor_correctly_configures_directive()
+    public async Task When_requires_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {

@@ -63,9 +63,27 @@ namespace HotChocolate.Extensions.ApolloFederation.Properties {
             }
         }
         
+        internal static string ThrowHelper_External_FieldSet_CannotBeEmpty {
+            get {
+                return ResourceManager.GetString("ThrowHelper_External_FieldSet_CannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Provides_Field_CannotBeEmpty {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Provides_Field_CannotBeEmpty", resourceCulture);
+            }
+        }
+        
         internal static string ThrowHelper_Provides_FieldSet_CannotBeEmpty {
             get {
                 return ResourceManager.GetString("ThrowHelper_Provides_FieldSet_CannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Requires_Field_CannotBeEmpty {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Requires_Field_CannotBeEmpty", resourceCulture);
             }
         }
         
@@ -80,22 +98,28 @@ namespace HotChocolate.Extensions.ApolloFederation.Properties {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Missing", resourceCulture);
             }
         }
-
+        
         internal static string ThrowHelper_Entities_Representation_Typename_Invalid {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Typename_Invalid", resourceCulture);
             }
         }
-
+        
         internal static string ThrowHelper_Entities_Representation_Entity_NotFound {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Entity_NotFound", resourceCulture);
             }
         }
-
+        
         internal static string ThrowHelper_Entities_Representation_Resolver_Error {
             get {
                 return ResourceManager.GetString("ThrowHelper_Entities_Representation_Resolver_Error", resourceCulture);
+            }
+        }
+        
+        internal static string ThrowHelper_Directive_Field_NotFound {
+            get {
+                return ResourceManager.GetString("ThrowHelper_Directive_Field_NotFound", resourceCulture);
             }
         }
     }

@@ -1,7 +1,7 @@
+using System;
 using System.Reflection;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using static HotChocolate.Extensions.ApolloFederation.ThrowHelper;
 
 namespace HotChocolate.Extensions.ApolloFederation;
 
@@ -9,8 +9,11 @@ namespace HotChocolate.Extensions.ApolloFederation;
 /// The <c>@provides</c> directive is used to annotate the expected returned field set from a field on a base type
 /// that is guaranteed to be selectable by the gateway.
 /// </summary>
-public sealed class GraphQLProvidesAttribute : ObjectFieldDescriptorAttribute
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface |
+                AttributeTargets.Property, AllowMultiple = true)]
+public sealed class GraphQLProvidesAttribute : DescriptorAttribute
 {
+    private readonly string? _field;
     private readonly string _fieldSet;
 
     /// <summary>
@@ -22,13 +25,43 @@ public sealed class GraphQLProvidesAttribute : ObjectFieldDescriptorAttribute
         _fieldSet = fieldSet;
     }
 
-    /// <inheritdoc />
-    public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
+    /// <summary>
+    /// Initializes a new instance of <see cref="GraphQLProvidesAttribute"/>.
+    /// </summary>
+    /// <param name="field">The field on which to set the directive.</param>
+    /// <param name="fieldSet">The field set that is guaranteed to be selectable by the gateway.</param>
+    public GraphQLProvidesAttribute(string field, string fieldSet)
+        : this(fieldSet)
     {
+        _field = field;
+    }
+
+    /// <inheritdoc />
+    protected override void TryConfigure(IDescriptorContext _, IDescriptor descriptor, ICustomAttributeProvider element)
+    {
+        switch (descriptor)
+        {
+            case IObjectTypeDescriptor objectDescriptor when element is Type type:
+                Configure(objectDescriptor, type);
+                break;
+            case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
+                fieldDescriptor.Provides(_fieldSet);
+                break;
+        }
+    }
+
+    private void Configure(IObjectTypeDescriptor descriptor, MemberInfo type)
+    {
+        if (string.IsNullOrWhiteSpace(_field))
+        {
+            throw ThrowHelper.Provides_Field_CannotBeEmpty(type);
+        }
         if (string.IsNullOrWhiteSpace(_fieldSet))
         {
-            throw Provides_FieldSet_CannotBeEmpty(member);
+            throw ThrowHelper.Provides_FieldSet_CannotBeEmpty(type);
         }
-        descriptor.Provides(_fieldSet);
+
+        const string key = ProvidesDirectiveType.Names.InterceptorKey;
+        descriptor.AppendContextData(key, new DirectiveTypeInterceptorField(_field!, _fieldSet));
     }
 }

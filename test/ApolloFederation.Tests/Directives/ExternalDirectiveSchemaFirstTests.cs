@@ -9,7 +9,7 @@ namespace HotChocolate.Extensions.ApolloFederation.Directives;
 public class ExternalDirectiveSchemaFirstTests
 {
     [Fact]
-    public async Task When_extends_is_specified_on_object()
+    public async Task When_external_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {

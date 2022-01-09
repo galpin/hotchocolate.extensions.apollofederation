@@ -51,6 +51,15 @@ public static class DictionaryExtensions
     }
 
     internal static bool TryGetValue<TResult>(
+        this ExtensionData source,
+        string key,
+        out TResult? result)
+    {
+        var data = (IDictionary<string, object?>)source;
+        return TryGetValue(data, key, out result);
+    }
+
+    internal static bool TryGetValue<TResult>(
         this IDictionary<string, object?> source,
         string key,
         out TResult? result)

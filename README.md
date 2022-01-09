@@ -1,6 +1,7 @@
 # HotChocolate.Extensions.ApolloSubgraph :coffee: :rocket:
 
-This package extends the [HotChocolate GraphQL server][HotChocolate] with support for [Apollo Federation][ApolloFederation].
+This package extends the [HotChocolate GraphQL server][HotChocolate] with support for building
+[Apollo Federation][ApolloFederation] subgraphs.
 
 ## Getting Started
 
@@ -56,6 +57,24 @@ public class UserType : ObjectType<User>
 
 See [CodeFirstTest.cs](test/ApolloSubgraph.Tests/Integration/Reviews/CodeFirstTest.cs) for a complete example.
 
+#### Type Extensions
+
+The federation directives and entity resolver can also be specified using a type extension if you cannot modify the
+original types.
+
+```csharp
+public class UserTypeExtension : ObjectTypeExtension<User>
+{
+    protected override void Configure(IObjectTypeDescriptor<User> descriptor)
+    {
+        descriptor.Extends();
+        descriptor.Key(x => x.Id);
+        descriptor.Field(x => x.Username).External();
+        descriptor.ResolveEntity(x => new User(x.Representation.GetValue<string>("id")));
+    }
+}
+```
+
 ### Annotations-based
 
 The annotations-based approach uses attributes to decorate types and a convention-based entity resolver method.
@@ -65,7 +84,11 @@ The annotations-based approach uses attributes to decorate types and a conventio
 * The type properties can specify the `@key`, `@provides` and `@requires` directives using the `GraphQLKey`,
   `GraphQLProvides` and `GraphQLRequires` attributes.
 
-* The reference resolver for the entity can be specified using the `ResolveEntity` extension method.
+* The reference resolver for the entity is be specified by adding a `ResolveEntity` (returns `T`) or
+  `ResolveEntityAsync` (returns `Task<T>`) method to the type.
+
+  If you want to use a different method name or prefer to be explicit, the `EntityResolver` attribute can be used
+  to annotate method with a matching signature.
 
 #### Example User Type (Annotations-based)
 
@@ -99,9 +122,26 @@ public sealed record User
 }
 ```
 
-You can also use the `GraphQLEntityResolver` attribute to use an alternative name or if you wish to be more explicit.
-
 See [AnnotationsTest.cs](test/ApolloSubgraph.Tests/Integration/Reviews/AnnotationsTest.cs) for a complete example.
+
+#### Type Extensions
+
+The federation directives and entity resolver can also be specified using a type extension if you cannot modify the
+original types.
+
+```csharp
+[ExtendObjectType(typeof(User))]
+[GraphQLExtends]
+[GraphQLKey("upc")]
+[GraphQLExternal("username")]
+public class UserExtensions
+{
+    public static User ResolveEntity(IEntityResolverContext context)
+    {
+        return new User(context.Representation.GetValue<string>("id"));
+    }
+}
+```
 
 ### Schema-first
 
@@ -142,7 +182,8 @@ public record User(string Id, string Username = null)
 }
 ```
 
-You can also use a convention-based resolver and add a `ResolveEntity` or `ResolveEntityAsync` method to the bound type:
+The convention-based entity resolver will be used if a `ResolveEntity` or `ResolveEntityAsync` method is added to the
+bound type.
 
 ```csharp
 public record User(string Id, string Username = null)
@@ -169,13 +210,10 @@ entity by its `@key` fields.
 Entity resolvers are represented by the `EntityResolverDelegate` and are invoked with a context that provides access
 to the representation specified in the query to the `_entities` field.
 
-The delegate is asynchronous but overloads are also provided for resolvers which are synchronous. The convention-based
-method supports both `ResolveEntity` (returns `T`) and `ResolveEntityAsync` (returns `Task<T>`) signatures.
+The delegate is asynchronous but overloads are also provided for resolvers which are synchronous.
 
-## Thanks
-
-The starting point for the package was based on the erstwhile implementation in the [HotChocolate repo][HotChocolate]
-(@michaelstaib, @dillanman, @fredericbirke).
+The convention-based method supports either `ResolveEntity` (returns `T`) and `ResolveEntityAsync` (returns `Task<T>`)
+signatures, or any method name if a matching method is annotated with the `EntityResolver` attribute.
 
 [HotChocolate]: https://github.com/ChilliCream/hotchocolate
 [ApolloFederation]: https://www.apollographql.com/docs/federation/

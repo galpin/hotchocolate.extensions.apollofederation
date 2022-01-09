@@ -7,7 +7,7 @@
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
     <BuildTag Condition="'$(GITHUB_ACTIONS)' == ''">local</BuildTag>
     <BuildTag Condition="'$(GITHUB_ACTIONS)' == 'true'">preview</BuildTag>
-    <Version Condition="$(Version) == ''">0.0.0.$(BuildNumber)</Version>
+    <Version Condition="$(Version) == ''">0.1.0.$(BuildNumber)</Version>
     <PackageVersionSuffix Condition="'$(BuildTag)' != ''">-$(BuildTag)$(BuildNumber)</PackageVersionSuffix>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -18,7 +18,7 @@
     <Product>HotChocolate.Extensions.ApolloSubgraph</Product>
     <Authors>Martin Galpin, ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
-    <PackageVersion>0.0.0$(PackageVersionSuffix)</PackageVersion>
+    <PackageVersion>0.1.0$(PackageVersionSuffix)</PackageVersion>
     <PackageLicense>MIT</PackageLicense>
     <PackageProjectUrl>https://github.com/galpin/hotchocolate.extensions.apollosubgraph</PackageProjectUrl>
     <PackageTags>GraphQL HotChocolate Apollo Federation</PackageTags>

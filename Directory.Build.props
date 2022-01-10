@@ -16,8 +16,10 @@
 
   <PropertyGroup>
     <Product>HotChocolate.Extensions.ApolloSubgraph</Product>
+    <Title>HotChocolate.Extensions.ApolloSubgraph</Title>
     <Authors>Martin Galpin, ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
+    <PackageDescription>Apollo Federation support for the HotChocolate GraphQL server ☕ 🚀.</PackageDescription>
     <PackageVersion>0.1.0$(PackageVersionSuffix)</PackageVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

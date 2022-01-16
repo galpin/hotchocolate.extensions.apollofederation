@@ -16,9 +16,9 @@ public class AnnotationsTest : ReviewsTestBase
             .AddGraphQL()
             .AddApolloSubgraph()
             .AddQueryType()
-            .AddObjectType<Review>()
-            .AddObjectType<User>()
-            .AddObjectType<Product>();
+            .AddType<Review>()
+            .AddType<User>()
+            .AddType<Product>();
     }
 
     public sealed record Review

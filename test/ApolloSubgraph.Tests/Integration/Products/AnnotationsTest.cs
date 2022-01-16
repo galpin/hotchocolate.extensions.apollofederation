@@ -14,10 +14,10 @@ public class AnnotationsTest : ProductsTestBase
             .AddSingleton<ProductsRepository>()
             .AddGraphQL()
             .AddApolloSubgraph()
-            .BindRuntimeType<Product>()
-            .BindRuntimeType<ProductDimension>()
-            .BindRuntimeType<ProductVariation>()
-            .BindRuntimeType<User>()
+            .AddType<Product>()
+            .AddType<ProductDimension>()
+            .AddType<ProductVariation>()
+            .AddType<User>()
             .AddQueryType<Query>();
     }
 

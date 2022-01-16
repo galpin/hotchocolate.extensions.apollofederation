@@ -47,17 +47,17 @@ public sealed class QueryTypeExtension : ObjectTypeExtension
             .Resolve(new object());
     }
 
-    private async Task<IReadOnlyList<object?>> ResolveEntitiesAsync(IResolverContext context)
+    private Task<object?[]> ResolveEntitiesAsync(IResolverContext context)
     {
         var representations = context.ArgumentValue<object[]>(Names.Representations);
-        var entities = new List<object?>(representations.Length);
+        var tasks = new List<Task<object?>>(representations.Length);
         foreach (IReadOnlyDictionary<string, object?> representation in representations)
         {
-            entities.Add(await ResolveAsync(representation).ConfigureAwait(false));
+            tasks.Add(ResolveAsync(representation));
         }
-        return entities;
+        return Task.WhenAll(tasks);
 
-        async ValueTask<object?> ResolveAsync(IReadOnlyDictionary<string, object?> representation)
+        async Task<object?> ResolveAsync(IReadOnlyDictionary<string, object?> representation)
         {
             if (!representation.TryGetValue(Names.Typename, out var value))
             {

@@ -11,7 +11,7 @@ public class AnyTypeTests
     [Fact]
     public async Task Ctor_correctly_configures_object()
     {
-        var schema = await BuildSchemaAsync();
+        var schema = await BuildEmptySchemaAsync();
 
         var sut = schema.GetType<AnyType>("_Any");
 
@@ -24,7 +24,7 @@ public class AnyTypeTests
         string representation,
         IReadOnlyDictionary<string, object?> expected)
     {
-        var schema = await BuildSchemaAsync();
+        var schema = await BuildEmptySchemaAsync();
         var sut = schema.GetType<AnyType>("_Any");
         var @object = Syntax.ParseObjectLiteral(representation);
 

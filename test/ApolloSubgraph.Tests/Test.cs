@@ -26,7 +26,7 @@ internal static class Test
         return await builder.BuildRequestExecutorAsync();
     }
 
-    public static async Task<ISchema> BuildSchemaAsync()
+    public static async Task<ISchema> BuildEmptySchemaAsync()
     {
         return await BuildSchemaAsync(builder =>
         {

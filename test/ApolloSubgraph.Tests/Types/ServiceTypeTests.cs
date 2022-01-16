@@ -9,7 +9,7 @@ public class ServiceTypeTests
     [Fact]
     public async Task Ctor_correctly_configures_object()
     {
-        var schema = await BuildSchemaAsync();
+        var schema = await BuildEmptySchemaAsync();
 
         var sut = schema.GetType<ServiceType>("_Service");
 

@@ -6,18 +6,22 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class ExtendsDirectiveAnnotationsTests
+public class ExtendsDirectiveCodeFirstObjectTests
 {
     [Fact]
     public async Task When_extends_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Product>();
+            builder.AddObjectType(x =>
+            {
+                x.Name("Product").Extends();
+                x.Field("upc").Key().Type<NonNullType<StringType>>();
+            });
             builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>(nameof(Product));
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
@@ -31,12 +35,16 @@ public class ExtendsDirectiveAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenObjectExtension>();
-            builder.AddTypeExtension<ProductExtension>();
+            builder.AddObjectType(x =>
+            {
+                x.Name("Product");
+                x.Field("upc").Type<NonNullType<StringType>>();
+            });
+            builder.AddTypeExtension<ProductTypeExtension>();
             builder.AddQueryType();
         });
 
-        var sut = schema.GetType<ObjectType>(nameof(Product));
+        var sut = schema.GetType<ObjectType>("Product");
 
         Assert.Collection(
             sut.Directives,
@@ -45,23 +53,14 @@ public class ExtendsDirectiveAnnotationsTests
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
-    [GraphQLExtends]
-    public class Product
-    {
-        [GraphQLKey]
-        public string? Upc { get; set; }
-    }
+    private sealed record Product(string? Upc = "1");
 
-    [GraphQLName("Product")]
-    public class ProductWhenObjectExtension
+    private sealed class ProductTypeExtension : ObjectTypeExtension<Product>
     {
-        public string? Upc { get; set; }
-    }
-
-    [ExtendObjectType(typeof(ProductWhenObjectExtension))]
-    [GraphQLExtends]
-    [GraphQLKey("upc")]
-    public class ProductExtension
-    {
+        protected override void Configure(IObjectTypeDescriptor<Product> descriptor)
+        {
+            descriptor.Extends();
+            descriptor.Key(x => x.Upc);
+        }
     }
 }

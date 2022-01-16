@@ -43,7 +43,10 @@ public sealed class GraphQLRequiresAttribute : DescriptorAttribute
             case IObjectTypeDescriptor objectDescriptor when element is Type type:
                 Configure(objectDescriptor, type);
                 break;
-            case IObjectFieldDescriptor fieldDescriptor when element is MemberInfo:
+            case IInterfaceFieldDescriptor fieldDescriptor:
+                fieldDescriptor.Requires(_fieldSet);
+                break;
+            case IObjectFieldDescriptor fieldDescriptor:
                 fieldDescriptor.Requires(_fieldSet);
                 break;
         }

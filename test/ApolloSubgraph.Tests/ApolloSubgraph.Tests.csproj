@@ -17,4 +17,8 @@
     <PackageReference Include="Snapshooter.Xunit" Version="$(SnapshooterXunitPackageVersion)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Directives\__snapshots__" />
+  </ItemGroup>
+
 </Project>

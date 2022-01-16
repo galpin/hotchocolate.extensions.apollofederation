@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "type Product {\n  upc: String\n}\n\ntype Review @key(fields: \u0022id\u0022) @key(fields: \u0022id\u0022) {\n  id: Int!\n  product: Product! @requires(fields: \u0022upc\u0022)\n}"
+    }
+  }
+}

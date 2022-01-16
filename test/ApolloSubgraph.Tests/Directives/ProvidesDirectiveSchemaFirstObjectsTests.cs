@@ -6,28 +6,32 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class ExternalDirectiveSchemaFirstTests
+public class ProvidesDirectiveSchemaFirstObjectsTests
 {
     [Fact]
-    public async Task When_external_is_specified_on_object()
+    public async Task When_provides_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
             builder.AddDocumentFromString(@"
+                type Review @key(fields: ""id"") {
+                     id: Int
+                     products: [Product!]! @provides(fields: ""name"")
+                }
+
                 type Product @key(fields: ""upc"") {
-                     upc: String!
-                     id: String @external
+                     upc: String
                 }
 
                 type Query
             ");
         });
 
-        var sut = schema.GetType<ObjectType>("Product");
+        var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
-            sut.Fields["id"].Directives,
-            x => Assert.Equal("external", x.Name));
+            sut.Fields["products"].Directives,
+            x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 }

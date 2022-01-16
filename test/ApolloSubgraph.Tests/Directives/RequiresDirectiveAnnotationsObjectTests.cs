@@ -7,10 +7,10 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class ProvidesDirectiveAnnotationsTests
+public class RequiresDirectiveAnnotationsObjectTests
 {
     [Fact]
-    public async Task When_provides_is_specified_on_object()
+    public async Task When_requires_is_specified_on_object()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -21,13 +21,13 @@ public class ProvidesDirectiveAnnotationsTests
         var sut = schema.GetType<ObjectType>(nameof(Review));
 
         Assert.Collection(
-            sut.Fields["products"].Directives,
-            x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
+            sut.Fields["product"].Directives,
+            x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     [Fact]
-    public async Task When_provides_is_specified_on_object_extension()
+    public async Task When_requires_is_specified_on_object_extension()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -40,24 +40,23 @@ public class ProvidesDirectiveAnnotationsTests
 
         Assert.Collection(
             sut.Fields["products"].Directives,
-            x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
+            x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
 
     public class Review
     {
-        public Review(int id, IReadOnlyList<Product> products)
+        public Review(int id, Product product)
         {
             Id = id;
-            Products = products;
+            Product = product;
         }
 
         [GraphQLKey]
-        [GraphQLExternal]
         public int Id { get; }
 
-        [GraphQLProvides("name")]
-        public IReadOnlyList<Product> Products { get; }
+        [GraphQLRequires("upc")]
+        public Product Product { get; }
     }
 
     public class Product
@@ -67,8 +66,6 @@ public class ProvidesDirectiveAnnotationsTests
             Upc = upc;
         }
 
-        [GraphQLKey]
-        [GraphQLExternal]
         public string Upc { get; }
     }
 
@@ -88,7 +85,7 @@ public class ProvidesDirectiveAnnotationsTests
 
     [ExtendObjectType(typeof(ReviewWhenObjectExtension))]
     [GraphQLKey("id")]
-    [GraphQLProvides("products", "name")]
+    [GraphQLRequires("products", "upc")]
     public class ReviewExtension
     {
     }

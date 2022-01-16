@@ -6,7 +6,7 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class ProvidesDirectiveCodeFirstTests
+public class ProvidesDirectiveCodeFirstObjectsTests
 {
     [Fact]
     public async Task When_provides_is_specified_on_object()
@@ -17,7 +17,7 @@ public class ProvidesDirectiveCodeFirstTests
             {
                 x.Name("Review");
                 x.Field("id").Key().Type<IntType>();
-                x.Field("product").Type("Product").Provides("name");
+                x.Field("products").Type("[Product!]!").Provides("name");
             });
             builder.AddObjectType(x =>
             {
@@ -30,7 +30,7 @@ public class ProvidesDirectiveCodeFirstTests
         var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
-            sut.Fields["product"].Directives,
+            sut.Fields["products"].Directives,
             x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
@@ -44,7 +44,7 @@ public class ProvidesDirectiveCodeFirstTests
             {
                 x.Name("Review");
                 x.Field("id").Type<IntType>();
-                x.Field("product").Type("Product");
+                x.Field("products").Type("[Product!]!");
             });
             builder.AddObjectType(x =>
             {
@@ -58,7 +58,7 @@ public class ProvidesDirectiveCodeFirstTests
         var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
-            sut.Fields["product"].Directives,
+            sut.Fields["products"].Directives,
             x => AssertEx.Directive(x, "provides", ("fields", "\"name\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
@@ -69,7 +69,7 @@ public class ProvidesDirectiveCodeFirstTests
         {
             descriptor.Name("Review");
             descriptor.Key("id");
-            descriptor.Field("product").Provides("name");
+            descriptor.Field("products").Provides("name");
         }
     }
 }

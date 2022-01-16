@@ -6,7 +6,7 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class RequiresDirectiveCodeFirstTests
+public class RequiresDirectiveCodeFirstObjectTests
 {
     [Fact]
     public async Task When_requires_is_specified_on_object()
@@ -16,8 +16,8 @@ public class RequiresDirectiveCodeFirstTests
             builder.AddObjectType(x =>
             {
                 x.Name("Review").Key("id");
-                x.Field("id").Type<IntType>();
-                x.Field("products").Type("[Product]").Requires("upc");
+                x.Field("id").Key().Type<NonNullType<IntType>>();
+                x.Field("product").Type("Product!").Requires("upc");
             });
             builder.AddObjectType(x =>
             {
@@ -30,7 +30,7 @@ public class RequiresDirectiveCodeFirstTests
         var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
-            sut.Fields["products"].Directives,
+            sut.Fields["product"].Directives,
             x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
@@ -43,8 +43,8 @@ public class RequiresDirectiveCodeFirstTests
             builder.AddObjectType(x =>
             {
                 x.Name("Review");
-                x.Field("id").Type<IntType>();
-                x.Field("products").Type("[Product]");
+                x.Field("id").Key().Type<NonNullType<IntType>>();
+                x.Field("product").Type("Product!");
             });
             builder.AddObjectType(x =>
             {
@@ -58,7 +58,7 @@ public class RequiresDirectiveCodeFirstTests
         var sut = schema.GetType<ObjectType>("Review");
 
         Assert.Collection(
-            sut.Fields["products"].Directives,
+            sut.Fields["product"].Directives,
             x => AssertEx.Directive(x, "requires", ("fields", "\"upc\"")));
         await schema.QuerySdlAndMatchSnapshotAsync();
     }
@@ -69,7 +69,7 @@ public class RequiresDirectiveCodeFirstTests
         {
             descriptor.Name("Review");
             descriptor.Key("id");
-            descriptor.Field("products").Requires("upc");
+            descriptor.Field("product").Requires("upc");
         }
     }
 }

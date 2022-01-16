@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 
@@ -8,11 +9,19 @@ namespace HotChocolate.Extensions.ApolloSubgraph;
 /// The <c>@extends</c> directive is used to indicate a type extension.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface, AllowMultiple = true)]
-public sealed class GraphQLExtendsAttribute : ObjectTypeDescriptorAttribute
+public sealed class GraphQLExtendsAttribute : DescriptorAttribute
 {
     /// <inheritdoc />
-    public override void OnConfigure(IDescriptorContext context, IObjectTypeDescriptor descriptor, Type type)
+    protected override void TryConfigure(IDescriptorContext _, IDescriptor descriptor, ICustomAttributeProvider __)
     {
-        descriptor.Extends();
+        switch (descriptor)
+        {
+            case IObjectTypeDescriptor objectDescriptor:
+                objectDescriptor.Extends();
+                break;
+            case IInterfaceTypeDescriptor interfaceDescriptor:
+                interfaceDescriptor.Extends();
+                break;
+        }
     }
 }

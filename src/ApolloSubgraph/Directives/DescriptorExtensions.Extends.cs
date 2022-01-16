@@ -41,4 +41,41 @@ public static partial class DescriptorExtensions
 
         return descriptor.Directive(ExtendsDirectiveType.Names.Extends);
     }
+
+    /// <summary>
+    /// Specifies the <c>@extends</c> directive for the interface.
+    /// </summary>
+    /// <param name="descriptor">The interface type descriptor.</param>
+    /// <returns>The interface type descriptor.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="descriptor"/> is <see langword="null"/>.
+    /// </exception>
+    public static IInterfaceTypeDescriptor Extends(this IInterfaceTypeDescriptor descriptor)
+    {
+        if (descriptor is null)
+        {
+            throw new ArgumentNullException(nameof(descriptor));
+        }
+
+        return descriptor.Directive(ExtendsDirectiveType.Names.Extends);
+    }
+
+    /// <summary>
+    /// Specifies the <c>@extends</c> directive for the interface.
+    /// </summary>
+    /// <param name="descriptor">The interface type descriptor.</param>
+    /// <returns>The interface type descriptor.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="descriptor"/> is <see langword="null"/>.
+    /// </exception>
+    public static IInterfaceTypeDescriptor<TRuntimeType> Extends<TRuntimeType>(
+        this IInterfaceTypeDescriptor<TRuntimeType> descriptor)
+    {
+        if (descriptor is null)
+        {
+            throw new ArgumentNullException(nameof(descriptor));
+        }
+
+        return descriptor.Directive(ExtendsDirectiveType.Names.Extends);
+    }
 }

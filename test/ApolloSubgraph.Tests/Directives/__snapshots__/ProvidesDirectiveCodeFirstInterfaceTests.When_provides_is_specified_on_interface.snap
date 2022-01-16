@@ -1,0 +1,7 @@
+﻿{
+  "data": {
+    "_service": {
+      "sdl": "interface IReview @extends @key(fields: \u0022id\u0022) {\n  id: Int!\n  products: [Product!]! @provides(fields: \u0022name\u0022)\n}\n\ntype Product @key(fields: \u0022upc\u0022) {\n  upc: String\n}\n\ntype Review implements IReview @key(fields: \u0022id\u0022) {\n  id: Int!\n  products: [Product!]! @provides(fields: \u0022name\u0022)\n}"
+    }
+  }
+}

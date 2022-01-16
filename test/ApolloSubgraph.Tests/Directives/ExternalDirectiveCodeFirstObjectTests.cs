@@ -6,7 +6,7 @@ using static HotChocolate.Extensions.ApolloSubgraph.Test;
 
 namespace HotChocolate.Extensions.ApolloSubgraph.Directives;
 
-public class ExternalDirectiveCodeFirstTests
+public class ExternalDirectiveCodeFirstObjectTests
 {
     [Fact]
     public async Task When_external_is_specified_on_object()

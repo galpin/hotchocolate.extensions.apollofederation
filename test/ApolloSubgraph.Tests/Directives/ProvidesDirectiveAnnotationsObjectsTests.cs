@@ -14,7 +14,7 @@ public class ProvidesDirectiveAnnotationsObjectsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Review>();
+            builder.AddType<Review>();
             builder.AddQueryType();
         });
 
@@ -31,7 +31,7 @@ public class ProvidesDirectiveAnnotationsObjectsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ReviewWhenObjectExtension>();
+            builder.AddType<ReviewWhenObjectExtension>();
             builder.AddTypeExtension<ReviewExtension>();
             builder.AddQueryType();
         });

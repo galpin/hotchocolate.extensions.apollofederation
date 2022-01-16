@@ -14,7 +14,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenImmediateResolver>();
+            builder.AddType<ProductWhenImmediateResolver>();
             builder.AddQueryType();
         });
 
@@ -26,7 +26,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenTaskResolver>();
+            builder.AddType<ProductWhenTaskResolver>();
             builder.AddQueryType();
         });
 
@@ -39,7 +39,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenAsyncResolver>();
+            builder.AddType<ProductWhenAsyncResolver>();
             builder.AddQueryType();
         });
 
@@ -52,7 +52,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenMultipleResolvers>();
+            builder.AddType<ProductWhenMultipleResolvers>();
             builder.AddQueryType();
         });
 
@@ -64,7 +64,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenThrowingImmediateResolver>();
+            builder.AddType<ProductWhenThrowingImmediateResolver>();
             builder.AddQueryType();
         });
 
@@ -77,7 +77,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenThrowingAsyncResolver>();
+            builder.AddType<ProductWhenThrowingAsyncResolver>();
             builder.AddQueryType();
         });
 
@@ -89,7 +89,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenImmediateResolverReturnsNull>();
+            builder.AddType<ProductWhenImmediateResolverReturnsNull>();
             builder.AddQueryType();
         });
 
@@ -102,7 +102,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenTaskResolverReturnsNull>();
+            builder.AddType<ProductWhenTaskResolverReturnsNull>();
             builder.AddQueryType();
         });
 
@@ -115,7 +115,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenTaskResolverReturnsNullTask>();
+            builder.AddType<ProductWhenTaskResolverReturnsNullTask>();
             builder.AddQueryType();
         });
 
@@ -127,7 +127,7 @@ public class ResolveAnnotationsObjectTests : ResolveTestBase
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenAttributeAndImmediateResolver>();
+            builder.AddType<ProductWhenAttributeAndImmediateResolver>();
             builder.AddQueryType();
         });
 

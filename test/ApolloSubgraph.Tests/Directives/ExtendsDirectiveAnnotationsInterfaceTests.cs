@@ -13,8 +13,8 @@ public class ExtendsDirectiveAnnotationsInterfaceTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddInterfaceType<IProduct>();
-            builder.AddObjectType<Product>();
+            builder.AddType<IProduct>();
+            builder.AddType<Product>();
             builder.AddQueryType();
         });
 

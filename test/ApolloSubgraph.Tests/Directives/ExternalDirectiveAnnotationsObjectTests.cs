@@ -13,7 +13,7 @@ public class ExternalDirectiveAnnotationsObjectTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Product>();
+            builder.AddType<Product>();
             builder.AddQueryType();
         });
 

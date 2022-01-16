@@ -13,7 +13,7 @@ public class EntityTypeAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Product>();
+            builder.AddType<Product>();
             builder.AddQueryType();
         });
 
@@ -29,8 +29,8 @@ public class EntityTypeAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Product>();
-            builder.AddObjectType<Review>();
+            builder.AddType<Product>();
+            builder.AddType<Review>();
             builder.AddQueryType();
         });
 
@@ -47,7 +47,7 @@ public class EntityTypeAnnotationsTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenObjectExtension>();
+            builder.AddType<ProductWhenObjectExtension>();
             builder.AddTypeExtension<ProductExtension>();
             builder.AddQueryType();
         });

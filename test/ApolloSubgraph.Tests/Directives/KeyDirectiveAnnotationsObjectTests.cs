@@ -67,7 +67,7 @@ public class KeyDirectiveAnnotationsObjectTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenKeyIsSpecifiedOnObjectExtension>();
+            builder.AddType<ProductWhenKeyIsSpecifiedOnObjectExtension>();
             builder.AddTypeExtension<ProductWhenKeyIsSpecifiedOnObjectExtensionExtension>();
             builder.AddQueryType();
         });

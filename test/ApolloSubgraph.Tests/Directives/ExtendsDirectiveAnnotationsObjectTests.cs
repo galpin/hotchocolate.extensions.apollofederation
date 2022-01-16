@@ -13,7 +13,7 @@ public class ExtendsDirectiveAnnotationsObjectTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<Product>();
+            builder.AddType<Product>();
             builder.AddQueryType();
         });
 
@@ -31,7 +31,7 @@ public class ExtendsDirectiveAnnotationsObjectTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddObjectType<ProductWhenObjectExtension>();
+            builder.AddType<ProductWhenObjectExtension>();
             builder.AddTypeExtension<ProductExtension>();
             builder.AddQueryType();
         });

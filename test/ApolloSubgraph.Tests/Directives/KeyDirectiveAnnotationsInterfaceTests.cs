@@ -14,7 +14,7 @@ public class KeyDirectiveAnnotationsInterfaceTests
     {
         var schema = await BuildSchemaAsync(builder =>
         {
-            builder.AddInterfaceType<IProductWhenKeyIsSpecifiedOnClass>();
+            builder.AddType<IProductWhenKeyIsSpecifiedOnClass>();
             builder.AddObjectType(x => x.Name("Product").Field("upc").Key().Type<StringType>());
             builder.AddQueryType();
         });

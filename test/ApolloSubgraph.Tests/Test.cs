@@ -12,12 +12,18 @@ internal static class Test
 {
     public static async Task<ISchema> BuildSchemaAsync(Action<IRequestExecutorBuilder> configureExecutor)
     {
+        return (await BuildRequestExecutorAsync(configureExecutor)).Schema;
+    }
+
+    public static async Task<IRequestExecutor> BuildRequestExecutorAsync(
+        Action<IRequestExecutorBuilder> configureExecutor)
+    {
         var builder = new ServiceCollection()
             .AddGraphQL()
             .AddApolloSubgraph()
             .ConfigureSchema(x => x.UseFallback());
         configureExecutor(builder);
-        return await builder.BuildSchemaAsync();
+        return await builder.BuildRequestExecutorAsync();
     }
 
     public static async Task<ISchema> BuildSchemaAsync()

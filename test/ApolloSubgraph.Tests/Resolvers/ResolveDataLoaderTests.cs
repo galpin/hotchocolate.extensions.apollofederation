@@ -27,7 +27,7 @@ public class ResolveDataLoaderTests : ResolveTestBase
                 new Product("2"),
                 new Product("3"),
             });
-        var executor = await Ctx.BuildExecutorAsync();
+        var executor = await Ctx.BuildRequestExecutorAsync();
 
         await executor.ExecuteAndMatchSnapshotAsync(@"
         {
@@ -56,16 +56,15 @@ public class ResolveDataLoaderTests : ResolveTestBase
 
         public MockProductRepository Repository { get; }
 
-        public async Task<IRequestExecutor> BuildExecutorAsync()
+        public Task<IRequestExecutor> BuildRequestExecutorAsync()
         {
-            var services = new ServiceCollection()
-                .AddSingleton(Repository.Object)
-                .AddGraphQL()
-                .AddApolloSubgraph()
-                .AddQueryType()
-                .AddType<Product>()
-                .AddDataLoader<ProductDataLoader>();
-            return await services.BuildRequestExecutorAsync();
+            return Test.BuildRequestExecutorAsync(builder =>
+            {
+                builder.Services.AddSingleton(Repository.Object);
+                builder.AddQueryType();
+                builder.AddType<Product>();
+                builder.AddDataLoader<ProductDataLoader>();
+            });
         }
     }
 

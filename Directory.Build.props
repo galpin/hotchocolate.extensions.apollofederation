@@ -1,14 +1,16 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
+    <ReleaseVersion>0.2.0</ReleaseVersion>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BuildNumber>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
-    <BuildTag Condition="'$(GITHUB_ACTIONS)' == ''">local</BuildTag>
-    <BuildTag Condition="'$(GITHUB_ACTIONS)' == 'true'">preview</BuildTag>
-    <Version Condition="$(Version) == ''">0.2.0.$(BuildNumber)</Version>
-    <PackageVersionSuffix Condition="'$(BuildTag)' != ''">-$(BuildTag)$(BuildNumber)</PackageVersionSuffix>
+    <BuildTag Condition="'$(BUILD_TAG)' != ''">$(BUILD_TAG)</BuildTag>
+    <Version>$(ReleaseVersion).$(BuildNumber)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -20,7 +22,8 @@
     <Authors>Martin Galpin, ChilliCream authors and contributors</Authors>
     <Copyright>Copyright &#169; 2021 Martin Galpin &amp; ChilliCream (Michael &amp; Rafael Staib)</Copyright>
     <PackageDescription>Apollo Federation support for the HotChocolate GraphQL server ☕ 🚀.</PackageDescription>
-    <PackageVersion>0.2.0$(PackageVersionSuffix)</PackageVersion>
+    <PackageVersionSuffix Condition="'$(BuildTag)' != ''">-$(BuildTag)$(BuildNumber)</PackageVersionSuffix>
+    <PackageVersion>$(ReleaseVersion)$(PackageVersionSuffix)</PackageVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/galpin/hotchocolate.extensions.apollosubgraph</PackageProjectUrl>

@@ -18,11 +18,12 @@ internal sealed class EntityResolverSchemaInterceptor : SchemaInterceptor
         _entityResolverRegistry = entityResolverRegistry;
     }
 
-    public override void OnBeforeCreate(IDescriptorContext _, ISchemaBuilder schemaBuilder)
+    public override void OnBeforeCreate(IDescriptorContext context, ISchemaBuilder schemaBuilder)
     {
         foreach (var config in schemaBuilder.GetOrAddEntityResolvers())
         {
-            _entityResolverRegistry.Add(config.TypeName, config.Resolver);
+            var typeName = config.TypeName ?? context.Naming.GetTypeName(config.RuntimeType!);
+            _entityResolverRegistry.Add(typeName, config.Resolver);
         }
     }
 }

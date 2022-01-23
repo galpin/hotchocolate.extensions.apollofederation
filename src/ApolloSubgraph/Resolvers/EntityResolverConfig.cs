@@ -15,7 +15,24 @@ internal sealed class EntityResolverConfig
         Resolver = resolver;
     }
 
-    public NameString TypeName { get; }
+    public EntityResolverConfig(Type? runtimeType, EntityResolverDelegate resolver)
+    {
+        if (runtimeType is null)
+        {
+            throw new ArgumentNullException(nameof(runtimeType));
+        }
+        if (resolver is null)
+        {
+            throw new ArgumentNullException(nameof(resolver));
+        }
+
+        Resolver = resolver;
+        RuntimeType = runtimeType;
+    }
+
+    public NameString? TypeName { get; }
+
+    public Type? RuntimeType { get; }
 
     public EntityResolverDelegate Resolver { get; }
 

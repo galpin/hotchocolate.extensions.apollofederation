@@ -90,8 +90,7 @@ public static partial class RequestExecutorBuilderExtensions
             throw new ArgumentNullException(nameof(resolver));
         }
 
-        var typeName = typeof(TRuntimeType).Name;
-        return builder.AddEntityResolver(typeName, resolver);
+        return builder.ConfigureSchema(x => x.AddEntityResolver(resolver));
     }
 
     /// <summary>
@@ -118,7 +117,6 @@ public static partial class RequestExecutorBuilderExtensions
             throw new ArgumentNullException(nameof(resolver));
         }
 
-        var typeName = typeof(TRuntimeType).Name;
-        return builder.AddEntityResolver(typeName, resolver);
+        return builder.ConfigureSchema(x => x.AddEntityResolver(resolver));
     }
 }

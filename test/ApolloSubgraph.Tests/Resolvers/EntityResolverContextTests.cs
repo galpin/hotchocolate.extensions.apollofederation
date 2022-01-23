@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -46,6 +47,17 @@ public class EntityResolverContextTests
          Assert.Throws<InvalidOperationException>(() => Ctx.Sut.Service<MyOtherService>());
      }
 
+     [Fact]
+     public void RequestAborted_returns_field_cancellation_token()
+     {
+         var cts = new CancellationTokenSource();
+         Ctx.FieldContext.SetupRequestAborted(cts.Token);
+
+         cts.Cancel();
+
+         Assert.True(Ctx.Sut.RequestAborted.IsCancellationRequested);
+     }
+
      private sealed class Context
     {
         public Context()
@@ -79,6 +91,11 @@ public class EntityResolverContextTests
         }
 
         public IResolverContext Object => _mock.Object;
+
+        public void SetupRequestAborted(CancellationToken token)
+        {
+            _mock.SetupGet(x => x.RequestAborted).Returns(token);
+        }
     }
 
     private sealed class MyService

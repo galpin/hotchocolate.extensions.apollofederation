@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using HotChocolate.Resolvers;
 
 namespace HotChocolate.Extensions.ApolloSubgraph;
@@ -23,6 +24,11 @@ public interface IEntityResolverContext
     /// Gets the entity representation (provided to the <c>_entities</c> field).
     /// </summary>
     IReadOnlyDictionary<string, object?> Representation { get; }
+
+    /// <summary>
+    /// Gets a cancellation token that notifies when the request is cancelled.
+    /// </summary>
+    CancellationToken RequestAborted { get; }
 
     /// <summary>
     /// Gets a required service from the service provider.

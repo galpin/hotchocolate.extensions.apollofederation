@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,8 @@ internal sealed class EntityResolverContext : IEntityResolverContext
     public IServiceProvider Services => FieldContext.Services;
 
     public IReadOnlyDictionary<string, object?> Representation { get; }
+
+    public CancellationToken RequestAborted => FieldContext.RequestAborted;
 
     public T Service<T>()
     {

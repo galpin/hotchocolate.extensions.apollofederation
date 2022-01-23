@@ -26,6 +26,25 @@ internal static class SchemaBuilderExtensions
             EntityResolverDelegateFactory.Create(resolver));
     }
 
+    public static ISchemaBuilder AddEntityResolver<TEntity>(
+        this ISchemaBuilder builder,
+        Func<IEntityResolverContext, TEntity> resolver)
+    {
+        if (builder is null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+        if (resolver is null)
+        {
+            throw new ArgumentNullException(nameof(resolver));
+        }
+
+        return AddEntityResolverInternal(
+            builder,
+            typeof(TEntity),
+            EntityResolverDelegateFactory.Create(resolver));
+    }
+
     public static ISchemaBuilder AddEntityResolver<TReturn>(
         this ISchemaBuilder builder,
         NameString typeName,
@@ -46,6 +65,25 @@ internal static class SchemaBuilderExtensions
             EntityResolverDelegateFactory.Create(resolver));
     }
 
+    public static ISchemaBuilder AddEntityResolver<TReturn>(
+        this ISchemaBuilder builder,
+        Func<IEntityResolverContext, Task<TReturn?>> resolver)
+    {
+        if (builder is null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+        if (resolver is null)
+        {
+            throw new ArgumentNullException(nameof(resolver));
+        }
+
+        return AddEntityResolverInternal(
+            builder,
+            typeof(TReturn),
+            EntityResolverDelegateFactory.Create(resolver));
+    }
+
     public static List<EntityResolverConfig> GetOrAddEntityResolvers(this ISchemaBuilder builder)
     {
         const string key = EntityResolverConfig.Names.InterceptorKey;
@@ -63,8 +101,21 @@ internal static class SchemaBuilderExtensions
         NameString typeName,
         EntityResolverDelegate resolver)
     {
+        return AddEntityResolverInternal(builder, new EntityResolverConfig(typeName, resolver));
+    }
+
+    private static ISchemaBuilder AddEntityResolverInternal(
+        ISchemaBuilder builder,
+        Type runtimeType,
+        EntityResolverDelegate resolver)
+    {
+        return AddEntityResolverInternal(builder, new EntityResolverConfig(runtimeType, resolver));
+    }
+
+    private static ISchemaBuilder AddEntityResolverInternal(ISchemaBuilder builder, EntityResolverConfig config)
+    {
         var resolvers = builder.GetOrAddEntityResolvers();
-        resolvers.Add(new EntityResolverConfig(typeName, resolver));
+        resolvers.Add(config);
         return builder;
     }
 }

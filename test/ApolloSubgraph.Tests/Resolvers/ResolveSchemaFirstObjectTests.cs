@@ -11,7 +11,7 @@ namespace HotChocolate.Extensions.ApolloSubgraph.Resolvers;
 public class ResolveSchemaFirstObjectTests : ResolveTestBase
 {
     [Fact]
-    public async Task Resolve_and_immediate_resolver()
+    public async Task Resolve_when_immediate_resolver()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -23,7 +23,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_immediate_resolver_and_name_is_specified()
+    public async Task Resolve_when_immediate_resolver_and_name_is_specified()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -35,7 +35,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_task_resolver()
+    public async Task Resolve_when_task_resolver()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -47,7 +47,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_task_resolver_and_name_is_specified()
+    public async Task Resolve_when_task_resolver_and_name_is_specified()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -59,7 +59,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_async_resolver()
+    public async Task Resolve_when_async_resolver()
     {
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
@@ -76,7 +76,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_immediate_resolver_throws()
+    public async Task Resolve_when_immediate_resolver_throws()
     {
         var schema = await BuildSchemaAsync(builder =>
         {
@@ -93,7 +93,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
     }
 
     [Fact]
-    public async Task Resolve_and_resolver_throws()
+    public async Task Resolve_when_resolver_throws()
     {
         Snapshot.FullName();
         var schema = await BuildSchemaAsync(builder =>
@@ -134,6 +134,7 @@ public class ResolveSchemaFirstObjectTests : ResolveTestBase
 
     public sealed record Product(string Upc, string Id = "id");
 
+    [GraphQLName("Product")]
     public sealed record ProductWhenEntityResolver(string Upc, string Id = "id")
     {
         public static ProductWhenEntityResolver? ResolveEntity(IEntityResolverContext _)

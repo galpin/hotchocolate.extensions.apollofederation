@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <ReleaseVersion>0.2.0</ReleaseVersion>
+    <ReleaseVersion>0.3.0</ReleaseVersion>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</BuildNumber>
     <BuildNumber Condition="'$(GITHUB_RUN_NUMBER)' != ''">$(GITHUB_RUN_NUMBER)</BuildNumber>
     <BuildTag Condition="'$(BUILD_TAG)' != ''">$(BUILD_TAG)</BuildTag>

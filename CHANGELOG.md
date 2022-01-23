@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 (2022-01-23)
+
+* Add shortcut property for request cancellation token (`IResolveEntityContext.RequestAborted`).
+
 ## 0.2.0 (2022-01-16)
 
 * Add support for using DataLoaders with entity resolvers.
